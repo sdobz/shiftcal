@@ -41,6 +41,7 @@ $(document).ready( function() {
                 if ('id' in options) {
                     value.preview = true;
                 }
+		value.exportlink = 'ics.php?id=' + value.id
                 // value.showEditButton = true; // TODO: permissions
                 groupedByDate[date].events.push(value);
             });
