@@ -43,6 +43,8 @@ function build_json_response() {
     $validator = new fValidation();
 
     $validator->addRequiredFields('title', 'details', 'venue', 'address', 'organizer', 'email', 'read_comic');
+    // required only from March to June, during Pedalpalooza
+    $validator->addRequiredFields('tinytitle', 'printdescr');    
     $validator->addEmailFields('email');
     $validator->addRegexReplacement('#^(.*?): (.*)$#', '\2 for <span class="field-name">\1</span>');
     // If id is specified require secret
