@@ -1,5 +1,5 @@
 $(document).ready( function() {
-   
+
     var container = $('#mustache-html');
 
     function getEventHTML(options, callback) {
@@ -82,8 +82,7 @@ $(document).ready( function() {
     }
 
     function viewEvents(){
-        location.hash = 'viewEvents';
-        var startDate = new Date(); 
+        var startDate = new Date();
         var endDate = new Date(startDate);
         endDate.setDate(startDate.getDate() + 9);
 
@@ -97,6 +96,7 @@ $(document).ready( function() {
         }, function (eventHTML) {
              container.append(eventHTML);
              container.append($('#load-more-template').html());
+             checkAnchors();
              $(document).off('click', '#load-more')
                   .on('click', '#load-more', function(e) {
                       startDate.setDate(startDate.getDate() + 10);
@@ -106,6 +106,7 @@ $(document).ready( function() {
                           enddate: endDate
                       }, function(eventHTML) {
                           $('#load-more').before(eventHTML);
+                          checkAnchors();
                       });
                       return false;
                  });
@@ -113,7 +114,6 @@ $(document).ready( function() {
     }
 
     function viewEvent(id) {
-        location.hash = 'event-' + id;
         container.empty()
             .append($('#show-all-template').html())
             .append($('#scrollToTop').html())
@@ -121,19 +121,20 @@ $(document).ready( function() {
 
         getEventHTML({id:id}, function (eventHTML) {
             container.append(eventHTML);
+            checkAnchors();
         });
     }
-    
+
     function viewAbout() {
         var content = $('#aboutUs').html();
         container.empty().append(content);
+        checkAnchors();
     }
-    
+
     function viewPedalpalooza() {
-        location.hash = 'pedalpalooza';    
         var startDate = new Date("June 1, 2017");
         var endDate = new Date("June 30, 2017 23:59:59");
-        var pedalpalooza = '/cal/images/pp2017.jpg'
+        var pedalpalooza = '/cal/images/pp2017.jpg';
         container.empty()
              .append($('#pedalpalooza-header').html())
              .append($('#scrollToTop').html())
@@ -142,10 +143,11 @@ $(document).ready( function() {
             startdate: startDate,
             enddate: endDate
         }, function (eventHTML) {
-             container.append(eventHTML);     
+             container.append(eventHTML);
+             checkAnchors();
         });
     }
-    
+
     function dateJump(ev) {
         var e = ev.target;
         if (e.hasAttribute('data-date')) {
@@ -153,17 +155,18 @@ $(document).ready( function() {
             var yyyymmdd = $e.attr('data-date');
             var $jumpTo = $("div[data-date='" + yyyymmdd + "']");
             if($jumpTo.children().length >= 0) {
-            
+
                 $('html, body').animate({
                     scrollTop: $jumpTo.offset().top
                 }, 500);
             }
-        }    
+        }
     }
 
     function viewAddEventForm(id, secret) {
         container.getAddEventForm( id, secret, function(eventHTML) {
             container.empty().append(eventHTML);
+            checkAnchors();
             if (id) {
                 $(document).off('click', '#confirm-delete')
                     .on('click', '#confirm-delete', function() {
@@ -172,23 +175,11 @@ $(document).ready( function() {
             }
         });
     }
-    
-    $(document).on('click', 'a#add-event-button', viewAddEventForm);
-    
-    $(document).on('click', 'a#view-events-button, #confirm-cancel, #success-ok', viewEvents);
 
-    $(document).on('click', 'a#about-button', function(e) {
-        viewAbout();
+    $(document).on('click', '#confirm-cancel, #success-ok', function() {
+        visitRoute('viewEvents');
     });
 
-    $(document).on('click', 'a#oldSite-button', function(e) {
-        window.location.href = "http://shift2bikes.com/cal";
-    });
-    
-    $(document).on('click', 'a#pedalpalooza-button', function(e) {
-        viewPedalpalooza();
-    });
-    
     $(document).on('click', '#date-picker-pedalpalooza', function(ev) {
         dateJump(ev);
     });
@@ -196,7 +187,7 @@ $(document).ready( function() {
     $(document).on('touchstart', '#date-picker-pedalpalooza', function(ev) {
         dateJump(ev);
     });
-    
+
     $(document).on('click','.navbar-collapse.collapse.in',function(e) {
         if( $(e.target).is('a') ) {
             $(this).collapse('hide');
@@ -204,20 +195,6 @@ $(document).ready( function() {
     });
 
     $(document).on('click', 'a.expandDetails', function(e) {
-        e.preventDefault();
-        return false;
-    });
-
-    $(document).on('click', 'a.share-link', function(e) {
-        var $e = $(e.target);
-        viewEvent($e.attr('data-id'));
-
-        e.preventDefault();
-        return false;
-    });
-
-    $(document).on('click', 'a#show-all', function (e) {
-        viewEvents();
         e.preventDefault();
         return false;
     });
@@ -234,31 +211,6 @@ $(document).ready( function() {
         $('#preview-edit-button').hide();
     });
 
-    if (/^#pedalpalooza/.test(location.hash)) {
-        viewPedalpalooza();
-    }
-    else if (/^#addEvent/.test(location.hash)) {
-        viewAddEventForm();
-    }
-    else if (/^#editEvent/.test(location.hash) 
-	         && location.hash.indexOf('/') > 0 ) {
-        var locationHashParts = location.hash.split('/');
-        viewAddEventForm(locationHashParts[1], locationHashParts[2]);
-    }
-    else if ( /^#viewEvents/.test(location.hash)) {
-    	viewEvents();
-    }
-    else if ( /^#aboutUs/.test(location.hash)) {
-    	viewAbout();
-    }
-    else if ( /^#event-([0-9]*)/.test(location.hash)) {
-        var rx = /^#event-([0-9]*)/g;
-        var arr = rx.exec(location.hash);
-        viewEvent(arr[1]);
-    }
-    else {
-        viewEvents();
-    }
 
     //scroll to top functionality
     $(window).scroll(function(){
@@ -268,9 +220,83 @@ $(document).ready( function() {
             $('.scrollToTop').fadeOut();
         }
     });
-    
+
     $('scrollToTop').click(function(){
         $('html, body').animate({scrollTop: 0}, 800);
         return false;
     });
+
+    var routes = [];
+    function addRoute(test, action) {
+        routes.push({ test: test, action: action });
+    }
+    function checkRoute(frag) {
+        for (var i=0; i<routes.length; i++) {
+            var route = routes[i];
+            if (route.test.test(frag) && route.action(frag) !== false) {
+                return true;
+            }
+        }
+    }
+    function testRoute(frag) {
+        for (var i=0; i<routes.length; i++) {
+            if (routes[i].test.test(frag)) {
+                return true;
+            }
+        }
+    }
+    function visitRoute(frag) {
+        if (checkRoute(frag)) {
+            history.pushState({}, frag, frag);
+        }
+    }
+
+    var checkTimeout = null;
+    function checkAnchors() {
+        if (checkTimeout != null) {
+            clearTimeout(checkTimeout);
+        }
+        checkTimeout = setTimeout(checkAnchorsDebounced, 500);
+    }
+    function checkAnchorsDebounced() {
+        var aList = document.querySelectorAll('a');
+        for (var i=0; i<aList.length; i++) {
+            var a = aList[i];
+            if (a.hasAttribute('route')) {
+                continue;
+            }
+            var frag = a.getAttribute('href');
+            if (testRoute(frag)) {
+                a.addEventListener('click', function(ev) {
+                    ev.preventDefault();
+                    visitRoute(ev.target.getAttribute('href'));
+                    return false;
+                });
+            }
+        }
+    }
+    window.onpopstate = function (ev) {
+        checkRoute(document.location.pathname);
+    };
+
+    addRoute(/pedalpalooza$/, viewPedalpalooza);
+    addRoute(/addEvent$/, viewAddEventForm);
+    addRoute(/editEvent$/, function(frag) {
+        if (frag.indexOf('/') <= 0) {
+            return false;
+        }
+        var locationHashParts = frag.split('/');
+        viewAddEventForm(locationHashParts[1], locationHashParts[2]);
+    });
+    addRoute(/viewEvents$/, viewEvents);
+    addRoute(/aboutUs$/, viewAbout);
+    addRoute(/event-([0-9]*)$/, function (frag) {
+        var rx = /event-([0-9]*)$/g;
+        var arr = rx.exec(frag);
+        viewEvent(arr[1]);
+    });
+    addRoute(/\/$/, viewEvents);
+
+    checkRoute(document.location.pathname);
+    checkAnchors();
 });
