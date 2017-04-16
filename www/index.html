@@ -32,19 +32,19 @@
         <div id="navbar" class="collapse navbar-collapse navbar-right">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="#viewEvents" id="view-events-button">Events</a>
+                    <a href="viewEvents" id="view-events-button">Events</a>
                 </li>
                 <li>
-                    <a href="#addEvent" id="add-event-button">Add Event</a>
+                    <a href="addEvent" id="add-event-button">Add Event</a>
                 </li>
                 <li>
-                    <a href="#pedalpalooza" id="pedalpalooza-button">Pedalpalooza</a>
+                    <a href="pedalpalooza" id="pedalpalooza-button">Pedalpalooza</a>
                 </li>
                 <li>
-                    <a href="#oldSite" id="oldSite-button">Old Website</a>
+                    <a href="oldSite" id="oldSite-button">Old Website</a>
                 </li>
                 <li>                    
-                    <a href="#aboutUs" id="about-button">About</a>
+                    <a href="aboutUs" id="about-button">About</a>
                 </li>
                 <li>
                     <a href="http://www.shift2bikes.org/contacts">Contact</a>
@@ -267,9 +267,8 @@
                                     {{contact}}
                                 </p>
                                 <p class="permalink">
-                                    <a 
-                                        href="{{shareable}}" 
-                                        data-id="{{caldaily_id}}" 
+                                    <a
+                                        href="event-{{caldaily_id}}"
                                         class="share-link">
                                         Sharable link
                                     </a>   
@@ -287,7 +286,6 @@
                                         class="export-link">
                                         Export to calendar
                                     </a>
-
                                 </p>
                                 {{#preview}}
                                      <hr>
@@ -311,7 +309,7 @@
     </script>
 
     <script id="show-all-template" type="text/template">
-        <a id="show-all" class="more-events" href="#">Show all upcoming events</a>
+        <a id="show-all" class="more-events" href="viewEvents">Show all upcoming events</a>
     </script>
     
     <script id="mustache-edit" type="text/template">
