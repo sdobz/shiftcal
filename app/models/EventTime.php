@@ -69,7 +69,7 @@ class EventTime extends fActiveRecord {
 
     private function getShareable() {
         $caldaily_id = $this->getPkid();
-        return "http://www.shift2bikes.org/fun/www/%23event-" . $caldaily_id;
+        return "http://www.shift2bikes.org/fun/www/#event-" . $caldaily_id;
     }
     
     public function toEventSummaryArray() {
