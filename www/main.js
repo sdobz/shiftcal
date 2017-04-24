@@ -281,12 +281,10 @@ $(document).ready( function() {
 
     addRoute(/pedalpalooza$/, viewPedalpalooza);
     addRoute(/addEvent$/, viewAddEventForm);
-    addRoute(/editEvent$/, function(frag) {
-        if (frag.indexOf('/') <= 0) {
-            return false;
-        }
-        var locationHashParts = frag.split('/');
-        viewAddEventForm(locationHashParts[1], locationHashParts[2]);
+    addRoute(/editEvent-[0-9]+-[0-9a-f]+$/, function(frag) {
+        var rx = /editEvent-([0-9]+)-([0-9a-f]+)$/g;
+        var arr = rx.exec(frag);
+        viewAddEventForm(arr[1], arr[2]);
     });
     addRoute(/viewEvents$/, viewEvents);
     addRoute(/aboutUs$/, viewAbout);
@@ -296,7 +294,14 @@ $(document).ready( function() {
         viewEvent(arr[1]);
     });
     addRoute(/\/$/, viewEvents);
-
-    checkRoute(document.location.pathname);
+    // Support old edit links
+    // TODO: remove this after people stop using them.
+    var hash = document.location.hash;
+    if (hash.indexOf('#editEvent') === 0) {
+        var locationHashParts = hash.split('/');
+        viewAddEventForm(locationHashParts[1], locationHashParts[2]);
+    } else {
+        checkRoute( document.location.pathname );
+    }
     checkAnchors();
 });
