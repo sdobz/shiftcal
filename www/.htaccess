@@ -1,0 +1,9 @@
+AddDefaultCharset UTF-8
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit/[0-9]|Twitterbot|Pinterest|Google.*snippet)
+RewriteRule ^event-([0-9]+)$ crawl.php?id=$1 [NC,END]
+
+RewriteRule ^(event-[0-9]+|viewEvents|addEvent|editEvent-[0-9]+-[0-9a-f]+|aboutUs)$ index.html
+
