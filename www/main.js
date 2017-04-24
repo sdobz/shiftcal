@@ -298,6 +298,9 @@ $(document).ready( function() {
         viewEvent(arr[1]);
     });
     addRoute(/\/$/, viewEvents);
+    addRoute(/oldSite$/, function (frag) {
+        document.location.href = 'http://shift2bikes.com/cal';
+    });
     // Support old edit links
     // TODO: remove this after people stop using them.
     var hash = document.location.hash;
