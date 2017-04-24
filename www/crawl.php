@@ -19,7 +19,7 @@ function addOgTag($property, $content) {
 }
 
 addOgTag('title', $event['title']);
-addOgTag('url', "$PROTOCOL$HOST/event-$id");
+addOgTag('url', "$PROTOCOL$HOST{$PATH}event-$id");
 $image = $event['image'];
 if (empty($image)) {
 	$image = ""; //TODO: default image
