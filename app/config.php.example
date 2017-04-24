@@ -13,3 +13,4 @@ $HOST = $_SERVER['SERVER_NAME'];
 $PATH = "/path/to/index.html";
 $IMAGEDIR = "/var/www/calendarimages";
 $IMAGEPATH = "/cal/eventimages";
+$SITENAME = "SHIFT to Bikes";

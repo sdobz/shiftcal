@@ -125,7 +125,7 @@ class Event extends fActiveRecord {
         $subject = "Shift2Bikes Secret URL for " . $this->getTitle();
         $message = "Dear " . $this->getName();
         $message = $message . ", \r\n\r\nThank you for adding your event, " . $this->getTitle();
-        $message = $message . ", to the Shift Calendar. To activate and manage it, you must visit $base#editEvent/" . $this->getId() . "/" .$this->getPassword();
+        $message = $message . ", to the Shift Calendar. To activate and manage it, you must visit $base/editEvent-" . $this->getId() . "-" .$this->getPassword();
         $message = $message . "\r\n\r\nThis link is like a password. Anyone who has it can delete and change your event. Please keep this email so you can manage your event in the future.";
         $message = $message . "\r\n\r\nBike on!\r\n\r\n-Shift";
         mail($this->getEmail(), $subject, $message, $headers);
