@@ -266,6 +266,10 @@ $(document).ready( function() {
                 continue;
             }
             var frag = a.getAttribute('href');
+            if (frag.indexOf('//') !== -1) {
+                // don't mess with external links.
+                return;
+            }
             if (testRoute(frag)) {
                 a.addEventListener('click', function(ev) {
                     ev.preventDefault();
