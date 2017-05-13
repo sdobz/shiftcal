@@ -201,7 +201,8 @@
         $form.hide();
         mustacheData = {
             dates:[],
-            preview: true
+            preview: true,
+            expanded: true
         };
         $.each(previewEvent.dates, function(index, value) {
             var date = $form.formatDate(value);

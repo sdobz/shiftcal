@@ -39,9 +39,9 @@ $(document).ready( function() {
                 value.displayTime = hour + ':' + timeParts[1] + ' ' + meridian;
                 value.mapLink = container.getMapLink(value.address);
                 if ('id' in options) {
-                    value.preview = true;
+                    value.expanded = true;
                 }
-		value.exportlink = 'ics.php?id=' + value.id
+                value.exportlink = 'ics.php?id=' + value.id
                 // value.showEditButton = true; // TODO: permissions
                 groupedByDate[date].events.push(value);
             });
@@ -92,7 +92,7 @@ $(document).ready( function() {
 
         getEventHTML({
             startdate: startDate,
-            enddate: endDate,
+            enddate: endDate
         }, function (eventHTML) {
              container.append(eventHTML);
              container.append($('#load-more-template').html());
