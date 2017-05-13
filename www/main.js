@@ -39,9 +39,9 @@ $(document).ready( function() {
                 value.displayTime = hour + ':' + timeParts[1] + ' ' + meridian;
                 value.mapLink = container.getMapLink(value.address);
                 if ('id' in options) {
-                    value.preview = true;
+                    value.expanded = true;
                 }
-		value.exportlink = 'ics.php?id=' + value.id
+                value.exportlink = 'ics.php?id=' + value.id;
                 // value.showEditButton = true; // TODO: permissions
                 groupedByDate[date].events.push(value);
             });
@@ -56,16 +56,18 @@ $(document).ready( function() {
     }
 
     function deleteEvent(id, secret) {
+        var data = new FormData();
+        data.append('json', JSON.stringify({
+            id: id,
+            secret: secret
+        }));
         var opts = {
             type: 'POST',
             url: 'delete_event.php',
             contentType: false,
             processData: false,
             cache: false,
-            data: 'json=' + JSON.stringify({
-                id: id,
-                secret: secret
-            }),
+            data: data,
             success: function(returnVal) {
                 var msg = 'Your event has been deleted';
                 $('#success-message').text(msg);
@@ -92,7 +94,7 @@ $(document).ready( function() {
 
         getEventHTML({
             startdate: startDate,
-            enddate: endDate,
+            enddate: endDate
         }, function (eventHTML) {
              container.append(eventHTML);
              container.append($('#load-more-template').html());
@@ -253,7 +255,7 @@ $(document).ready( function() {
 
     var checkTimeout = null;
     function checkAnchors() {
-        if (checkTimeout != null) {
+        if (checkTimeout !== null) {
             clearTimeout(checkTimeout);
         }
         checkTimeout = setTimeout(checkAnchorsDebounced, 500);
@@ -271,9 +273,10 @@ $(document).ready( function() {
                 return;
             }
             if (testRoute(frag)) {
+                a.setAttribute('route', 'true');
                 a.addEventListener('click', function(ev) {
                     ev.preventDefault();
-                    visitRoute(ev.target.getAttribute('href'));
+                    visitRoute(ev.currentTarget.getAttribute('href'));
                     return false;
                 });
             }
@@ -298,9 +301,6 @@ $(document).ready( function() {
         viewEvent(arr[1]);
     });
     addRoute(/\/$/, viewEvents);
-    addRoute(/oldSite$/, function (frag) {
-        document.location.href = 'http://shift2bikes.com/cal';
-    });
     // Support old edit links
     // TODO: remove this after people stop using them.
     var hash = document.location.hash;

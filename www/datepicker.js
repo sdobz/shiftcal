@@ -30,7 +30,7 @@
         }
         dates.sort($('#date-select').compareDates);
         return dates;
-    }
+    };
 
     // setupDatePicker sets up the global variables and populates the date picker element
     $.fn.setupDatePicker = function(dates) {
@@ -92,12 +92,12 @@
         // Setup the month table scroll checks
         $dateSelect.scroll(checkBounds);
         checkBounds();
-    }
+    };
 
     function isToday(date) {
-        return (date.getDate() == today.getDate()
-            && date.getMonth() == today.getMonth()
-            && date.getFullYear() == today.getFullYear())
+        return (date.getDate() === today.getDate()
+            && date.getMonth() === today.getMonth()
+            && date.getFullYear() === today.getFullYear())
     }
 
     function normalizeDate(date) {
@@ -123,7 +123,7 @@
             var day = {};
             day['day'] = date.getDate();
             day['date'] = normalizeDate(date);
-            day['classes'] = (isToday(date) ? "today" : "") + " " + (isSelected(date) ? "selected" : "") + " " + cellClases[date.getMonth()] + (date.getDay() % 2 == 0 ? "-odd" : "");
+            day['classes'] = (isToday(date) ? "today" : "") + " " + (isSelected(date) ? "selected" : "") + " " + cellClases[date.getMonth()] + (date.getDay() % 2 === 0 ? "-odd" : "");
             week.push(day);
 
             date = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);

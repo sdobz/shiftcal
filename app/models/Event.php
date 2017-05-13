@@ -121,6 +121,7 @@ class Event extends fActiveRecord {
     public function emailSecret() {
         global $PROTOCOL, $HOST, $PATH;
         $base = $PROTOCOL . $HOST . $PATH;
+        $base = trim($base, '/'); // remove trailing slashes
         $headers = 'From: bikefun@shift2bikes.org' . "\r\n" .  'Reply-To: bikefun@shift2bikes.org' . "\r\n";
         $subject = "Shift2Bikes Secret URL for " . $this->getTitle();
         $message = "Dear " . $this->getName();

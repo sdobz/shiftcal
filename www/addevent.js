@@ -137,7 +137,8 @@
                         'Your event has been updated!';
 
                     if (returnVal.secret) {
-                        location.hash = '#editEvent/' + returnVal.id + '/' + returnVal.secret;
+                        var newUrl = 'editEvent-' + returnVal.id + '-' + returnVal.secret;
+						history.pushState({}, newUrl, newUrl);
                         $('#secret').val(returnVal.secret);
                         msg += ' You may also bookmark the current URL before you click OK.'
                     }
@@ -200,7 +201,8 @@
         $form.hide();
         mustacheData = {
             dates:[],
-            preview: true
+            preview: true,
+            expanded: true
         };
         $.each(previewEvent.dates, function(index, value) {
             var date = $form.formatDate(value);
