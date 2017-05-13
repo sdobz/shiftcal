@@ -273,7 +273,7 @@ $(document).ready( function() {
             if (testRoute(frag)) {
                 a.addEventListener('click', function(ev) {
                     ev.preventDefault();
-                    visitRoute(ev.target.getAttribute('href'));
+                    visitRoute(ev.currentTarget.getAttribute('href'));
                     return false;
                 });
             }
