@@ -56,16 +56,18 @@ $(document).ready( function() {
     }
 
     function deleteEvent(id, secret) {
+        var data = new FormData();
+        data.append('json', JSON.stringify({
+            id: id,
+            secret: secret
+        }));
         var opts = {
             type: 'POST',
             url: 'delete_event.php',
             contentType: false,
             processData: false,
             cache: false,
-            data: 'json=' + JSON.stringify({
-                id: id,
-                secret: secret
-            }),
+            data: data,
             success: function(returnVal) {
                 var msg = 'Your event has been deleted';
                 $('#success-message').text(msg);
