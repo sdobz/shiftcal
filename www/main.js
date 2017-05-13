@@ -41,7 +41,7 @@ $(document).ready( function() {
                 if ('id' in options) {
                     value.expanded = true;
                 }
-                value.exportlink = 'ics.php?id=' + value.id
+                value.exportlink = 'ics.php?id=' + value.id;
                 // value.showEditButton = true; // TODO: permissions
                 groupedByDate[date].events.push(value);
             });
@@ -255,7 +255,7 @@ $(document).ready( function() {
 
     var checkTimeout = null;
     function checkAnchors() {
-        if (checkTimeout != null) {
+        if (checkTimeout !== null) {
             clearTimeout(checkTimeout);
         }
         checkTimeout = setTimeout(checkAnchorsDebounced, 500);
