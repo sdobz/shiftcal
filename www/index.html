@@ -40,9 +40,6 @@
                 <li>
                     <a href="pedalpalooza" id="pedalpalooza-button">Pedalpalooza</a>
                 </li>
-                <li>
-                    <a href="oldSite" id="oldSite-button">Old Website</a>
-                </li>
                 <li>                    
                     <a href="aboutUs" id="about-button">About</a>
                 </li>
@@ -209,7 +206,7 @@
                     </a>
                     <div class="col-xs-2">
                     </div>
-                    <div id="detailsContainer{{caldaily_id}}" {{^ preview }}class="collapse"{{/ preview }}>
+                    <div id="detailsContainer{{caldaily_id}}" {{^ expanded }}class="collapse"{{/ expanded }}>
                         <div class="eventDetails  col-xs-10">
                             <div class="mainDetails">
                                 <div class="eventImg">
@@ -268,9 +265,12 @@
                                 </p>
                                 <p class="permalink">
                                     <a
-                                        href="event-{{caldaily_id}}"
+                                        {{^preview}}
+                                            href="event-{{caldaily_id}}"
+                                        {{/preview}}
                                         class="share-link">
                                         Sharable link
+
                                     </a>   
                                     <!-- disable Facebook for now since previews on timeline aren't available
                                     <a 
@@ -281,7 +281,9 @@
                                     -->                         
                                     &bull;
                                     <a
-                                        href="{{exportlink}}"
+                                        {{^preview}}
+                                            href="{{exportlink}}"
+                                        {{/preview}}
                                         data-id="{{caldaily_id}}"
                                         class="export-link">
                                         Export to calendar
