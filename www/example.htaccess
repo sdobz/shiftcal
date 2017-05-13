@@ -1,6 +1,8 @@
+# Copy this to .htaccess and edit to suit
+# Make sure the RewriteBase matches the path holding index.html
 AddDefaultCharset UTF-8
 RewriteEngine On
-RewriteBase /betacal/www/
+RewriteBase /
 
 RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit/[0-9]|Twitterbot|Pinterest|Google.*snippet)
 RewriteRule ^event-([0-9]+)$ crawl.php?id=$1 [L]
