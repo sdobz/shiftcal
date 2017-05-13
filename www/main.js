@@ -271,6 +271,7 @@ $(document).ready( function() {
                 return;
             }
             if (testRoute(frag)) {
+                a.setAttribute('route', 'true');
                 a.addEventListener('click', function(ev) {
                     ev.preventDefault();
                     visitRoute(ev.currentTarget.getAttribute('href'));
