@@ -172,6 +172,7 @@
                     okGroups = $('.panel-collapse').not(errGroups);
                     errGroups.collapse('show');
                     okGroups.collapse('hide');
+                    $('#preview-edit-button').click();
                 }
             };
             if(data.fake) {
