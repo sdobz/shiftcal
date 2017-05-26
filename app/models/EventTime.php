@@ -51,7 +51,7 @@ class EventTime extends fActiveRecord {
                 'eventdate<=' => $lastDay,
                 'calevent{id}.hidden!' => 1,
                 'eventstatus!' => 'S',
-                'review!' => 'E' // 'E'xcluded
+                'calevent{id}.review!' => 'E' // 'E'xcluded
             ), // where
             array('eventdate' => 'asc')  // order by
         );
