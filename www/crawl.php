@@ -62,8 +62,10 @@ $eventDate = DateTime::createFromFormat('Y-m-d', $event['date']);
 $datestring = $eventDate->format('D, M jS');
 $eventTime = DateTime::createFromFormat('G:i:s', $event['time']);
 $timestring = $eventTime->format('g:i A');
-
+$description = htmlspecialchars($event['details']);
 echo <<< EOT
+		<meta name="description" content='$description'>
+		<meta name="keywords" content="bikes,fun,friends,Portland,exercise,community,social,events,outdoors">
 	</head>
 	<body>
 		<h2>$datestring, $timestring - {$event['title']}</h2>
