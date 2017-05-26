@@ -5,7 +5,7 @@
  * Takes one argument, number of days of events to import. Default is 10.
  */
 include('init.php');
-const URL = 'http://shift2bikes.org/betacal/www/events.php';
+const URL = 'http://shift2bikes.org/betacal/events.php';
 if (count($argv) > 1) {
     $futureDays = intval($argv[1]) - 1;
 } else {
