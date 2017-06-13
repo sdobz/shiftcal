@@ -1,0 +1,17 @@
+version: "2"
+
+volumes:
+  db: {}
+
+services:
+  db:
+    restart: always
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    volumes:
+      - db:/var/lib/postgresql/data
+    expose:
+      - 5432
