@@ -1,0 +1,605 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="js/mailcheck.min.js"></script>
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/vue.js"></script>
+    <title>S H I F T to Bikes</title>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/">
+            <img alt="Shift2Bikes" src="images/shiftLogo_plain.gif" />
+        </a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse navbar-right">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="viewEvents" id="view-events-button">Events</a>
+            </li>
+            <li>
+                <a href="addEvent" id="add-event-button">Add Event</a>
+            </li>
+            <li>
+                <a href="pedalpalooza" id="pedalpalooza-button">Pedalpalooza</a>
+            </li>
+            <li>
+                <a href="aboutUs" id="about-button">About</a>
+            </li>
+            <li>
+                <a href="http://www.shift2bikes.org/contacts">Contact</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div id="vue-main" class="container">
+
+    <events v-if="route == 'events'" v-for="date in dates" events="{{events}}" :key="date.yyyymmdd" inline-template>
+        <div data-date="{{yyyymmdd}}" class="date" v-bind:class="{ preview: preview }">
+            <div class="secondaryHeader">{{date}}</div>
+
+            <event v-for="event in date.events" :key="event.id" class="['event', 'row', {cancelled: cancelled}]" data-event-id="{{id}}" inline-template>
+                <div class="time col-xs-2">
+                    <h3 class="audience-{{audience}} area-{{area}}">{{displayTime}}</h3>
+                </div>
+                <a class="expandDetails" href="#" data-toggle="collapse" data-target="#detailsContainer{{caldaily_id}}">
+                    <div class="col-xs-10" >
+                        <div class="summary">
+                            <h3>
+                                {{title}}
+                                <span v-if="cancelled" class="cancelled-text"> - CANCELLED</span>
+                                <span v-if="newsflash" class="newsflash"> - {{newsflash}}</span>
+                            </h3>
+                        </div>
+                    </div>
+                </a>
+                <div class="col-xs-2">
+                </div>
+                <div id="detailsContainer{{caldaily_id}}" v-bind:class="{collapse: !expanded}">
+                    <div class="eventDetails  col-xs-10">
+                        <div class="mainDetails">
+                            <div class="eventImg">
+                                <img v-if="image" src="{{image}}" />
+                            </div>
+                            <div>
+                                <a v-bind:href="mapLink" target="_blank">
+                                    <img src="images/google-maps-icon.png" />
+                                    <p v-if="address && venue">
+                                        {{venue}}, {{address}}
+                                    </p>
+                                    <p v-if="address && !venue">
+                                        {{address}}
+                                    </p>
+                                    <p v-if="!address && venue">
+                                        {{venue}}
+                                    </p>
+                                </a>
+
+                                {{locdetails}}
+                            </div>
+
+                            <p v-if="weburl">
+                                <a href="{{weburl}}" target="_blank">
+                                    <img src="images/webpage.png" />
+                                    <span v-if="webname">{{webname}}</span>
+                                    <span v-if="!webname">Website</span>
+                                </a>
+                            </p>
+
+                            <p>
+                                <img src="images/alarm.png" />
+                                {{displayTime}}<span v-if="timedetails">, {{timedetails}}</span>
+                            </p>
+                            <p v-if="eventduration">
+                                <img src="images/stopwatch.png" />
+                                {{eventduration}} minutes
+                            </p>
+
+                            <p>{{details}}</p>
+
+                            <p class="contactInfo">
+                                <img src="images/profile.png" />
+                                {{organizer}}
+
+                                <a v-if="email" href="mailto:{{email}}"><img src="images/email.png" />
+                                    {{email}}
+                                </a>
+
+                                <a v-if="phone" href="tel:{{phone}}">
+                                    <img src="images/phone.png" />
+                                    {{phone}}
+                                </a>
+
+                                {{contact}}
+                            </p>
+                            <p class="permalink" v-if="!preview">
+                                <a href="event-{{caldaily_id}}" class="share-link">
+                                    Sharable link
+                                </a>
+
+                                <!-- disable Facebook for now since previews on timeline aren't available
+                                <a
+                                   href="https://www.facebook.com/sharer/sharer.php?u={{shareable}}"
+                                   target="_blank">
+                                   Share on Facebook
+                                </a>
+                                -->
+                                &bull;
+                                <a href="{{exportlink}}" data-id="{{caldaily_id}}" class="export-link">
+                                    Export to calendar
+                                </a>
+                            </p>
+                            <div v-if="preview">
+                                <hr />
+                                The following will only show on the print calendar.
+                                <br />
+                                tinytitle: {{tinytitle}}
+                                <br />
+                                print description: {{printdescr}}
+                            </div>
+                        </div>
+                    </div>
+                </event>
+            </div>
+        </div>
+    </events>
+</div>
+
+<div class="modal fade" tabindex="-1" id="cancel-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4>Are you sure you want to cancel?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="confirm-cancel" data-dismiss="modal" class="btn btn-warning">Yes</button>
+                <button type="button" class="btn" data-dismiss="modal">No</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" tabindex="-1" id="delete-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4>Are you sure you want to delete this event?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="confirm-delete" data-dismiss="modal" class="btn btn-warning">Yes</button>
+                <button type="button" class="btn" data-dismiss="modal">No</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" tabindex="-1" id="success-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p id="success-message"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal" id="success-ok">OK</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script id="pedalpalooza-header" type="text/template">
+    <img alt="Pedalpalooza" id="pedalpalooza-img" src="images/pp2017.jpg">
+    <div class="pg-width">
+        <p> Pedalpalooza is 3+ weeks of bikey fun. With ~300 different events, most organized by individuals, bikers of all persuasions are likely to find many events of interest. Nearly all events are free. </p>
+        <p> Visiting from out of town? We've started a <a href="http://www.shift2bikes.org/allbike.php#Visitor_Info">Visitor Info</a> page.</p>
+        <p> <a href="http://www.shift2bikes.org/pedalpalooza/index.shtml">Pedalpalooza from prior years</a> </p>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="YJYFXDPLSCW8U">
+            <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
+    </div>
+    <div id="date-select-container-pedalpalooza" class="date-select-container-style form-group">
+        <table class="day-of-week">
+            <tbody><tr>
+                <td class="calendar-month-title"></td>
+                <td>Sun</td>
+                <td>Mon</td>
+                <td>Tue</td>
+                <td>Wed</td>
+                <td>Thu</td>
+                <td>Fri</td>
+                <td>Sat</td>
+            </tr></tbody>
+        </table>
+        <div id="date-select-pp">
+            <table id="date-picker-pedalpalooza" class="date-picker-style">
+                <tr class="calendar-row">
+                    <td rowspan="3" class="calendar-month-title"><span>June 2017</span></td>
+                    <td class="calendar-day   color-jun-odd"></td>
+                    <td class="calendar-day   color-jun"></td>
+                    <td class="calendar-day   color-jun-odd"></td>
+                    <td class="calendar-day   color-jun"></td>
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-01">1</td>
+                    <td class="calendar-day   color-jun" data-date="2017-06-02">2</td>
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-03">3</td>
+                </tr>
+                <tr class="calendar-row">
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-04">4</td>
+                    <td class="calendar-day   color-jun" data-date='2017-06-05'>5</td>
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-06">6</td>
+                    <td class="calendar-day   color-jun" data-date="2017-06-07">7</td>
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-08">8</td>
+                    <td class="calendar-day   color-jun" data-date="2017-06-09">9</td>
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-10">10</td>
+                </tr>
+                <tr class="calendar-row">
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-11">11</td>
+                    <td class="calendar-day   color-jun" data-date='2017-06-12'>12</td>
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-13">13</td>
+                    <td class="calendar-day   color-jun" data-date="2017-06-14">14</td>
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-15">15</td>
+                    <td class="calendar-day   color-jun" data-date="2017-06-16">16</td>
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-17">17</td>
+                </tr>
+                <tr class="calendar-row">
+                    <td rowspan="2" class="calendar-month-title">&nbsp;</td>
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-18">18</td>
+                    <td class="calendar-day   color-jun" data-date="2017-06-19">19</td>
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-20">20</td>
+                    <td class="calendar-day   color-jun" data-date="2017-06-21">21</td>
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-22">22</td>
+                    <td class="calendar-day   color-jun" data-date="2017-06-23">23</td>
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-24">24</td>
+                </tr>
+
+                <tr class="calendar-row">
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-25">25</td>
+                    <td class="calendar-day   color-jun" data-date="2017-06-26">26</td>
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-27">27</td>
+                    <td class="calendar-day   color-jun" data-date="2017-06-28">28</td>
+                    <td class="calendar-day   color-jun-odd" data-date="2017-06-29">29</td>
+                    <td class="calendar-day   color-jun" data-date="2017-06-30">30</td>
+                    <td class="calendar-day   color-jun-odd"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</script>
+
+<script id="scrollToTop" type="text/template">
+    <a href="#" class="scrollToTop">Back To Top</a>
+</script>
+
+<script id="legend-template" type="text/template">
+    <div class="plain">
+        <p class="audience-F">Family Friendly events have green times.</p>
+        <p class="audience-A">Adult Only (21+) events have red times.</p>
+        <p class="area-V">Events in the Vancouver area have blue times.</p>
+    </div>
+</script>
+
+<script id="events-template" type="text/x-template">
+
+</script>
+
+<script id="load-more-template" type="text/template">
+    <a id="load-more" class="more-events" href="#">Show additional events</a>
+</script>
+
+<script id="show-all-template" type="text/template">
+    <a id="show-all" class="more-events" href="viewEvents">Show all upcoming events</a>
+</script>
+
+<script id="mustache-edit" type="text/template">
+    <div id="edit-header" >
+
+        <button id="preview-edit-button" type="button" class="btn btn-addEvent">Edit</button>
+        <button id="preview-button" type="button" class="btn btn-addEvent">Preview</button>
+        <button id="save-button" type="button" class="btn btn-addEvent">Post</button>
+        {{^ id }}
+        <button id="cancel-button" type="button" class="btn btn-addEvent" data-toggle="modal" data-target="#cancel-modal">Cancel</button>
+        {{/ id }}
+        {{# id }}
+        <button id="delete-button" type="button" class="btn btn-addEvent" data-toggle="modal" data-target="#delete-modal">Delete</button>
+        {{/ id }}
+
+        <span id="save-result"></span>
+    </div>
+    <br>
+    <form id="event-entry">
+        <input type="hidden" name="id" value="{{id}}" />
+        <input type="hidden" name="secret" value="{{secret}}" />
+        <div class="panel-group" role="tablist" id="event-fields">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a role="button" data-toggle="collapse" data-parent="#event-fields" href="#general-fields">
+                        Required
+                    </a>
+                </div>
+
+                <div id="general-fields" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="control-label req-label" for="title">Event title</label>
+                            <input type="text" class="form-control" name="title" id="title" value="{{title}}" required="true" />
+                        </div>
+                        <!-- required only from March-June, Pedalpalooza season-->
+                        <div class="form-group">
+                            <label class="control-label req-label" for="tinytitle">Tiny title (24 chars)</label>
+                            <input type="text" class="form-control" name="tinytitle" id="tinytitle" value="{{tinytitle}}" maxlength="24" required="true" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label req-label" for="details">Description</label>
+                            <textarea class="form-control" name="details" id="details" required="true" >{{details}}</textarea>
+                        </div>
+                        <!-- required only from March-June, Pedalpalooza season-->
+                        <div class="form-group">
+                            <label class="control-label req-label" for="printdescr">Print description (120 chars)</label>
+                            <textarea class="form-control" name="printdescr" id="printdescr" maxlength="120" required="true" >{{printdescr}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label req-label" for="venue">Venue name</label>
+                            <input type="text" class="form-control" name="venue" id="venue" value="{{venue}}" required="true" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label req-label" for="address">Address</label>
+                            <input type="text" class="form-control" name="address" id="address" value="{{address}}" required="true" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="length">Length of route</label>
+                            <select name="length" class="form-control" id="length">
+                                {{# lengthOptions }}
+                                <option value="{{range}}" {{# isSelected }}selected{{/ isSelected }}>{{range}} miles</option>
+                                {{/ lengthOptions }}
+                            </select>
+                        </div>
+                        <div id="date-select-container" class="date-select-container-style form-group">
+                            <table class="day-of-week">
+                                <tr>
+                                    <td class="calendar-month-title"></td>
+                                    <td>Sun</td>
+                                    <td>Mon</td>
+                                    <td>Tue</td>
+                                    <td>Wed</td>
+                                    <td>Thu</td>
+                                    <td>Fri</td>
+                                    <td>Sat</td>
+                                </tr>
+                            </table>
+                            <div id="date-select" class="date-select-style">
+                                <div id="load-earlier" class="loading-zone"></div>
+                                <table id="date-picker" class="date-picker-style">
+                                </table>
+                                <div id="load-later" class="loading-zone"></div>
+                            </div>
+                            Selected dates:
+                            <div id="date-selected"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label req-label" for="time">Time</label>
+                            <select name="time" class="form-control" id="time">
+                                {{# timeOptions }}
+                                <option value="{{time}}" {{# isSelected }}selected{{/ isSelected }}>{{time}}</option>
+                                {{/ timeOptions }}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label req-label" for="organizer">Organizer</label>
+                            <input type="text" class="form-control" name="organizer" id="organizer" value="{{organizer}}" required="true" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label req-label" for="email">Email</label>
+                            <input type="text" class="form-control" name="email" id="email" value="{{email}}" required="true" />
+                            <div id="email-suggestion"></div>
+                        </div>
+                        <div>
+                            <label class="control-label" for="hideemail">
+                                <input type="checkbox" name="hideemail" id="hideemail" value="1" {{# hideemail }}checked{{/ hideemail }} />
+                                Don't publish my email address online
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label class="control-label" for="email-me">
+                                <input type="checkbox" name="email-me" id="email-me" value="1" {{# emailMe }}checked{{/ emailMe }} />
+                                Send forum messages to this email address
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a role="button" data-toggle="collapse" data-parent="#event-fields" href="#optional-fields">
+                        Optional details
+                    </a>
+                </div>
+                <div id="optional-fields" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="control-label" for="timedetails">Time details</label>
+                            <input type="text" class="form-control" name="timedetails" id="timedetails" value="{{timedetails}}" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="area">Area</label>
+                            <select name="area" class="form-control" id="area">
+                                {{# areaOptions }}
+                                <option value="{{code}}" {{# isSelected }}selected{{/ isSelected }}>{{text}}</option>
+                                {{/ areaOptions }}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="locdetails">Location details</label>
+                            <input type="text" class="form-control" name="locdetails" id="locdetails" value="{{locdetails}}" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="eventduration">Event duration (minutes)</label>
+                            <input type="text" class="form-control" name="eventduration" id="eventduration" value="{{eventduration}}" />
+                        </div>
+
+                        <div>Website for additional details</div>
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-6">
+                                <label class="control-label" for="webname">Name</label>
+                                <input type="text" class="form-control" name="webname" id="webname" value="{{webname}}" />
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-6">
+                                <label class="control-label" for="weburl">URL</label>
+                                <input type="text" class="form-control" name="weburl" id="weburl" value="{{weburl}}" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="phone">Phone</label>
+                            <input type="text" class="form-control" name="phone" id="phone" value="{{phone}}" />
+                        </div>
+                        <label class="control-label" for="hidephone">
+                            <input type="checkbox" name="hidephone" id="hidephone" value="1" {{# hidephone }}checked{{/ hidephone }} />
+                            Don't publish my phone number online
+                        </label>
+
+                        <div class="form-group">
+                            <label class="control-label" for="contact">Additional Contact Info</label>
+                            <input type="text" class="form-control" name="contact" id="contact" value="{{contact}}" />
+                        </div>
+                        <label class="control-label" for="hidecontact">
+                            <input type="checkbox" name="hidecontact" id="hidecontact" value="1" {{# hidecontact }}checked{{/ hidecontact }} />
+                            Don't publish additional contact information online
+                        </label>
+
+                        {{# image}}
+                        <img src="{{image}}" />
+                        {{/ image}}
+                        <div class="form-group">
+                            {{# image}}
+                            <label class="control-label" for="image">Update Image</label>
+                            {{/ image}}
+                            {{^ image}}
+                            <label class="control-label" for="image">Image</label>
+                            {{/ image}}
+                            <input type="file" class="form-control" name="image" id="image" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="audience">Audience</label>
+                            <select name="audience" class="form-control" id="audience">
+                                {{# audienceOptions }}
+                                <option value="{{code}}" {{# isSelected }}selected{{/ isSelected }}>{{text}}</option>
+                                {{/ audienceOptions }}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Commented out here between March-June during Pedalpalooza season when these fields are required
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a role="button" data-toggle="collapse" data-parent="#event-fields" href="#print-fields">
+                        Print calendar
+                    </a>
+                </div>
+                <div id="print-fields" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="checkbox">
+                            <input type="hidden" name="printevent" value="0" />
+                            <label class="control-label" for="printevent">
+                                <input type="checkbox" name="printevent" id="printevent" value="1" {{# printevent }}checked{{/ printevent }} />
+                                Include in the print calendar? You must submit at least 3 weeks in advance. Inclusion not guaranteed.
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="tinytitle">Tiny title (24 chars)</label>
+                            <input type="text" class="form-control" name="tinytitle" id="tinytitle" value="{{tinytitle}}" maxlength="24" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="printdescr">Print description (120 chars)</label>
+                            <textarea class="form-control" name="printdescr" id="printdescr" maxlength="120" >{{printdescr}}</textarea>
+                        </div>-->
+            <!--div class="form-group">
+                <label class="control-label" for="printcontact">Print contact info</label>
+                <input type="text" class="form-control" name="printcontact" id="printcontact" value="{{printcontact}}" maxlength="255" />
+            </div--><!--
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <p>For tips on making your ride successful, we ask that you read the <a href="rideleadingcomic.html">Ride Leading Comic</a> at least once before submitting an event</p>
+            <div class="checkbox">
+                <input type="hidden" name="read_comic" value="0" />
+                <label class="control-label" for="read_comic">
+                    <input type="checkbox" name="read_comic" id="read_comic" value="1" {{# readComic }}checked{{/ readComic }} />
+                    I have read the Ride Leading Comic
+                </label>
+            </div>
+    </form>
+</script>
+<script id="mustache-select-month" type="text/template">
+    {{#weeks}}
+    <tr class="calendar-row">
+        {{#monthTitle}}
+        <td rowspan="{{weeksInMonth}}" class="calendar-month-title"><span>{{monthTitle}}</span></td>
+        {{/monthTitle}}
+        {{#days}}
+        <td class="calendar-day {{classes}}" data-date="{{date}}">{{day}}</td>
+        {{/days}}
+    </tr>
+    {{/weeks}}
+</script>
+
+<script id="aboutUs" type="text">
+        <div>
+        	<div class="secondaryHeader">About SHIFT</div>
+			<div class="plain">
+			    <br>
+                <p>SHIFT helps other groups and individuals promote their "bike fun" events. Most of the events in this calendar are not produced by Shift. Anyone is welcome to post events. </p>
+                <p>SHIFT is the force behind Pedalpalooza. It also coordinates fun bicycling events throughout the year. Our mission is to demonstrate that bicycling is fun, liberating, empowering, sustainable, and environmentally friendly. We ask for no membership, nor dues. We ask for only a shared passion for the bicycle in all its glory: as toy, as transportation, as tool for social and environmental change! </p>
+                <p>Join the <a href="https://lists.riseup.net/www/subrequest/shift"> SHIFT listserve</a></p>
+                <h3>Volunteer</h3>
+                <p>Breakfast on the Bridges is the last friday of every month. Present breakfast to bike commuters in an interesting way - on a bridge! Contact the ever chortling Bard of the Bridges, <a href="http://www.shift2bikes.org/contacts/index.php?eCon=BonB">Timo</a></p>
+                <p>Contribute to our <a href="http://github.com/Shift2Bikes/shiftcal">source code</a></p>
+                <h3>Contact information</h3>
+                <p>Contact us <a href="http://www.shift2bikes.org/contacts/">here</a></p>
+                <h3>Our sponsors</h3>
+                <a href="http://umbrellapdx.org/"> <image alt="Umbrella PDX" src="http://umbrellapdx.org/templates/tem_trentco/images/logo.jpg" width="125"/img></a>
+                <br>
+                <br>
+                <a href="http://www.canvashost.com/"> <image alt="Canvas Host" src="http://www.canvashost.com/images/canvashost-mobile.jpg" width="125" /img></a>
+                <br>
+                <h3>Donations</h3>
+
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="YJYFXDPLSCW8U">
+                    <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                </form>
+                <p>Donations to SHIFT can be made by mailing a check addressed to: </p>
+                <p>Shift c/o Umbrella </p>
+                <p>820 SW 2nd Ave. Ste. 200</p>
+                <p>Portland, OR 97204</p>
+                <p>Our 501(c)3 sponsor, Umbrella, will handle the rest.</p>
+            </div>
+
+        </div>
+	</script>
+<script id="email-suggestion-template" type="text/template">
+    Did you mean <span class="correction">{{ suggestion }}</span>?
+    <sup><span class="glyphicon glyphicon-remove"></span></sup>
+</script>
+
+<script src="vue-main.js"></script>
+</body>
+</html>
