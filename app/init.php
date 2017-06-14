@@ -7,7 +7,7 @@ include_once('util.php');
 include('models/Event.php');
 include('models/EventTime.php');
 
-$database = new fDatabase($DBTYPE, $DBDB, $DBUSER, $DBPASS, $DBHOST);
+$database = new fDatabase($DBTYPE, $DBDB, $DBUSER, $DBPASS, $DBHOST, 3306);
 fORMDatabase::attach($database);
 
 $schema = updateSchema($database);

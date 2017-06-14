@@ -6,12 +6,14 @@ volumes:
 services:
   db:
     restart: always
-    image: postgres:latest
+    image: mysql:latest
     environment:
-      - POSTGRES_DB
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_HOST
     volumes:
-      - db:/var/lib/postgresql/data
-    expose:
-      - 5432
+      - db:/var/lib/mysql
+    ports:
+      - 3306

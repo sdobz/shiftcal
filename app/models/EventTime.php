@@ -57,10 +57,15 @@ class EventTime extends fActiveRecord {
     }
 
     private function getEvent() {
-        if ($this->getEventstatus() === 'E') {
-            return $this->createEvent('exceptionid');
+        try {
+            if ($this->getEventstatus() === 'E') {
+                return $this->createEvent('exceptionid');
+            }
+            return $this->createEvent('id');
         }
-        return $this->createEvent('id');
+        catch (fNotFoundException $e) {
+            return new Event();
+        }
     }
 
     public function getFormattedDate() {

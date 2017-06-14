@@ -19,10 +19,10 @@ export SERVICES="db nginx php"
 export COMPOSE_PROJECT_NAME="shift"
 
 #### DB ####
-export POSTGRES_PASSWORD=CHANGEME
-export POSTGRES_USER=nift
-export POSTGRES_DB=nift
-export POSTGRES_HOST=db
+export MYSQL_ROOT_PASSWORD=da642315cb2d390714590dad93e07c50
+export MYSQL_DATABASE=shift
+export MYSQL_USER=shift
+export MYSQL_PASSWORD=ok124
 
 # NGINX
 export NGINX_CONF=php.conf

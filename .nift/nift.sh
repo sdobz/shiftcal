@@ -6,7 +6,6 @@ if false; then
 fi
 
 nift() {
-    echo "${NIFT_MOTD}"
     if [ NIFT_SLEEP ]; then
         sleep ${NIFT_SLEEP}
     fi
@@ -40,37 +39,45 @@ sub_help() { #                    - Show this text
 }
 
 sub_up() { #                      - Bring all services up
+    echo "${NIFT_MOTD}"
     docker-compose -f ${NIFT}/plugins.yml up -d
     sub_compose up -d ${SERVICES}
 }
 
 sub_down() { #                    - Stop and remove services
+    echo "${NIFT_MOTD}"
     sub_compose down
 }
 
 sub_ps() { #                      - Print service information
+    echo "${NIFT_MOTD}"
     sub_compose ps
 }
 
 sub_reload() { # <service>, ...   - Trigger a code/conf reload
+    echo "${NIFT_MOTD}"
     echo Reloading $@
     sub_compose kill -s SIGHUP $@
 }
 
 sub_start() { # <service>, ..     - Start service(s)
+    echo "${NIFT_MOTD}"
     sub_compose up -d $@
 }
 
 sub_stop() { # <service>, ...     - Stop service(s)
+    echo "${NIFT_MOTD}"
     sub_compose kill $@
 }
 
 sub_restart() { # <service>, ...  - Trigger entrypoint.sh, required after modifying anything in bitpool
+    echo "${NIFT_MOTD}"
     sub_stop $@
     sub_start $@
 }
 
 sub_attach() { # <service>        - Run bash on a running service
+    echo "${NIFT_MOTD}"
     sub_compose exec $@ bash
 }
 
@@ -79,6 +86,19 @@ sub_compose() { # <cmd...>        - Run a compose with associated files
 }
 
 sub_logs() { # <service>, ...     - Show last 50 lines and attach to a service
+    echo "${NIFT_MOTD}"
     sub_compose logs --tail=50 -f $@
 }
 
+
+sub_mysql() {
+    sub_compose exec db mysql -u ${MYSQL_USER} -h db -P 3306 -p"${MYSQL_PASSWORD}" ${MYSQL_DATABASE} $@
+}
+
+sub_mysql_pipe() {
+    docker exec -i $(sub_compose ps -q db) mysql -u ${MYSQL_USER} -h db -P 3306 -p"${MYSQL_PASSWORD}" ${MYSQL_DATABASE} $@
+}
+
+sub_mysqldump() {
+    sub_compose exec db mysqldump -u ${MYSQL_USER} -h db -P 3306 -p"${MYSQL_PASSWORD}" ${MYSQL_DATABASE} $@
+}
