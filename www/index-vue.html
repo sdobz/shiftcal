@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,116 +45,118 @@
 </nav>
 
 <div id="vue-main" class="container">
+    <div v-if="route == 'events'" v-bind:dates="dates">
+        <div v-for="dateGroup in dates" :key="dateGroup.yyyymmdd"  v-bind:data-date="dateGroup.yyyymmdd" v-bind:class="['date', { preview: dateGroup.preview }]">
+            <div class="secondaryHeader">{{dateGroup.date}}</div>
 
-    <events v-if="route == 'events'" v-for="date in dates" events="{{events}}" :key="date.yyyymmdd" inline-template>
-        <div data-date="{{yyyymmdd}}" class="date" v-bind:class="{ preview: preview }">
-            <div class="secondaryHeader">{{date}}</div>
-
-            <event v-for="event in date.events" :key="event.id" class="['event', 'row', {cancelled: cancelled}]" data-event-id="{{id}}" inline-template>
-                <div class="time col-xs-2">
-                    <h3 class="audience-{{audience}} area-{{area}}">{{displayTime}}</h3>
-                </div>
-                <a class="expandDetails" href="#" data-toggle="collapse" data-target="#detailsContainer{{caldaily_id}}">
-                    <div class="col-xs-10" >
-                        <div class="summary">
-                            <h3>
-                                {{title}}
-                                <span v-if="cancelled" class="cancelled-text"> - CANCELLED</span>
-                                <span v-if="newsflash" class="newsflash"> - {{newsflash}}</span>
-                            </h3>
+            <div v-for="event in dateGroup.events" :key="event.id" v-bind:data-event-id="event.id">
+                <event v-bind:event="event" inline-template>
+                    <div v-bind:class="['event', 'row', {cancelled: event.cancelled}]">
+                        <div class="time col-xs-2">
+                            <h3 v-bind:class="[ 'audience-' + event.audience, 'area-' + event.area ]">{{event.displayTime}}</h3>
                         </div>
-                    </div>
-                </a>
-                <div class="col-xs-2">
-                </div>
-                <div id="detailsContainer{{caldaily_id}}" v-bind:class="{collapse: !expanded}">
-                    <div class="eventDetails  col-xs-10">
-                        <div class="mainDetails">
-                            <div class="eventImg">
-                                <img v-if="image" src="{{image}}" />
+                        <a class="expandDetails" href="#" v-on:click="toggle">
+                            <div class="col-xs-10 summary">
+                                <h3>
+                                    {{event.title}}
+                                    <span v-if="event.cancelled" class="cancelled-text"> - CANCELLED</span>
+                                    <span v-if="event.newsflash" class="newsflash"> - {{event.newsflash}}</span>
+                                </h3>
                             </div>
-                            <div>
-                                <a v-bind:href="mapLink" target="_blank">
-                                    <img src="images/google-maps-icon.png" />
-                                    <p v-if="address && venue">
-                                        {{venue}}, {{address}}
+                        </a>
+
+                        <div class="col-xs-2"></div>
+
+                        <div v-bind:id="'detailsContainer' + event.caldaily_id" v-bind:class="{collapse: !open}">
+                            <div class="eventDetails  col-xs-10">
+                                <div class="mainDetails">
+                                    <div class="eventImg">
+                                        <img v-if="event.image && open" v-bind:src="event.image" />
+                                    </div>
+                                    <div>
+                                        <a v-bind:href="event.mapLink" target="_blank">
+                                            <img src="images/google-maps-icon.png" />
+                                            <p v-if="event.address && event.venue">
+                                                {{event.venue}}, {{event.address}}
+                                            </p>
+                                            <p v-if="event.address && !event.venue">
+                                                {{event.address}}
+                                            </p>
+                                            <p v-if="!event.address && event.venue">
+                                                {{event.venue}}
+                                            </p>
+                                        </a>
+
+                                        {{event.locdetails}}
+                                    </div>
+
+                                    <p v-if="event.weburl">
+                                        <a v-bind:href="event.weburl" target="_blank">
+                                            <img src="images/webpage.png" />
+                                            <span v-if="event.webname">{{event.webname}}</span>
+                                            <span v-if="!event.webname">Website</span>
+                                        </a>
                                     </p>
-                                    <p v-if="address && !venue">
-                                        {{address}}
+
+                                    <p>
+                                        <img src="images/alarm.png" />
+                                        {{event.displayTime}}<span v-if="event.timedetails">, {{event.timedetails}}</span>
                                     </p>
-                                    <p v-if="!address && venue">
-                                        {{venue}}
+                                    <p v-if="event.eventduration">
+                                        <img src="images/stopwatch.png" />
+                                        {{event.eventduration}} minutes
                                     </p>
-                                </a>
 
-                                {{locdetails}}
-                            </div>
+                                    <p>{{event.details}}</p>
 
-                            <p v-if="weburl">
-                                <a href="{{weburl}}" target="_blank">
-                                    <img src="images/webpage.png" />
-                                    <span v-if="webname">{{webname}}</span>
-                                    <span v-if="!webname">Website</span>
-                                </a>
-                            </p>
+                                    <p class="contactInfo">
+                                        <img src="images/profile.png" />
+                                        {{event.organizer}}
 
-                            <p>
-                                <img src="images/alarm.png" />
-                                {{displayTime}}<span v-if="timedetails">, {{timedetails}}</span>
-                            </p>
-                            <p v-if="eventduration">
-                                <img src="images/stopwatch.png" />
-                                {{eventduration}} minutes
-                            </p>
+                                        <a v-if="event.email" v-bind:href="'mailto:' + event.email"><img src="images/email.png" />
+                                            {{event.email}}
+                                        </a>
 
-                            <p>{{details}}</p>
+                                        <a v-if="event.phone" v-bind:href="'tel:' + event.phone">
+                                            <img src="images/phone.png" />
+                                            {{event.phone}}
+                                        </a>
 
-                            <p class="contactInfo">
-                                <img src="images/profile.png" />
-                                {{organizer}}
+                                        {{event.contact}}
+                                    </p>
+                                    <p class="permalink" v-if="!event.preview">
+                                        <a v-bind:href="'event-' + event.caldaily_id" class="share-link">
+                                            Sharable link
+                                        </a>
 
-                                <a v-if="email" href="mailto:{{email}}"><img src="images/email.png" />
-                                    {{email}}
-                                </a>
-
-                                <a v-if="phone" href="tel:{{phone}}">
-                                    <img src="images/phone.png" />
-                                    {{phone}}
-                                </a>
-
-                                {{contact}}
-                            </p>
-                            <p class="permalink" v-if="!preview">
-                                <a href="event-{{caldaily_id}}" class="share-link">
-                                    Sharable link
-                                </a>
-
-                                <!-- disable Facebook for now since previews on timeline aren't available
-                                <a
-                                   href="https://www.facebook.com/sharer/sharer.php?u={{shareable}}"
-                                   target="_blank">
-                                   Share on Facebook
-                                </a>
-                                -->
-                                &bull;
-                                <a href="{{exportlink}}" data-id="{{caldaily_id}}" class="export-link">
-                                    Export to calendar
-                                </a>
-                            </p>
-                            <div v-if="preview">
-                                <hr />
-                                The following will only show on the print calendar.
-                                <br />
-                                tinytitle: {{tinytitle}}
-                                <br />
-                                print description: {{printdescr}}
+                                        <!-- disable Facebook for now since previews on timeline aren't available
+                                        <a
+                                           href="https://www.facebook.com/sharer/sharer.php?u={{event.shareable}}"
+                                           target="_blank">
+                                           Share on Facebook
+                                        </a>
+                                        -->
+                                        &bull;
+                                        <a v-bind:href="event.exportlink" v-bind:data-id="event.caldaily_id" class="export-link">
+                                            Export to calendar
+                                        </a>
+                                    </p>
+                                    <div v-if="event.preview">
+                                        <hr />
+                                        The following will only show on the print calendar.
+                                        <br />
+                                        tinytitle: {{event.tinytitle}}
+                                        <br />
+                                        print description: {{event.printdescr}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </event>
             </div>
         </div>
-    </events>
+    </div>
 </div>
 
 <div class="modal fade" tabindex="-1" id="cancel-modal" role="dialog">

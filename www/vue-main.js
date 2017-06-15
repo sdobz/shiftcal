@@ -1,25 +1,3 @@
-var app = new Vue({
-  el: '#vue-main',
-  data: function () {
-    var events = [];
-
-    var startDate = new Date();
-    var endDate = new Date(startDate);
-    endDate.setDate(startDate.getDate() + 9);
-
-    getEvents({
-      startdate: startDate,
-      enddate: endDate
-    });
-
-    return {
-      route: 'eve',
-      events: events
-    };
-  }
-});
-
-
 // VUE-Helpers
 function getMapLink(address) {
   return 'http://maps.google.com/' +
@@ -62,9 +40,7 @@ function compareDates(date1, date2) {
 }
 
 
-// VUE-State
-
-
+// VUE - API
 function getEvents(options, callback) {
   var url = 'events.php?';
   if ('id' in options) {
@@ -116,10 +92,48 @@ function getEvents(options, callback) {
   });
 }
 
-
 // VUE-Components
 
 // viewEvents
-Vue.component('event-list', {
-  props: ['events']
+var expandingEvent = Vue.component('event', {
+  data: function() {
+    return {
+      open: false
+    }
+  },
+  methods: {
+    toggle: function(e) {
+      this.open = !this.open;
+      e.preventDefault();
+      return false;
+    }
+  },
+  props: ['event']
+});
+
+// VUE-State
+var app = new Vue({
+  el: '#vue-main',
+  data: function () {
+    var data = {
+      route: 'events',
+      dates: []
+    };
+
+    var startDate = new Date();
+    var endDate = new Date(startDate);
+    endDate.setDate(startDate.getDate() + 9);
+
+    getEvents({
+      startdate: startDate,
+      enddate: endDate
+    }, function (res) {
+      data.dates = res.dates;
+    });
+
+    return data;
+  },
+  components: {
+    event: expandingEvent
+  }
 });
