@@ -35,13 +35,13 @@ Anyone who wants to run the site locally will need the following prerequisites:
 - mysql installed, running and accessible from your dev environment
 - The 'mysql', 'pdo\_mysql', or 'mysqli' module enabled for PHP
 
-Once you've gotten all that sorted, you should be able to create a page with just the code:
+To test your installation, you should be able to create a webpage (e.g. /Library/Webserver/Documents/test.php) with just the code:
 
 ```
 <?php phpinfo(); ?>
 ```
 
-and have the output contain a page that shows the correct version of php (at the top of the output) and that the mysql.so extension is enabled (there is a section titled 'mysql')
+and have the browser succesfully load http://localhost/test.php that shows the correct version of php (at the top of the output) and that the mysql.so extension is enabled (there is a section titled 'mysql')
 
 Now that your environment is ready, see https://github.com/ShiftGithub/shiftcal/wiki/in-depth-setup-instructions for the rest of the installation instructions.
 
