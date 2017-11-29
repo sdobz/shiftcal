@@ -90,7 +90,8 @@ class iCalExporter {
 	}
 
 	protected function append( $string ) {
-		$string = wordwrap( $string, 75, "\r\n " );
+		$string = preg_replace( "/[\r\n]+/", " ", $string );
+		$string = wordwrap( $string, 74, " \r\n " );
 		$this->exportString .= "$string\r\n";
 	}
 }

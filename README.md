@@ -28,30 +28,22 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 How to setup & run locally
 --------------------------
 
-Anyone who wants to run the site locally will need the following to start with:
+Anyone who wants to run the site locally will need the following prerequisites:
 
-- PHP version >= 5.4.   You can find this by running "php -i" or making a webpage that calls phpinfo();
-- mysql installed and running and accessible from your dev environment
-- The 'mysql', 'pdo\_mysql', or 'mysqli' module enabled for PHP
- - For 'mysql' (there is a line that is uncommented in the correct php.ini to the effect of 'extension=mysql.so').  This module has been deprecated in 5.5 and 5.6 but still works.  **IT WILL NOT WORK IN PHP 5.7!**
+- PHP version 5.6.x.
 - enabled the apache module for PHP 
+- mysql installed, running and accessible from your dev environment
+- The 'mysql', 'pdo\_mysql', or 'mysqli' module enabled for PHP
 
-Once you've gotten all that sorted, you should be able to create a page with just the code:
+To test your installation, you should be able to create a webpage (e.g. /Library/Webserver/Documents/test.php) with just the code:
 
 ```
 <?php phpinfo(); ?>
 ```
 
-and have the output contain a page that shows the correct version of php (at the top of the output) and that the mysql.so extension is enabled (there is a section titled 'mysql')
+and have the browser succesfully load http://localhost/test.php that shows the correct version of php (at the top of the output) and that the mysql.so extension is enabled (there is a section titled 'mysql')
 
-Now that your environment is ready, let's get the source code installed and setup:
-
-- checkout the source code and stick it in your document root, in a directory called shiftcal:  git clone "https://github.com/ShiftGithub/shiftcal.git"
-- adjust the database settings in include/account.php to reference your own DB setup:  DBHOST, DBUSER, DBPASSWORD, DBDATABASE.
-- untar the file includes.tgz from your source code.  Place it in your document root (shiftcal/../include)
-- run mysql < init.sql to create an empty database
-
-For additional explanation, expansion, and clarification of these instructions for those using XAMPP and/or OSX, see https://github.com/ShiftGithub/shiftcal/wiki/in-depth-setup-instructions
+Now that your environment is ready, see https://github.com/ShiftGithub/shiftcal/wiki/in-depth-setup-instructions for the rest of the installation instructions.
 
 To do list
 ----------

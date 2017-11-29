@@ -42,6 +42,11 @@ else {
     $events = EventTime::getRangeVisible($startdate, $enddate);
 }
 foreach ($events as $eventTime) {
-    $json['events'] []= $eventTime->toEventSummaryArray();
+    try{
+        $json['events'] []= $eventTime->toEventSummaryArray();
+    } catch( Exception $ex ) {
+        // For now, ignore
+    }
+
 }
 fJSON::output($json);

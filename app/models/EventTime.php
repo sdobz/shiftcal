@@ -50,7 +50,8 @@ class EventTime extends fActiveRecord {
                 'eventdate>=' => $firstDay,
                 'eventdate<=' => $lastDay,
                 'calevent{id}.hidden!' => 1,
-                'eventstatus!' => 'S'
+                'eventstatus!' => 'S',
+                'calevent{id}.review!' => 'E' // 'E'xcluded
             ), // where
             array('eventdate' => 'asc')  // order by
         );
@@ -74,20 +75,20 @@ class EventTime extends fActiveRecord {
 
     protected function getShareable() {
         global $PROTOCOL, $HOST, $PATH;
-        $base = $PROTOCOL . $HOST . $PATH;
+        $base = trim($PROTOCOL . $HOST . $PATH, '/');
 
         $caldaily_id = $this->getPkid();
-        return "$base#event-" . $caldaily_id;
+        return "$base/event-" . $caldaily_id;
     }
     
     public function toEventSummaryArray() {
-        $eventArray = $this->getEvent()->toArray();
-        $eventArray['date'] = $this->getFormattedDate();
-        $eventArray['caldaily_id'] = $this->getPkid();
-        $eventArray['shareable'] = $this->getShareable();
-        $eventArray['cancelled'] = $this->getEventstatus() == 'C';
-        $eventArray['newsflash'] = $this->getNewsflash();
-        return $eventArray;
+	$eventArray = $this->getEvent()->toArray();
+	$eventArray['date'] = $this->getFormattedDate();
+	$eventArray['caldaily_id'] = $this->getPkid();
+	$eventArray['shareable'] = $this->getShareable();
+	$eventArray['cancelled'] = $this->getEventstatus() == 'C';
+	$eventArray['newsflash'] = $this->getNewsflash();
+	return $eventArray;
     }
 }
 
