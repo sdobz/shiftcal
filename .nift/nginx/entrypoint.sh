@@ -16,11 +16,13 @@ CERTS=/secret/certs
 NGINX_CRT=${CERTS}/${NGINX_CERT_NAME}.crt
 NGINX_KEY=${CERTS}/${NGINX_CERT_NAME}.key
 
+COMMON_NAME=localhost
+
 if [ ! -f ${NGINX_KEY} ] || [ ! -f ${NGINX_CRT} ]; then
     echo Creating ${NGINX_CRT} ${NGINX_KEY}
     apt-get update
     apt-get install openssl
-    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${NGINX_KEY} -out ${NGINX_CRT} -subj "/C=US/ST=OR/L=l/O=nift/OU=nift/CN=${NGINX_CERT_NAME}"
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${NGINX_KEY} -out ${NGINX_CRT} -subj "/C=US/ST=OR/L=l/O=nift/OU=nift/CN=${COMMON_NAME}"
 fi
 
 echo Clearing /etc/nginx/ssl/

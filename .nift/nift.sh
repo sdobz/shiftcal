@@ -76,6 +76,14 @@ sub_restart() { # <service>, ...  - Trigger entrypoint.sh, required after modify
     sub_start $@
 }
 
+sub_rebuild() { # <service>, ...  - Remove and rebuild a service
+    echo "${NIFT_MOTD}"
+    echo Rebuilding $@
+    sub_stop $@
+    sub_compose rm -f $@
+    sub_compose up -d $@
+}
+
 sub_attach() { # <service>        - Run bash on a running service
     echo "${NIFT_MOTD}"
     sub_compose exec $@ bash
@@ -91,14 +99,14 @@ sub_logs() { # <service>, ...     - Show last 50 lines and attach to a service
 }
 
 
-sub_mysql() {
+sub_mysql() { #                   - Open a mysql prompt with the db selected
     sub_compose exec db mysql -u ${MYSQL_USER} -h db -P 3306 -p"${MYSQL_PASSWORD}" ${MYSQL_DATABASE} $@
 }
 
-sub_mysql_pipe() {
+sub_mysql-pipe() { #              - Pipe sql into this command to send to db
     docker exec -i $(sub_compose ps -q db) mysql -u ${MYSQL_USER} -h db -P 3306 -p"${MYSQL_PASSWORD}" ${MYSQL_DATABASE} $@
 }
 
-sub_mysqldump() {
+sub_mysqldump() { #               - Dump the mysql database
     sub_compose exec db mysqldump -u ${MYSQL_USER} -h db -P 3306 -p"${MYSQL_PASSWORD}" ${MYSQL_DATABASE} $@
 }

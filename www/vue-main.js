@@ -137,3 +137,4 @@ var app = new Vue({
     event: expandingEvent
   }
 });
+
