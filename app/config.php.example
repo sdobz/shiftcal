@@ -3,6 +3,7 @@ $DBUSER = 'shift';
 $DBPASS = 'shift';
 $DBDB   = 'shift';
 $DBHOST = 'localhost';
+$DBTYPE = 'mysql';
 $IMAGEDIR = 'calendarimages';
 $IMAGEPATH = 'calendarimages';
 
