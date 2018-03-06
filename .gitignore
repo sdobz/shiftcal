@@ -1,4 +1,6 @@
 .idea
 app/config.php
+www/calendarimages/
 .nift/.git
 secret/
+.DS_Store
