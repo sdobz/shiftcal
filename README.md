@@ -25,11 +25,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## How to setup & run locally
 
 1. First install docker (only tested on linux and mac)
-2. cd to the shiftcal directory
-3. Run ./nift up
+2. `cd` to the shiftcal directory
+3. Run `./nift up`
 4. Get a mysql dump from One
 5. Temporarily move the dump into the shiftcal directory
-6. cat dump.sql | ./nift mysql-pipe
+6. Run `cat dump.sql | ./nift mysql-pipe`
+7. Make a copy of `config.php.example` and rename it `config.php`
+
+The event images are not included; the site will work without them. If you want to see the existing event images locally, get a backup of the images from One. Place the event images in `www/calendarimages`.
 
 ## To do list
 
@@ -41,4 +44,4 @@ The Facebook app ID is 135930960098034.
 
 ## How to propose changes
 
-Please fork the master branch of the ShiftGithub/shiftcal code into a branch in your own account, commit your changes to that branch, make a pull request against the master branch of ShiftGithub/shiftcal, and we'll try to merge it!
+Please fork the master branch of the ShiftGithub/shiftcal code into a branch in your own account. Commit your changes to that branch, make a pull request against the master branch of ShiftGithub/shiftcal, and we'll try to merge it!
