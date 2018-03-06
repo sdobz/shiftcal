@@ -1,6 +1,7 @@
 $(document).ready( function() {
 
     var container = $('#mustache-html');
+    var curPage = null;
 
     function getEventHTML(options, callback) {
         var url = 'events.php?';
@@ -87,6 +88,7 @@ $(document).ready( function() {
         var startDate = new Date();
         var endDate = new Date(startDate);
         endDate.setDate(startDate.getDate() + 9);
+        curPage = "viewEvents";
 
         container.empty()
              .append($('#scrollToTop').html())
@@ -96,6 +98,9 @@ $(document).ready( function() {
             startdate: startDate,
             enddate: endDate
         }, function (eventHTML) {
+            if (curPage !== "viewEvents") {
+                return;
+            }
              container.append(eventHTML);
              container.append($('#load-more-template').html());
              checkAnchors();
@@ -116,12 +121,16 @@ $(document).ready( function() {
     }
 
     function viewEvent(id) {
+        curPage = "viewEvent" + id;
         container.empty()
             .append($('#show-all-template').html())
             .append($('#scrollToTop').html())
             .append($('#legend-template').html());
 
         getEventHTML({id:id}, function (eventHTML) {
+            if (curPage !== "viewEvent" + id) {
+                return;
+            }
             container.append(eventHTML);
             checkAnchors();
         });
@@ -134,6 +143,7 @@ $(document).ready( function() {
     }
 
     function viewPedalpalooza() {
+        curPage = "viewPedalpalooza"
         var startDate = new Date("June 1, 2017");
         var endDate = new Date("June 30, 2017 23:59:59");
         var pedalpalooza = '/cal/images/pp2017.jpg';
@@ -145,6 +155,9 @@ $(document).ready( function() {
             startdate: startDate,
             enddate: endDate
         }, function (eventHTML) {
+            if (curPage !== "viewPedalpalooza") {
+                return;
+            } 
              container.append(eventHTML);
              checkAnchors();
         });
@@ -166,6 +179,7 @@ $(document).ready( function() {
     }
 
     function viewAddEventForm(id, secret) {
+        curPage = "viewAddEventForm";
         container.getAddEventForm( id, secret, function(eventHTML) {
             container.empty().append(eventHTML);
             checkAnchors();

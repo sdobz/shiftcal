@@ -1,0 +1,38 @@
+version: "2"
+
+volumes:
+  nginx.ssl: {}
+  nift.certs:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${NGINX_CERTS}
+  app.www:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${NGINX_WWW}
+  nift.nginx:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${NIFT}/nginx
+
+
+services:
+  nginx:
+    image: nginx
+    depends_on:
+      - volume-plugin
+    restart: always
+    volumes:
+      - nift.nginx:/nift/nginx/
+      - app.www:/var/www/
+      - nift.certs:/secret/certs/
+      - nginx.ssl:/etc/nginx/ssl
+    links:
+      - php
+    environment:
+      - NGINX_CONF
+      - NGINX_CERT_NAME
+    ports:
+      - "${NGINX_HTTPS_PORT}:443"
+    entrypoint: /nift/nginx/entrypoint.sh
+    command: ["nginx", "-g", "daemon off;"]

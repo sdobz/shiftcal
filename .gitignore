@@ -1,6 +1,6 @@
+.idea
 app/config.php
-
-# macOS generated files #
-######################
+www/calendarimages/
+.nift/.git
+secret/
 .DS_Store
-.DS_Store?
