@@ -217,7 +217,7 @@
                                 <div>
                                     {{#mapLink}}
                                         <a href="{{mapLink}}" target="_blank">
-                                        <img src="images/google-maps-icon.png" />
+                                        <img src="images/google-maps-icon.png" alt="Location" />
                                     {{/mapLink}}
                                     {{^mapLink}}
                                     <p>
@@ -237,28 +237,28 @@
 
                                 {{ #weburl }}
                                 <p><a href="{{weburl}}" target="_blank">
-                                    <img src="images/webpage.png" />
+                                    <img src="images/webpage.png" alt="Website" />
                                     {{#webname}}{{webname}}{{/webname}}
                                     {{^webname}}Website{{/webname}}
                                 </a></p>
                                 {{ /weburl }}
 
-                                <p><img src="images/alarm.png" /> {{displayTime}}{{#timedetails}}, {{timedetails}}{{/timedetails}}</p>
+                                <p><img src="images/alarm.png" alt="Time" /> {{displayTime}}{{#timedetails}}, {{timedetails}}{{/timedetails}}</p>
                                 {{#eventduration}}
-                                <p><img src="images/stopwatch.png" /> {{eventduration}} minutes</p>
+                                <p><img src="images/stopwatch.png" alt="Duration" /> {{eventduration}} minutes</p>
                                 {{/eventduration}}
 
                                 <p>{{details}}</p>
 
                                 <p class="contactInfo">
-                                    <img src="images/profile.png" /> {{organizer}}
+                                    <img src="images/profile.png" alt="Organizer" /> {{organizer}}
 
                                     {{#email}}
-                                        <a href="mailto:{{email}}"><img src="images/email.png" /> {{email}}</a>
+                                        <a href="mailto:{{email}}"><img src="images/email.png" alt="Email" /> {{email}}</a>
                                     {{/email}}
 
                                     {{#phone}}
-                                        <a href="tel:{{phone}}"><img src="images/phone.png" /> {{phone}}</a>
+                                        <a href="tel:{{phone}}"><img src="images/phone.png" alt="Phone" /> {{phone}}</a>
                                     {{/phone}}
 
                                     {{contact}}
