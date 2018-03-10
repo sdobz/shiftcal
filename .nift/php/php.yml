@@ -1,22 +1,9 @@
 version: "2"
 
-volumes:
-  php.root:
-    driver: local-persist
-    driver_opts:
-      mountpoint: ${PHP_ROOT}
-  nift.php:
-    driver: local-persist
-    driver_opts:
-      mountpoint: ${NIFT}/php
-
-
 services:
   php:
     restart: never
     image: php:5.6-fpm
-    depends_on:
-      - volume-plugin
     restart: always
     environment:
       - MYSQL_DATABASE
@@ -24,7 +11,7 @@ services:
       - MYSQL_PASSWORD
       - MYSQL_HOST
     volumes:
-      - nift.php:/nift/php/
-      - php.root:/var/www/html/
+      - ${NIFT}/php:/nift/php/
+      - ${PHP_ROOT}:/var/www/html/
     entrypoint: /nift/php/entrypoint.sh
     command: php-fpm

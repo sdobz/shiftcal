@@ -11,7 +11,6 @@ export NIFT_SLEEP=0
 
 #### DOCKER ####
 export COMPOSE_FILES="\
--f ${NIFT}/plugins.yml \
 -f ${NIFT}/db/db.yml \
 -f ${NIFT}/nginx/nginx.yml \
 -f ${NIFT}/php/php.yml"
