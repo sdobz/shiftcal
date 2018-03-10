@@ -1,9 +1,0 @@
-version: "2"
-
-services:
-  volume-plugin:
-    image: cwspear/docker-local-persist-volume-plugin
-    volumes:
-      - /run/docker/plugins/:/run/docker/plugins/
-      - ${NIFT}/cache/:/var/lib/docker/plugin-data/
-      - ${ROOT}:${ROOT}
