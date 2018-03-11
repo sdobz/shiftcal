@@ -4,5 +4,5 @@ www/calendarimages/
 .nift/.git
 secret/
 .DS_Store
-.sql
-.today
+*.sql
+*.today
