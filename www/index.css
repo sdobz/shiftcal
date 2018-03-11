@@ -1,6 +1,12 @@
+/*
+Transparent borders have been added intentionally for accessibility in some places.
+Typically they will not be visible.
+But if someone is using a high contrast display mode, the border will appear.
+*/
+
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    color: gray;
+    font-family: Helvetica, Arial, sans-serif;
+    color: rgb(64, 64, 64);
 }
 
 .navbar-brand {
@@ -17,18 +23,26 @@ nav.navbar {
     background-image: none;
 }
 
+.navbar-default .navbar-toggle {
+    border: 1px solid #630;
+}
+
 .navbar-default .navbar-toggle .icon-bar {
-    background-color:#fff;
+    background-color:#630;
 }
 
 .navbar-toggle {
-    border: none;
+    border: 1px solid #630;
+}
+
+.navbar-right {
+    margin-right: 0;
 }
 
 /* Cheat bootstrap for one line mobile nav */
 .nav>li>a {
     display:inline-block;
-    color:#fff !important;
+    color: #630 !important;
     font-weight: bold;
 }
 
@@ -36,13 +50,13 @@ nav.navbar {
     width:100px;
     height:70px;
     text-align:center;
-    color:#f90;
+    color:#630;
     position:fixed;
     bottom:75px;
     right:40px;
     display:none;
     z-index:1;
-    background: url('images/up-arrow.png') no-repeat 0px 20px;
+    background: url('images/up-arrow.svg') no-repeat 0px 20px;
     background-position: center;
 }
 
@@ -66,19 +80,36 @@ nav.navbar {
     clear: both;
 }
 
-/*div { border: 1px solid red }*/
-.secondaryHeader{
+h2 {
     background-color: #fd6;
+    color: #630;
+    border: 1px solid transparent;
     float:left;
     width: 100%;
-    padding: 5px 10px 15px;
+    padding: 10px;
+    margin: 5px 0;
     font-weight: bold;
     font-size: 1em;
+    line-height: 1.5em;
+}
+
+.events-list {
+    padding: 0;
 }
 
 .event.row {
+    list-style-type:none;
     font-size:1em;
     color: #37b;
+    margin-right:0;
+}
+
+.event.row .summary h3 button {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 0;
 }
 
 .event.cancelled div {
@@ -112,11 +143,10 @@ h3 {
 }
 
 .eventDetails {
-    color: gray;
+    color: rgb(64, 64, 64);
 }
 
 .btn{
-
     color: #37b;
 }
 
@@ -269,18 +299,20 @@ a.expandDetails {
     text-align:center;
 }
 
-a.more-events {
+button.more-events {
     display:block;
     width:100%;
     text-align:center;
     font-size: 1.5em;
-    color: #f90;
+    color: #630;
+    background:none;
+    border: 1px solid transparent;
 }
 .audience-F {
-    color: green;
+    color: rgb(0, 128, 0);
 }
 .audience-A {
-    color: red;
+    color: rgb(208, 0, 0);
 }
 .area-V {
     color: blue;
