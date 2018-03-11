@@ -40,7 +40,6 @@ sub_help() { #                    - Show this text
 
 sub_up() { #                      - Bring all services up
     echo "${NIFT_MOTD}"
-    docker-compose -f ${NIFT}/plugins.yml up -d
     sub_compose up -d ${SERVICES}
 }
 

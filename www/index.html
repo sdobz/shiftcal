@@ -217,8 +217,8 @@
                                     </div>
                                     <div>
                                         {{#mapLink}}
-                                            <a href="{{mapLink}}" target="_blank">
-                                            <img src="images/google-maps-icon.png" />
+                                        <a href="{{mapLink}}" target="_blank">
+                                        <img src="images/google-maps-icon.png" alt="Location" />
                                         {{/mapLink}}
                                         {{^mapLink}}
                                         <p>
@@ -236,62 +236,65 @@
                                         {{locdetails}}
                                     </div>
 
-                                    {{ #weburl }}
-                                    <p><a href="{{weburl}}" target="_blank">
-                                        <img src="images/webpage.png" />
-                                        {{#webname}}{{webname}}{{/webname}}
-                                        {{^webname}}Website{{/webname}}
-                                    </a></p>
-                                    {{ /weburl }}
+                                {{ #weburl }}
+                                <p><a href="{{weburl}}" target="_blank">
+                                    <img src="images/webpage.png" alt="Website" />
+                                    {{#webname}}{{webname}}{{/webname}}
+                                    {{^webname}}Website{{/webname}}
+                                </a></p>
+                                {{ /weburl }}
 
-                                    <p><img src="images/alarm.png" /> {{displayTime}}{{#timedetails}}, {{timedetails}}{{/timedetails}}</p>
-                                    {{#eventduration}}
-                                    <p><img src="images/stopwatch.png" /> {{eventduration}} minutes</p>
-                                    {{/eventduration}}
+                                <p><img src="images/alarm.png" alt="Time" /> {{displayTime}}{{#timedetails}}, {{timedetails}}{{/timedetails}}</p>
+                                {{#eventduration}}
+                                <p><img src="images/stopwatch.png" alt="Duration" /> {{eventduration}} minutes</p>
+                                {{/eventduration}}
 
-                                    <p>{{details}}</p>
+                                <p>{{details}}</p>
 
-                                    <p class="contactInfo">
-                                        <img src="images/profile.png" /> {{organizer}}
+                                <p class="contactInfo">
+                                    <img src="images/profile.png" alt="Organizer" /> {{organizer}}
 
-                                        {{#email}}
-                                            <a href="mailto:{{email}}"><img src="images/email.png" /> {{email}}</a>
-                                        {{/email}}
+                                    {{#email}}
+                                        <a href="mailto:{{email}}"><img src="images/email.png" alt="Email" /> {{email}}</a>
+                                    {{/email}}
 
-                                        {{#phone}}
-                                            <a href="tel:{{phone}}"><img src="images/phone.png" /> {{phone}}</a>
-                                        {{/phone}}
+                                    {{#phone}}
+                                        <a href="tel:{{phone}}"><img src="images/phone.png" alt="Phone" /> {{phone}}</a>
+                                    {{/phone}}
 
-                                        {{contact}}
-                                    </p>
-                                    <p class="eventlink">
-                                        <a
-                                            {{^preview}}
-                                                href="event-{{caldaily_id}}"
-                                            {{/preview}}
-                                            class="share-link">
-                                            Sharable link</a>
-                                        <a
-                                            {{^preview}}
-                                                href="{{exportlink}}"
-                                            {{/preview}}
-                                            data-id="{{caldaily_id}}"
-                                            class="export-link">
-                                            Export to calendar</a>
-                                        <a
-                                           href="https://www.facebook.com/sharer/sharer.php?u={{shareable}}"
-                                           target="_blank">
-                                           <img src="images/shareonfacebook-2.png" alt="Share on Facebook"/></a>
-                                    </p>
-                                    {{#preview}}
-                                         <hr>
-                                         The following will only show on the print calendar.
-                                         <br>
-                                           tinytitle: {{tinytitle}}
-                                         <br>
-                                           print description: {{printdescr}}
-                                    {{/preview}}
-                                </div>
+                                    {{contact}}
+                                </p>
+                                <p class="eventlink">
+                                    <a
+                                        {{^preview}}
+                                            href="event-{{caldaily_id}}"
+                                        {{/preview}}
+                                        class="share-link">
+                                        Sharable link
+
+                                    </a>
+                                    <a
+                                        {{^preview}}
+                                            href="{{exportlink}}"
+                                        {{/preview}}
+                                        data-id="{{caldaily_id}}"
+                                        class="export-link">
+                                        Export to calendar
+                                    </a>
+                                    <a
+                                       href="https://www.facebook.com/sharer/sharer.php?u={{shareable}}"
+                                       target="_blank">
+                                       <img src="images/shareonfacebook-2.png" alt="Share on Facebook"/>
+                                    </a>
+                                </p>
+                                {{#preview}}
+                                     <hr>
+                                     The following will only show on the print calendar.
+                                     <br>
+                                       tinytitle: {{tinytitle}}
+                                     <br>
+                                       print description: {{printdescr}}
+                                {{/preview}}
                             </div>
                         </div>
                     </li>
