@@ -66,6 +66,13 @@ nav.navbar {
     clear: both;
 }
 
+h1 {
+    color: #630;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+
 /*div { border: 1px solid red }*/
 .secondaryHeader{
     background-color: #fd6;
@@ -79,6 +86,7 @@ nav.navbar {
 .event.row {
     font-size:1em;
     color: #37b;
+    padding: 10px 0;
 }
 
 .event.cancelled div {
@@ -97,18 +105,43 @@ nav.navbar {
 h3 {
     font-size: 1em;
     font-weight: bold;
+    color: #37b;
+    margin-top: 10px;
 }
 
 .timedetails {
     text-align: right;
 }
 
-.summary p {
-    margin-bottom: 5px;
+.time {
+    text-align: right;
 }
 
-.time h3 {
-    text-align: right;
+.time time {
+    margin-top: 10px;
+    display: inline-block;
+}
+.time .audience-F {
+    background: #F2FCF2;
+    color: #008000;
+    padding: 2px 4px;
+    border: 1px solid #008000;
+    border-radius: 2px;
+    display: inline-block;
+    width: auto;
+}
+.time .audience-A {
+    background: #FCF2F2;
+    color: #D00000;
+    padding: 2px 4px;
+    border: 1px solid #D00000;
+    border-radius: 2px;
+    display: inline-block;
+    width: auto;
+}
+
+.summary p {
+    margin-bottom: 5px;
 }
 
 .eventDetails {
@@ -275,15 +308,6 @@ a.more-events {
     text-align:center;
     font-size: 1.5em;
     color: #f90;
-}
-.audience-F {
-    color: green;
-}
-.audience-A {
-    color: red;
-}
-.area-V {
-    color: blue;
 }
 
 #email-suggestion {

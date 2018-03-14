@@ -17,7 +17,7 @@
     <title>S H I F T to Bikes</title>
 </head>
 <body>
-    <nav class="navbar navbar-default">   
+    <nav class="navbar navbar-default">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">
                 <img alt="Shift2Bikes" src="images/shiftLogo_plain.gif" />
@@ -27,7 +27,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-            </button>   
+            </button>
         </div>
         <div id="navbar" class="collapse navbar-collapse navbar-right">
             <ul class="nav navbar-nav">
@@ -40,7 +40,7 @@
                 <li>
                     <a href="pedalpalooza" id="pedalpalooza-button">Pedalpalooza</a>
                 </li>
-                <li>                    
+                <li>
                     <a href="aboutUs" id="about-button">About</a>
                 </li>
                 <li>
@@ -49,7 +49,7 @@
             </ul>
         </div>
     </nav>
-    
+
     <div id="mustache-html" class="container"></div>
 
     <div class="modal fade" tabindex="-1" id="cancel-modal" role="dialog">
@@ -139,7 +139,7 @@
                         <td class="calendar-day   color-jun-odd" data-date="2017-06-08">8</td>
                         <td class="calendar-day   color-jun" data-date="2017-06-09">9</td>
                         <td class="calendar-day   color-jun-odd" data-date="2017-06-10">10</td>
-                    </tr>                    
+                    </tr>
                     <tr class="calendar-row">
                         <td class="calendar-day   color-jun-odd" data-date="2017-06-11">11</td>
                         <td class="calendar-day   color-jun" data-date='2017-06-12'>12</td>
@@ -175,15 +175,17 @@
     </script>
     <script id="scrollToTop" type="text/template">
         <a href="#" class="scrollToTop">Back To Top</a>
-    </script>    
+    </script>
+    <script id="ride-list-heading" type="text/template">
+        <h1>Events</h1>
+    </script>
     <script id="legend-template" type="text/template">
         <div class="plain">
         	<p class="audience-F">Family Friendly events have green times.</p>
         	<p class="audience-A">Adult Only (21+) events have red times.</p>
-        	<p class="area-V">Events in the Vancouver area have blue times.</p>
     	</div>
     </script>
-    
+
     <script id="view-events-template" type="text/template">
         {{#dates}}
         <div data-date="{{yyyymmdd}}" class="date{{#preview}} preview{{/preview}}">
@@ -191,7 +193,10 @@
             {{#events}}
                 <div class="event row {{#cancelled}}cancelled{{/cancelled}}" data-event-id="{{id}}">
                     <div class="time col-xs-2">
-                        <h3 class="audience-{{audience}} area-{{area}}">{{displayTime}}</h3>
+                        <p><time>{{displayTime}}<time></p>
+                        {{#audiencelabel}}
+                            <span class="audience-{{audience}}">{{audiencelabel}}</span>
+                        {{/audiencelabel}}
                     </div>
                     <a class="expandDetails" href="#" data-toggle="collapse" data-target="#detailsContainer{{caldaily_id}}">
                         <div class="col-xs-10" >
@@ -271,7 +276,7 @@
                                         class="share-link">
                                         Sharable link
 
-                                    </a>   
+                                    </a>
                                     <a
                                         {{^preview}}
                                             href="{{exportlink}}"
@@ -280,11 +285,11 @@
                                         class="export-link">
                                         Export to calendar
                                     </a>
-                                    <a 
+                                    <a
                                        href="https://www.facebook.com/sharer/sharer.php?u={{shareable}}"
                                        target="_blank">
                                        <img src="images/shareonfacebook-2.png" alt="Share on Facebook"/>
-                                    </a>                                    
+                                    </a>
                                 </p>
                                 {{#preview}}
                                      <hr>
@@ -302,7 +307,7 @@
         </div>
         {{/dates}}
     </script>
-    
+
     <script id="load-more-template" type="text/template">
         <a id="load-more" class="more-events" href="#">Show additional events</a>
     </script>
@@ -310,10 +315,10 @@
     <script id="show-all-template" type="text/template">
         <a id="show-all" class="more-events" href="viewEvents">Show all upcoming events</a>
     </script>
-    
+
     <script id="mustache-edit" type="text/template">
         <div id="edit-header" >
-           
+
                 <button id="preview-edit-button" type="button" class="btn btn-addEvent">Edit</button>
                 <button id="preview-button" type="button" class="btn btn-addEvent">Preview</button>
                 <button id="save-button" type="button" class="btn btn-addEvent">Post</button>
@@ -337,7 +342,7 @@
                             Required
                         </a>
                     </div>
-                    
+
                     <div id="general-fields" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <div class="form-group">
@@ -347,7 +352,7 @@
                             <!-- required only from March-June, Pedalpalooza season-->
                             <div class="form-group">
                                 <label class="control-label req-label" for="tinytitle">Tiny title (24 chars)</label>
-                                <input type="text" class="form-control" name="tinytitle" id="tinytitle" value="{{tinytitle}}" maxlength="24" required="true" />                                
+                                <input type="text" class="form-control" name="tinytitle" id="tinytitle" value="{{tinytitle}}" maxlength="24" required="true" />
                             </div>
                             <div class="form-group">
                                 <label class="control-label req-label" for="details">Description</label>
@@ -511,7 +516,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Commented out here between March-June during Pedalpalooza season when these fields are required 
+                <!-- Commented out here between March-June during Pedalpalooza season when these fields are required
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -566,7 +571,7 @@
         </tr>
         {{/weeks}}
     </script>
-    
+
     <script id="aboutUs" type="text">
         <div>
         	<div class="secondaryHeader">About SHIFT</div>
@@ -587,7 +592,7 @@
                 <a href="http://www.canvashost.com/"> <image alt="Canvas Host" src="http://www.canvashost.com/images/canvashost-mobile.jpg" width="125" /img></a>
                 <br>
                 <h3>Donations</h3>
-                
+
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                     <input type="hidden" name="cmd" value="_s-xclick">
                     <input type="hidden" name="hosted_button_id" value="YJYFXDPLSCW8U">
@@ -600,7 +605,7 @@
                 <p>Portland, OR 97204</p>
                 <p>Our 501(c)3 sponsor, Umbrella, will handle the rest.</p>
             </div>
-            
+
         </div>
 	</script>
     <script id="email-suggestion-template" type="text/template">

@@ -31,6 +31,7 @@ class Event extends fActiveRecord {
             'webname' => $this->getWebname(),
             'image' => $this->getImagePath(),
             'audience' => $this->getAudience(),
+            'audiencelabel' => $this->getAudienceLabel(),
             //'printevent' => $this->getPrintevent(),
             'tinytitle' => $this->getTinytitle(),
             'printdescr' => $this->getPrintdescr(),
@@ -170,6 +171,23 @@ class Event extends fActiveRecord {
         $this->store();
 
         return $new_path;
+    }
+
+    private function getAudienceLabel() {
+        $old_label = $this->getAudience();
+        if ($old_label == null) {
+            return null;
+        }
+
+        if ($old_label === "A") {
+            return "21+ Only";
+        }
+        if ($old_label === "F") {
+            return "Family Friendly";
+        }
+
+        // no label needed for general (G)
+        return null;
     }
 }
 
