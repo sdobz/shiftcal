@@ -158,7 +158,7 @@ a.expandDetails {
 }
 
 .control-label {
-    color: gray;
+    color: #404040;
     font-weight: normal;
 }
 
@@ -306,7 +306,26 @@ a.more-events {
     border-radius: 3px;
 }
 
+/*
 .req-label::after {
     content: "*";
     color: red;
+}
+*/
+
+.optional-label::after {
+    content: " (optional)";
+    color: #707070;
+}
+
+.panel {
+    min-width: 320px;
+}
+
+.panel h2 {
+    font-size: 1.25em;
+}
+
+.input-help {
+    color: #707070;
 }
