@@ -14,7 +14,7 @@
     <script src="addevent.js"></script>
     <script src="datepicker.js"></script>
     <script src="main.js"></script>
-    <title>S H I F T to Bikes</title>
+    <title>Shift to Bikes</title>
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -50,7 +50,7 @@
         </div>
     </nav>
 
-    <div id="mustache-html" class="container"></div>
+    <main role="main" id="mustache-html" class="container"></main>
 
     <div class="modal fade" tabindex="-1" id="cancel-modal" role="dialog">
         <div class="modal-dialog modal-sm">
@@ -187,53 +187,54 @@
     <script id="view-events-template" type="text/template">
         {{#dates}}
         <div data-date="{{yyyymmdd}}" class="date{{#preview}} preview{{/preview}}">
-        <div class="secondaryHeader">{{date}}</div>
-            {{#events}}
-                <div class="event row {{#cancelled}}cancelled{{/cancelled}}" data-event-id="{{id}}">
-                    <div class="time col-xs-2">
-                        <h3 class="audience-{{audience}} area-{{area}}">{{displayTime}}</h3>
-                    </div>
-                    <a class="expandDetails" href="#" data-toggle="collapse" data-target="#detailsContainer{{caldaily_id}}">
-                        <div class="col-xs-10" >
-                            <div class="summary">
-                                <h3>
-                                    {{title}}
-                                    {{#cancelled}}<span class="cancelled-text"> - CANCELLED</span>{{/cancelled}}
-                                    {{#newsflash}}<span class="newsflash"> - {{newsflash}}</span>{{/newsflash}}
-                                </h3>
-                            </div>
+        <h2>{{date}}</h2>
+            <ul class="events-list">
+                {{#events}}
+                    <li class="event row {{#cancelled}}cancelled{{/cancelled}}" data-event-id="{{id}}">
+                        <div class="time col-xs-2">
+                            <h3 class="audience-{{audience}} area-{{area}}">{{displayTime}}</h3>
                         </div>
-                    </a>
-                    <div class="col-xs-2">
-                    </div>
-                    <div id="detailsContainer{{caldaily_id}}" {{^ expanded }}class="collapse"{{/ expanded }}>
-                        <div class="eventDetails  col-xs-10">
-                            <div class="mainDetails">
-                                <div class="eventImg">
-                                    {{# image}}
-                                        <img src="{{image}}" />
-                                    {{/ image}}
+                            <div class="col-xs-10" >
+                                <div class="summary">
+                                    <h3>
+                                        <button type="button" aria-expanded="false" class="expandDetails" data-toggle="collapse" data-target="#detailsContainer{{caldaily_id}}">
+                                        {{title}}
+                                        {{#cancelled}}<span class="cancelled-text"> - CANCELLED</span>{{/cancelled}}
+                                        {{#newsflash}}<span class="newsflash"> - {{newsflash}}</span>{{/newsflash}}
+                                        </button>
+                                    </h3>
                                 </div>
-                                <div>
-                                    {{#mapLink}}
+                            </div>
+                        <div class="col-xs-2">
+                        </div>
+                        <div id="detailsContainer{{caldaily_id}}" {{^ expanded }}class="collapse"{{/ expanded }}>
+                            <div class="eventDetails  col-xs-10">
+                                <div class="mainDetails">
+                                    <div class="eventImg">
+                                        {{# image}}
+                                            <img src="{{image}}" />
+                                        {{/ image}}
+                                    </div>
+                                    <div>
+                                        {{#mapLink}}
                                         <a href="{{mapLink}}" target="_blank">
                                         <img src="images/google-maps-icon.png" alt="Location" />
-                                    {{/mapLink}}
-                                    {{^mapLink}}
-                                    <p>
-                                    {{/mapLink}}
+                                        {{/mapLink}}
+                                        {{^mapLink}}
+                                        <p>
+                                        {{/mapLink}}
 
-                                        {{venue}}{{#address}}{{#venue}}, {{/venue}}{{address}}{{/address}}
+                                            {{venue}}{{#address}}{{#venue}}, {{/venue}}{{address}}{{/address}}
 
-                                    {{^mapLink}}
-                                    </p>
-                                    {{/mapLink}}
-                                    {{#mapLink}}
-                                    </a>
-                                    {{/mapLink}}
+                                        {{^mapLink}}
+                                        </p>
+                                        {{/mapLink}}
+                                        {{#mapLink}}
+                                        </a>
+                                        {{/mapLink}}
 
-                                    {{locdetails}}
-                                </div>
+                                        {{locdetails}}
+                                    </div>
 
                                 {{ #weburl }}
                                 <p><a href="{{weburl}}" target="_blank">
@@ -296,15 +297,15 @@
                                 {{/preview}}
                             </div>
                         </div>
-                    </div>
-                </div>
-            {{/events}}
+                    </li>
+                {{/events}}
+            </ul>
         </div>
         {{/dates}}
     </script>
 
     <script id="load-more-template" type="text/template">
-        <a id="load-more" class="more-events" href="#">Show additional events</a>
+        <button type="button" id="load-more" class="more-events">Show additional events</a>
     </script>
 
     <script id="show-all-template" type="text/template">
@@ -347,8 +348,14 @@
                                 <input type="text" class="form-control" name="title" id="title" value="{{title}}" required="true" />
                             </div>
 
+                            <!-- required only from March-June, Pedalpalooza season-->
                             <div class="form-group">
-                                <label class="control-label req-label" for="details">Description</label>
+                                <label class="control-label req-label" for="tinytitle">Tiny title (24 chars)</label>
+                                <input type="text" class="form-control" name="tinytitle" id="tinytitle" value="{{tinytitle}}" maxlength="24" required="true" />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label req-label" for="details">Details</label>
                                 <textarea class="form-control" name="details" id="details" required="true" aria-describedby="details-help">{{details}}</textarea>
                                 <p class="input-help" id="details-help">If there are fees, you <strong>must</strong> list them here. If you don't, people will assume the event is free.</p>
                             </div>
@@ -390,7 +397,7 @@
                         <div class="panel-body">
 
                             <div class="form-group">
-                                <label class="control-label req-label">Date</label>
+                                <label class="control-label req-label" for="datestring">Date</label>
                                 <!-- This is proof of concept; does not save currently! Also doesn't support recurring events. -->
                                 <input type="date" class="form-control" name="datestring" id="datestring" value="{{#datestring}}{{datestring}}{{/datestring}}{{^datestring}}2018-06-01{{/datestring}}" required="true" />
                             </div>
@@ -555,7 +562,7 @@
                     </div>
                 </div>
 
-                <!-- Commented out here between March-June during Pedalpalooza season when these fields are required -->
+                <!-- Commented out here between March-June during Pedalpalooza season when these fields are required
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -590,13 +597,14 @@
                         </div>
                     </div>
                 </div>
+                -->
             </div>
             <p>For tips on making your ride successful, we ask that you read the <a href="rideleadingcomic.html">Ride Leading Comic</a> at least once before submitting an event.</p>
             <div class="checkbox">
                 <input type="hidden" name="read_comic" value="0" />
                 <label class="control-label" for="read_comic">
                     <input type="checkbox" name="read_comic" id="read_comic" value="1" {{# readComic }}checked{{/ readComic }} />
-                    Yes, I have read the Ride Leading Comic
+                    I have read the Ride Leading Comic
                 </label>
             </div>
         </form>
