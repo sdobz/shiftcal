@@ -348,17 +348,12 @@
                                 <input type="text" class="form-control" name="title" id="title" value="{{title}}" required="true" />
                             </div>
 
-                            <!-- required only from March-June, Pedalpalooza season-->
-                            <div class="form-group">
-                                <label class="control-label req-label" for="tinytitle">Tiny title (24 chars)</label>
-                                <input type="text" class="form-control" name="tinytitle" id="tinytitle" value="{{tinytitle}}" maxlength="24" required="true" />
-                            </div>
-
                             <div class="form-group">
                                 <label class="control-label req-label" for="details">Details</label>
                                 <textarea class="form-control" name="details" id="details" required="true" aria-describedby="details-help">{{details}}</textarea>
                                 <p class="input-help" id="details-help">If there are fees, you <strong>must</strong> list them here. If you don't, people will assume the event is free.</p>
                             </div>
+
                             <div class="form-group">
                                 <label class="control-label req-label" for="audience">Audience</label>
                                 <select name="audience" class="form-control" id="audience">
