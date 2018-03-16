@@ -338,7 +338,7 @@
         <form id="event-entry">
             <input type="hidden" name="id" value="{{id}}" />
             <input type="hidden" name="secret" value="{{secret}}" />
-            <div class="panel-group" role="tablist" id="event-fields">
+            <div class="panel-group" id="event-fields">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h2>
@@ -430,23 +430,20 @@
                             </div>
                             </div>
 
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label class="control-label req-label" for="time">Time</label>
-                                    <select name="time" class="form-control" id="time">
-                                        {{# timeOptions }}
-                                        <option value="{{time}}" {{# isSelected }}selected{{/ isSelected }}>{{time}}</option>
-                                        {{/ timeOptions }}
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label class="control-label req-label" for="time">Time</label>
+                                <select name="time" class="form-control" id="time" aria-describedby="time-help">
+                                    {{# timeOptions }}
+                                    <option value="{{time}}" {{# isSelected }}selected{{/ isSelected }}>{{time}}</option>
+                                    {{/ timeOptions }}
+                                </select>
+                                <p class="input-help" id="time-help">If your event has multiple times (for example, a "meet time" and a "ride time"), put the first time here. Describe the later times in the time details field, below.</p>
                             </div>
 
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label class="control-label optional-label" for="timedetails">Time details</label>
-                                    <input type="text" class="form-control" name="timedetails" id="timedetails" value="{{timedetails}}" aria-describedby="timedetails-help" />
-                                    <p class="input-help" id="timedetails-help">More detail about your event's time, if needed. Try to keep it short. Example: "Meet at 5:00pm, ride at 5:30pm."</p>
-                                </div>
+                            <div class="form-group">
+                                <label class="control-label optional-label" for="timedetails">Time details</label>
+                                <input type="text" class="form-control" name="timedetails" id="timedetails" value="{{timedetails}}" aria-describedby="timedetails-help" />
+                                <p class="input-help" id="timedetails-help">More detail about your event's time, if needed. Try to keep it short. Example: "Meet at 5:00pm, ride at 5:30pm."</p>
                             </div>
 
                             <div class="form-group">
@@ -511,7 +508,8 @@
 
                             <div class="form-group">
                                 <label class="control-label req-label" for="email">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" value="{{email}}" required="true" />
+                                <input type="text" class="form-control" name="email" id="email" value="{{email}}" aria-describedby="email-help" required="true" />
+                                <p class="input-help" id="email-help">This must be a valid email address where we can reach you. A confirmation message will be mailed to this address.</p>
                                 <div id="email-suggestion"></div>
 
                                 <div>
@@ -565,6 +563,7 @@
 
                 <!-- Commented out here between March-June during Pedalpalooza season when these fields are required -->
 
+                <!--
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h2>
@@ -589,7 +588,7 @@
 
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="tinytitle">Print title (24 characterss)</label>
+                                <label class="control-label" for="tinytitle">Print title (24 characters)</label>
                                 <input type="text" class="form-control" name="tinytitle" id="tinytitle" value="{{tinytitle}}" maxlength="24" />
                             </div>
                             <div class="form-group">
@@ -603,6 +602,7 @@
                         </div>
                     </div>
                 </div>
+                -->
             </div>
             <p>For tips on making your ride successful, we ask that you read the <a href="rideleadingcomic.html">Ride Leading Comic</a> at least once before submitting an event.</p>
             <div class="checkbox">
