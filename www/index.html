@@ -210,6 +210,27 @@
                                     {{#newsflash}}<span class="newsflash"> - {{newsflash}}</span>{{/newsflash}}
                                     </button>
                                 </h3>
+                                <div>
+                                    {{#mapLink}}
+                                    <a href="{{mapLink}}" target="_blank">
+                                    <img src="images/google-maps-icon.png" alt="Location" />
+                                    {{/mapLink}}
+                                    {{^mapLink}}
+                                    <p>
+                                    {{/mapLink}}
+
+                                        {{venue}}{{#address}}{{#venue}}, {{/venue}}{{address}}{{/address}}
+
+                                    {{^mapLink}}
+                                    </p>
+                                    {{/mapLink}}
+                                    {{#mapLink}}
+                                    </a>
+                                    {{/mapLink}}
+
+                                    <p>{{locdetails}}</p>
+                                </div>
+                                <img src="images/profile.png" alt="Organizer" /> {{organizer}}
                             </div>
                         </div>
                         <div class="col-xs-2">
@@ -221,26 +242,6 @@
                                         {{# image}}
                                             <img src="{{image}}" />
                                         {{/ image}}
-                                    </div>
-                                    <div>
-                                        {{#mapLink}}
-                                        <a href="{{mapLink}}" target="_blank">
-                                        <img src="images/google-maps-icon.png" alt="Location" />
-                                        {{/mapLink}}
-                                        {{^mapLink}}
-                                        <p>
-                                        {{/mapLink}}
-
-                                            {{venue}}{{#address}}{{#venue}}, {{/venue}}{{address}}{{/address}}
-
-                                        {{^mapLink}}
-                                        </p>
-                                        {{/mapLink}}
-                                        {{#mapLink}}
-                                        </a>
-                                        {{/mapLink}}
-
-                                        {{locdetails}}
                                     </div>
 
                                 {{ #weburl }}
@@ -259,8 +260,6 @@
                                 <p>{{details}}</p>
 
                                 <p class="contactInfo">
-                                    <img src="images/profile.png" alt="Organizer" /> {{organizer}}
-
                                     {{#email}}
                                         <a href="mailto:{{email}}"><img src="images/email.png" alt="Email" /> {{email}}</a>
                                     {{/email}}
@@ -305,6 +304,7 @@
                             </div>
                         </div>
                     </li>
+                    <hr>
                 {{/events}}
             </ul>
         </div>

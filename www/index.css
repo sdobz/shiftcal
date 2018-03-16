@@ -107,9 +107,17 @@ h2 {
 .event.row {
     list-style-type:none;
     font-size:1em;
-    color: #37b;
     padding: 10px 0;
     margin-right:0;
+}
+
+.events-list hr {
+    width: 95%;
+    border: 1px solid grey;
+}
+
+.events-list li:last-of-type + hr {
+    display: none;
 }
 
 .event.row .summary h3 button {
@@ -169,6 +177,11 @@ h3 {
     border-radius: 2px;
     display: inline-block;
     width: auto;
+}
+
+.summary {
+    padding-left: 10px;
+    border-left: 1px solid grey;
 }
 
 .summary p {
