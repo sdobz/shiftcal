@@ -46,6 +46,10 @@ nav.navbar {
     font-weight: bold;
 }
 
+main a, button {
+    color: #0066BB;
+}
+
 .scrollToTop {
     width:100px;
     height:70px;
