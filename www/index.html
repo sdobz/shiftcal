@@ -291,7 +291,7 @@
                                      <hr>
                                      The following will only show on the print calendar.
                                      <br>
-                                       tinytitle: {{tinytitle}}
+                                       print title: {{tinytitle}}
                                      <br>
                                        print description: {{printdescr}}
                                 {{/preview}}
@@ -406,10 +406,6 @@
 
                             <div class="form-group">
                                 <label class="control-label req-label" for="datestring">Date</label>
-                                <!-- This is proof of concept; does not save currently! Also doesn't support recurring events. -->
-                                <input type="date" class="form-control" name="datestring" id="datestring" value="{{#datestring}}{{datestring}}{{/datestring}}{{^datestring}}2018-06-01{{/datestring}}" required="true" />
-                            </div>
-                            <!--
                             <div id="date-select-container" class="date-select-container-style form-group">
                                 <table class="day-of-week">
                                     <tr>
@@ -432,20 +428,16 @@
                                 Selected dates:
                                 <div id="date-selected"></div>
                             </div>
-                            -->
+                            </div>
 
                             <div class="row">
                                 <div class="form-group col-xs-12 col-sm-6">
                                     <label class="control-label req-label" for="time">Time</label>
-                                    <!-- defaults to 12 noon -->
-                                    <input type="time" class="form-control" name="time" id="time" value="{{#time}}{{time}}{{/time}}{{^time}}12:00{{/time}}" required="true" />
-                                    <!--
                                     <select name="time" class="form-control" id="time">
                                         {{# timeOptions }}
                                         <option value="{{time}}" {{# isSelected }}selected{{/ isSelected }}>{{time}}</option>
                                         {{/ timeOptions }}
                                     </select>
-                                    -->
                                 </div>
                             </div>
 
@@ -492,7 +484,7 @@
                             <div class="form-group">
                                 <label class="control-label optional-label" for="length">Length of route</label>
                                 <select name="length" class="form-control" id="length">
-                                    <option value="--" {{# isSelected }}selected{{/ isSelected }}>--</option>
+                                    <option value="" {{# isSelected }}selected{{/ isSelected }}>--</option>
                                     {{# lengthOptions }}
                                     <option value="{{range}}" {{# isSelected }}selected{{/ isSelected }}>{{range}} miles</option>
                                     {{/ lengthOptions }}
@@ -580,7 +572,7 @@
                     <div class="panel-heading">
                         <h2>
                             <a role="button" data-toggle="collapse" href="#print-fields" aria-expanded="true">
-                                Just for the print calendar
+                                Print Calendar Info
                                 <svg class="icon" role="img" aria-hidden="true">
                                     <use xlink:href="#icon-arrow-down" />
                                 </svg>
@@ -593,7 +585,7 @@
                             <div class="checkbox">
                                 <input type="hidden" name="printevent" value="0" />
                                 <label class="control-label" for="printevent">
-                                    <input type="checkbox" name="printevent" id="printevent" aria-describedby="printevent-help" value="1" {{# printevent }}checked{{/ printevent }}{{^ printevent }}checked{{/ printevent }} />
+                                    <input type="checkbox" name="printevent" id="printevent" aria-describedby="printevent-help" value="1" {{# printevent }}checked{{/ printevent }} />
                                     Include in the print calendar
                                 </label>
                                 <p class="input-help" id="printevent-help">You must submit at least 3 weeks in advance. Inclusion not guaranteed.</p>
