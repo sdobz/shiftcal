@@ -313,6 +313,13 @@
     </script>
 
     <script id="mustache-edit" type="text/template">
+
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol id="icon-arrow-down" viewBox="0 0 24 24">
+              <polyline fill="none" stroke-width="4" points="0 0 10.01 10.01 0 20.02" transform="rotate(90 8 14)"/>
+            </symbol>
+        </svg>
+
         <h1>Add Event</h1>
         <div id="edit-header" >
                 <button id="preview-edit-button" type="button" class="btn btn-addEvent">Edit</button>
@@ -337,6 +344,9 @@
                         <h2>
                             <a role="button" data-toggle="collapse" href="#general-fields" aria-expanded="true">
                                 Event Description
+                                <svg class="icon" role="img" aria-hidden="true">
+                                    <use xlink:href="#icon-arrow-down" />
+                                </svg>
                             </a>
                         </h2>
                     </div>
@@ -385,6 +395,9 @@
                         <h2>
                             <a role="button" data-toggle="collapse" href="#timeandlocation-fields" aria-expanded="true">
                                 Time and Location
+                                <svg class="icon" role="img" aria-hidden="true">
+                                    <use xlink:href="#icon-arrow-down" />
+                                </svg>
                             </a>
                         </h2>
                     </div>
@@ -450,7 +463,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label req-label" for="address">Address</label>
-                                <input type="text" class="form-control" name="address" id="address" value="{{address}}" required="true" />
+                                <input type="text" class="form-control" name="address" id="address" value="{{address}}" required="true" describedby="address-help" />
+                                <p class="input-help" id="address-help">Provide either a street address or cross streets. This should be mappable by online maps such as Google Maps. If you haven't chosen a location yet, enter "TBA" for now.</p>
                             </div>
                             <div class="form-group">
                                 <label class="control-label optional-label" for="locdetails">Location details</label>
@@ -493,6 +507,9 @@
                         <h2>
                             <a role="button" data-toggle="collapse" href="#contact-fields" aria-expanded="true">
                                 Contact Info
+                                <svg class="icon" role="img" aria-hidden="true">
+                                    <use xlink:href="#icon-arrow-down" />
+                                </svg>
                             </a>
                         </h2>
                     </div>
@@ -525,18 +542,18 @@
                             <div>Website for additional details</div>
                             <div class="row">
                                 <div class="form-group col-xs-12 col-sm-6">
-                                    <label class="control-label" for="webname">Website Name</label>
+                                    <label class="control-label optional-label" for="webname">Website Name</label>
                                     <input type="text" class="form-control" name="webname" id="webname" value="{{webname}}" />
                                 </div>
                                 <div class="form-group col-xs-12 col-sm-6">
-                                    <label class="control-label" for="weburl">URL</label>
+                                    <label class="control-label optional-label" for="weburl">URL</label>
                                     <input type="text" class="form-control" name="weburl" id="weburl" value="{{weburl}}" />
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label" for="phone">Phone</label>
-                                <input type="text" class="form-control" name="phone" id="phone" value="{{phone}}" />
+                                <label class="control-label optional-label" for="phone">Phone</label>
+                                <input type="text" class="form-control optional-label" name="phone" id="phone" value="{{phone}}" />
 
                                 <label class="control-label" for="hidephone">
                                     <input type="checkbox" name="hidephone" id="hidephone" value="1" {{# hidephone }}checked{{/ hidephone }} />
@@ -545,7 +562,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label" for="contact">Additional Contact Info</label>
+                                <label class="control-label optional-label" for="contact">Additional Contact Info</label>
                                 <input type="text" class="form-control" name="contact" id="contact" value="{{contact}}" />
 
                                 <label class="control-label" for="hidecontact">
@@ -564,29 +581,34 @@
                         <h2>
                             <a role="button" data-toggle="collapse" href="#print-fields" aria-expanded="true">
                                 Just for the print calendar
+                                <svg class="icon" role="img" aria-hidden="true">
+                                    <use xlink:href="#icon-arrow-down" />
+                                </svg>
                             </a>
                         </h2>
                     </div>
                     <div id="print-fields" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            <p class="input-help">The printed calendar has limited space for each event, so we must limit the amount of info. Be as brief as reasonably possible!</p>
+                            <p class="input-help">The printed calendar has limited space for each event, so we must limit the amount of info for some fields. Be as brief as reasonably possible!</p>
                             <div class="checkbox">
                                 <input type="hidden" name="printevent" value="0" />
                                 <label class="control-label" for="printevent">
-                                    <input type="checkbox" name="printevent" id="printevent" value="1" {{# printevent }}checked{{/ printevent }}{{^ printevent }}checked{{/ printevent }} />
-                                    Include in the print calendar? You must submit at least 3 weeks in advance. Inclusion not guaranteed.
+                                    <input type="checkbox" name="printevent" id="printevent" aria-describedby="printevent-help" value="1" {{# printevent }}checked{{/ printevent }}{{^ printevent }}checked{{/ printevent }} />
+                                    Include in the print calendar
                                 </label>
+                                <p class="input-help" id="printevent-help">You must submit at least 3 weeks in advance. Inclusion not guaranteed.</p>
+
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="tinytitle">Tiny title (24 chars)</label>
+                                <label class="control-label" for="tinytitle">Print title (24 characterss)</label>
                                 <input type="text" class="form-control" name="tinytitle" id="tinytitle" value="{{tinytitle}}" maxlength="24" />
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="printdescr">Print description (120 chars)</label>
+                                <label class="control-label" for="printdescr">Print description (120 characters)</label>
                                 <textarea class="form-control" name="printdescr" id="printdescr" maxlength="120" >{{printdescr}}</textarea>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="printcontact">Print contact info (255 chars)</label>
+                                <label class="control-label" for="printcontact">Print contact info (255 characters)</label>
                                 <input type="text" class="form-control" name="printcontact" id="printcontact" value="{{printcontact}}" maxlength="255" />
                             </div>
                         </div>

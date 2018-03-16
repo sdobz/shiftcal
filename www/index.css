@@ -361,3 +361,19 @@ button.more-events {
 .input-help {
     color: #707070;
 }
+
+.panel-heading a .icon {
+    height: 20px;
+    width: 20px;
+    padding: 4px;
+    float: left;
+}
+
+.panel-heading a svg use {
+    stroke: currentColor;
+}
+
+.panel-heading a[aria-expanded="false"] .icon {
+    transform: rotate(-90deg);
+}
+
