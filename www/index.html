@@ -209,7 +209,7 @@
                 {{#events}}
                     <li class="event row {{#cancelled}}cancelled{{/cancelled}}" data-event-id="{{id}}">
                         <div class="time col-xs-2">
-                            <p><time>{{displayTime}}<time></p>
+                            <p><time>{{displayTime}}</time></p>
                             {{#audiencelabel}}
                                 <span class="audience-{{audience}}">{{audiencelabel}}</span>
                             {{/audiencelabel}}
@@ -314,7 +314,6 @@
                             </div>
                         </div>
                     </li>
-                    <hr>
                 {{/events}}
             </ul>
         </div>

@@ -118,15 +118,6 @@ h2 {
     margin-right:0;
 }
 
-.events-list hr {
-    width: 95%;
-    border: 1px solid grey;
-}
-
-.events-list li:last-of-type + hr {
-    display: none;
-}
-
 .event.row .summary h3 button {
     background: none;
     border: none;
