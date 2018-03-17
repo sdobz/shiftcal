@@ -65,6 +65,7 @@ svg.icon {
   height: 16px;
   fill: currentColor;
   stroke: currentColor;
+  polyline: currentColor;
 }
 
 .preview .eventlink {
@@ -124,6 +125,10 @@ h2 {
     width: 100%;
     text-align: left;
     padding: 0;
+}
+
+.event.row .summary button[aria-expanded="false"] .icon {
+    transform: rotate(-90deg);
 }
 
 .event.cancelled div {
