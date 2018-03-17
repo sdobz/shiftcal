@@ -60,6 +60,13 @@ nav.navbar {
     background-position: center;
 }
 
+svg.icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
 .preview .eventlink {
    visibility: hidden;
 }
