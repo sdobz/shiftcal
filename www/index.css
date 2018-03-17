@@ -380,3 +380,7 @@ button.more-events {
     transform: rotate(-90deg);
 }
 
+.comic-thumbnail {
+    float: left;
+    margin-right: 10px
+}
