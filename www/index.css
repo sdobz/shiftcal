@@ -23,6 +23,14 @@ nav.navbar {
     background-image: none;
 }
 
+.navbar-default .navbar-brand {
+    color: #663300;
+}
+
+.navbar-default svg.logo {
+    fill: currentColor;
+}
+
 .navbar-default .navbar-toggle {
     border: 1px solid #630;
 }
