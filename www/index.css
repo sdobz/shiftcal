@@ -23,6 +23,14 @@ nav.navbar {
     background-image: none;
 }
 
+.navbar-default .navbar-brand {
+    color: #663300;
+}
+
+.navbar-default svg.logo {
+    fill: currentColor;
+}
+
 .navbar-default .navbar-toggle {
     border: 1px solid #630;
 }
@@ -44,6 +52,10 @@ nav.navbar {
     display:inline-block;
     color: #630 !important;
     font-weight: bold;
+}
+
+main a, button {
+    color: #0066BB;
 }
 
 .scrollToTop {
@@ -95,7 +107,7 @@ h1 {
     font-weight: bold;
 }
 
-h2 {
+.date h2 {
     background-color: #fd6;
     color: #630;
     border: 1px solid transparent;
@@ -237,7 +249,7 @@ a.expandDetails {
 }
 
 .control-label {
-    color: gray;
+    color: #404040;
     font-weight: normal;
 }
 
@@ -378,7 +390,39 @@ button.more-events {
     border-radius: 3px;
 }
 
-.req-label::after {
-    content: "*";
-    color: red;
+.optional-label::after {
+    content: " (optional)";
+    color: #707070;
+}
+
+.panel {
+    min-width: 320px;
+}
+
+.panel h2 {
+    font-size: 1.25em;
+}
+
+.input-help {
+    color: #707070;
+}
+
+.panel-heading a .icon {
+    height: 20px;
+    width: 20px;
+    padding: 4px;
+    float: left;
+}
+
+.panel-heading a svg use {
+    stroke: currentColor;
+}
+
+.panel-heading a[aria-expanded="false"] .icon {
+    transform: rotate(-90deg);
+}
+
+.comic-thumbnail {
+    float: left;
+    margin-right: 10px
 }

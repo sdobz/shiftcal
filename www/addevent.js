@@ -133,7 +133,7 @@
                     var msg = isNew ?
                         'Thank you! A link with a URL to edit and manage the ' +
                             'event has been emailed to ' + postVars.email +
-                            '. You must click this link for the event to become visible.' :
+                            '. You must click this link for the event to become visible.  If you don\'t receive that email within 20 minutes, please contact bikecal@shift2bikes.org for help.' :
                         'Your event has been updated!';
 
                     if (returnVal.secret) {
