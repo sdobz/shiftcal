@@ -308,7 +308,7 @@
                                      <hr>
                                      The following will only show on the print calendar.
                                      <br>
-                                       tinytitle: {{tinytitle}}
+                                       print title: {{tinytitle}}
                                      <br>
                                        print description: {{printdescr}}
                                 {{/preview}}
@@ -330,8 +330,15 @@
     </script>
 
     <script id="mustache-edit" type="text/template">
-        <div id="edit-header" >
 
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol id="icon-arrow-down" viewBox="0 0 24 24">
+              <polyline fill="none" stroke-width="4" points="0 0 10.01 10.01 0 20.02" transform="rotate(90 8 14)"/>
+            </symbol>
+        </svg>
+
+        <h1>Add Event</h1>
+        <div id="edit-header" >
                 <button id="preview-edit-button" type="button" class="btn btn-addEvent">Edit</button>
                 <button id="preview-button" type="button" class="btn btn-addEvent">Preview</button>
                 <button id="save-button" type="button" class="btn btn-addEvent">Post</button>
@@ -348,50 +355,74 @@
         <form id="event-entry">
             <input type="hidden" name="id" value="{{id}}" />
             <input type="hidden" name="secret" value="{{secret}}" />
-            <div class="panel-group" role="tablist" id="event-fields">
+            <div class="panel-group" id="event-fields">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a role="button" data-toggle="collapse" data-parent="#event-fields" href="#general-fields">
-                            Required
-                        </a>
+                        <h2>
+                            <a role="button" data-toggle="collapse" href="#general-fields" aria-expanded="true">
+                                Event Description
+                                <svg class="icon" role="img" aria-hidden="true">
+                                    <use xlink:href="#icon-arrow-down" />
+                                </svg>
+                            </a>
+                        </h2>
                     </div>
 
                     <div id="general-fields" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <div class="form-group">
-                                <label class="control-label req-label" for="title">Event title</label>
+                                <label class="control-label req-label" for="title">Event name</label>
                                 <input type="text" class="form-control" name="title" id="title" value="{{title}}" required="true" />
                             </div>
-                            <!-- required only from March-June, Pedalpalooza season-->
+
                             <div class="form-group">
-                                <label class="control-label req-label" for="tinytitle">Tiny title (24 chars)</label>
-                                <input type="text" class="form-control" name="tinytitle" id="tinytitle" value="{{tinytitle}}" maxlength="24" required="true" />
+                                <label class="control-label req-label" for="details">Details</label>
+                                <textarea class="form-control" name="details" id="details" required="true" aria-describedby="details-help">{{details}}</textarea>
+                                <p class="input-help" id="details-help">If there are fees, you <strong>must</strong> list them here. If you don't, people will assume the event is free.</p>
                             </div>
+
                             <div class="form-group">
-                                <label class="control-label req-label" for="details">Description</label>
-                                <textarea class="form-control" name="details" id="details" required="true" >{{details}}</textarea>
-                            </div>
-                            <!-- required only from March-June, Pedalpalooza season-->
-                            <div class="form-group">
-                                <label class="control-label req-label" for="printdescr">Print description (120 chars)</label>
-                                <textarea class="form-control" name="printdescr" id="printdescr" maxlength="120" required="true" >{{printdescr}}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label req-label" for="venue">Venue name</label>
-                                <input type="text" class="form-control" name="venue" id="venue" value="{{venue}}" required="true" />
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label req-label" for="address">Address</label>
-                                <input type="text" class="form-control" name="address" id="address" value="{{address}}" required="true" />
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="length">Length of route</label>
-                                <select name="length" class="form-control" id="length">
-                                    {{# lengthOptions }}
-                                    <option value="{{range}}" {{# isSelected }}selected{{/ isSelected }}>{{range}} miles</option>
-                                    {{/ lengthOptions }}
+                                <label class="control-label req-label" for="audience">Audience</label>
+                                <select name="audience" class="form-control" id="audience">
+                                    {{# audienceOptions }}
+                                    <option value="{{code}}" {{# isSelected }}selected{{/ isSelected }}>{{text}}</option>
+                                    {{/ audienceOptions }}
                                 </select>
                             </div>
+
+                            {{# image}}
+                            <img src="{{image}}" />
+                            {{/ image}}
+                            <div class="form-group">
+                                {{# image}}
+                                <label class="control-label optional-label" for="image">Update Image</label>
+                                {{/ image}}
+                                {{^ image}}
+                                <label class="control-label optional-label" for="image">Image</label>
+                                {{/ image}}
+                                <input type="file" class="form-control" name="image" id="image" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2>
+                            <a role="button" data-toggle="collapse" href="#timeandlocation-fields" aria-expanded="true">
+                                Time and Location
+                                <svg class="icon" role="img" aria-hidden="true">
+                                    <use xlink:href="#icon-arrow-down" />
+                                </svg>
+                            </a>
+                        </h2>
+                    </div>
+                    <div id="timeandlocation-fields" class="panel-collapse collapse in">
+                        <div class="panel-body">
+
+                            <div class="form-group">
+                                <label class="control-label req-label" for="datestring">Date</label>
                             <div id="date-select-container" class="date-select-container-style form-group">
                                 <table class="day-of-week">
                                     <tr>
@@ -414,51 +445,39 @@
                                 Selected dates:
                                 <div id="date-selected"></div>
                             </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="control-label req-label" for="time">Time</label>
-                                <select name="time" class="form-control" id="time">
+                                <select name="time" class="form-control" id="time" aria-describedby="time-help">
                                     {{# timeOptions }}
                                     <option value="{{time}}" {{# isSelected }}selected{{/ isSelected }}>{{time}}</option>
                                     {{/ timeOptions }}
                                 </select>
+                                <p class="input-help" id="time-help">If your event has multiple times (for example, a "meet time" and a "ride time"), put the first time here. Describe the later times in the time details field, below.</p>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label req-label" for="organizer">Organizer</label>
-                                <input type="text" class="form-control" name="organizer" id="organizer" value="{{organizer}}" required="true" />
+                                <label class="control-label optional-label" for="timedetails">Time details</label>
+                                <input type="text" class="form-control" name="timedetails" id="timedetails" value="{{timedetails}}" aria-describedby="timedetails-help" />
+                                <p class="input-help" id="timedetails-help">More detail about your event's time, if needed. Try to keep it short. Example: "Meet at 5:00pm, ride at 5:30pm."</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label req-label" for="venue">Location name</label>
+                                <input type="text" class="form-control" name="venue" id="venue" value="{{venue}}" required="true" />
                             </div>
                             <div class="form-group">
-                                <label class="control-label req-label" for="email">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" value="{{email}}" required="true" />
-                                <div id="email-suggestion"></div>
+                                <label class="control-label req-label" for="address">Address</label>
+                                <input type="text" class="form-control" name="address" id="address" value="{{address}}" required="true" describedby="address-help" />
+                                <p class="input-help" id="address-help">Provide either a street address or cross streets. This should be mappable by online maps such as Google Maps. If you haven't chosen a location yet, enter "TBA" for now.</p>
                             </div>
-                            <div>
-                                <label class="control-label" for="hideemail">
-                                    <input type="checkbox" name="hideemail" id="hideemail" value="1" {{# hideemail }}checked{{/ hideemail }} />
-                                    Don't publish my email address online
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="control-label" for="email-me">
-                                    <input type="checkbox" name="email-me" id="email-me" value="1" {{# emailMe }}checked{{/ emailMe }} />
-                                    Send forum messages to this email address
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <a role="button" data-toggle="collapse" data-parent="#event-fields" href="#optional-fields">
-                            Optional details
-                        </a>
-                    </div>
-                    <div id="optional-fields" class="panel-collapse collapse">
-                        <div class="panel-body">
                             <div class="form-group">
-                                <label class="control-label" for="timedetails">Time details</label>
-                                <input type="text" class="form-control" name="timedetails" id="timedetails" value="{{timedetails}}" />
+                                <label class="control-label optional-label" for="locdetails">Location details</label>
+                                <input type="text" class="form-control" name="locdetails" id="locdetails" value="{{locdetails}}" aria-describedby="locdetails-help" />
+                                <p class="input-help" id="locdetails-help">More detail about your event's location, if needed. Example: "Meet near the clock tower."</p>
                             </div>
+
                             <div class="form-group">
                                 <label class="control-label" for="area">Area</label>
                                 <select name="area" class="form-control" id="area">
@@ -467,102 +486,142 @@
                                     {{/ areaOptions }}
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label" for="locdetails">Location details</label>
-                                <input type="text" class="form-control" name="locdetails" id="locdetails" value="{{locdetails}}" />
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="eventduration">Event duration (minutes)</label>
-                                <input type="text" class="form-control" name="eventduration" id="eventduration" value="{{eventduration}}" />
-                            </div>
-
-                            <div>Website for additional details</div>
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label class="control-label" for="webname">Name</label>
-                                    <input type="text" class="form-control" name="webname" id="webname" value="{{webname}}" />
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label class="control-label" for="weburl">URL</label>
-                                    <input type="text" class="form-control" name="weburl" id="weburl" value="{{weburl}}" />
-                                </div>
-                            </div>
 
                             <div class="form-group">
-                                <label class="control-label" for="phone">Phone</label>
-                                <input type="text" class="form-control" name="phone" id="phone" value="{{phone}}" />
-                            </div>
-                            <label class="control-label" for="hidephone">
-                                <input type="checkbox" name="hidephone" id="hidephone" value="1" {{# hidephone }}checked{{/ hidephone }} />
-                                Don't publish my phone number online
-                            </label>
-
-                            <div class="form-group">
-                                <label class="control-label" for="contact">Additional Contact Info</label>
-                                <input type="text" class="form-control" name="contact" id="contact" value="{{contact}}" />
-                            </div>
-                            <label class="control-label" for="hidecontact">
-                                <input type="checkbox" name="hidecontact" id="hidecontact" value="1" {{# hidecontact }}checked{{/ hidecontact }} />
-                                Don't publish additional contact information online
-                            </label>
-
-                            {{# image}}
-                            <img src="{{image}}" />
-                            {{/ image}}
-                            <div class="form-group">
-                                {{# image}}
-                                <label class="control-label" for="image">Update Image</label>
-                                {{/ image}}
-                                {{^ image}}
-                                <label class="control-label" for="image">Image</label>
-                                {{/ image}}
-                                <input type="file" class="form-control" name="image" id="image" />
+                                <label class="control-label optional-label" for="eventduration">Event duration, in minutes</label>
+                                <input type="text" class="form-control" name="eventduration" id="eventduration" value="{{eventduration}}" aria-describedby="eventduration-help" />
+                                <p class="input-help" id="eventduration-help">Leave this blank unless you're confident about when your event will end.</p>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="audience">Audience</label>
-                                <select name="audience" class="form-control" id="audience">
-                                    {{# audienceOptions }}
-                                    <option value="{{code}}" {{# isSelected }}selected{{/ isSelected }}>{{text}}</option>
-                                    {{/ audienceOptions }}
+                                <label class="control-label optional-label" for="length">Length of route</label>
+                                <select name="length" class="form-control" id="length">
+                                    <option value="--" {{# isSelected }}selected{{/ isSelected }}>--</option>
+                                    {{# lengthOptions }}
+                                    <option value="{{range}}" {{# isSelected }}selected{{/ isSelected }}>{{range}} miles</option>
+                                    {{/ lengthOptions }}
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Commented out here between March-June during Pedalpalooza season when these fields are required
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a role="button" data-toggle="collapse" data-parent="#event-fields" href="#print-fields">
-                            Print calendar
-                        </a>
+                        <h2>
+                            <a role="button" data-toggle="collapse" href="#contact-fields" aria-expanded="true">
+                                Contact Info
+                                <svg class="icon" role="img" aria-hidden="true">
+                                    <use xlink:href="#icon-arrow-down" />
+                                </svg>
+                            </a>
+                        </h2>
                     </div>
-                    <div id="print-fields" class="panel-collapse collapse">
+                    <div id="contact-fields" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            <div class="checkbox">
-                                <input type="hidden" name="printevent" value="0" />
-                                <label class="control-label" for="printevent">
-                                    <input type="checkbox" name="printevent" id="printevent" value="1" {{# printevent }}checked{{/ printevent }} />
-                                    Include in the print calendar? You must submit at least 3 weeks in advance. Inclusion not guaranteed.
+                            <div class="form-group">
+                                <label class="control-label req-label" for="organizer">Organizer</label>
+                                <input type="text" class="form-control" name="organizer" id="organizer" value="{{organizer}}" required="true" />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label req-label" for="email">Email</label>
+                                <input type="text" class="form-control" name="email" id="email" value="{{email}}" aria-describedby="email-help" required="true" />
+                                <p class="input-help" id="email-help">This must be a valid email address where we can reach you. A confirmation message will be mailed to this address.</p>
+                                <div id="email-suggestion"></div>
+
+                                <div>
+                                    <label class="control-label" for="hideemail">
+                                        <input type="checkbox" name="hideemail" id="hideemail" value="1" {{# hideemail }}checked{{/ hideemail }} />
+                                        Don't publish my email address online
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label class="control-label" for="email-me">
+                                        <input type="checkbox" name="email-me" id="email-me" value="1" {{# emailMe }}checked{{/ emailMe }} />
+                                        Send forum messages to this email address
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>Website for additional details</div>
+                            <div class="row">
+                                <div class="form-group col-xs-12 col-sm-6">
+                                    <label class="control-label optional-label" for="webname">Website Name</label>
+                                    <input type="text" class="form-control" name="webname" id="webname" value="{{webname}}" />
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-6">
+                                    <label class="control-label optional-label" for="weburl">URL</label>
+                                    <input type="text" class="form-control" name="weburl" id="weburl" value="{{weburl}}" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label optional-label" for="phone">Phone</label>
+                                <input type="text" class="form-control optional-label" name="phone" id="phone" value="{{phone}}" />
+
+                                <label class="control-label" for="hidephone">
+                                    <input type="checkbox" name="hidephone" id="hidephone" value="1" {{# hidephone }}checked{{/ hidephone }} />
+                                    Don't publish my phone number online
                                 </label>
                             </div>
+
                             <div class="form-group">
-                                <label class="control-label" for="tinytitle">Tiny title (24 chars)</label>
-                                <input type="text" class="form-control" name="tinytitle" id="tinytitle" value="{{tinytitle}}" maxlength="24" />
+                                <label class="control-label optional-label" for="contact">Additional Contact Info</label>
+                                <input type="text" class="form-control" name="contact" id="contact" value="{{contact}}" />
+
+                                <label class="control-label" for="hidecontact">
+                                    <input type="checkbox" name="hidecontact" id="hidecontact" value="1" {{# hidecontact }}checked{{/ hidecontact }} />
+                                    Don't publish additional contact information online
+                                </label>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label" for="printdescr">Print description (120 chars)</label>
-                                <textarea class="form-control" name="printdescr" id="printdescr" maxlength="120" >{{printdescr}}</textarea>
-                            </div>-->
-                            <!--div class="form-group">
-                                <label class="control-label" for="printcontact">Print contact info</label>
-                                <input type="text" class="form-control" name="printcontact" id="printcontact" value="{{printcontact}}" maxlength="255" />
-                            </div--><!--
                         </div>
                     </div>
                 </div>
-            </div>-->
-            <p>For tips on making your ride successful, we ask that you read the <a href="rideleadingcomic.html">Ride Leading Comic</a> at least once before submitting an event</p>
+
+                <!-- Commented out here between March-June during Pedalpalooza season when these fields are required -->
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2>
+                            <a role="button" data-toggle="collapse" href="#print-fields" aria-expanded="true">
+                                Print Calendar Info
+                                <svg class="icon" role="img" aria-hidden="true">
+                                    <use xlink:href="#icon-arrow-down" />
+                                </svg>
+                            </a>
+                        </h2>
+                    </div>
+                    <div id="print-fields" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <p class="input-help">The printed calendar has limited space for each event, so we must limit the amount of info for some fields. Be as brief as reasonably possible!</p>
+                            <div class="checkbox">
+                                <input type="hidden" name="printevent" value="0" />
+                                <label class="control-label" for="printevent">
+                                    <input type="checkbox" name="printevent" id="printevent" aria-describedby="printevent-help" value="1" {{# printevent }}checked{{/ printevent }} />
+                                    Include in the print calendar
+                                </label>
+                                <p class="input-help" id="printevent-help">You must submit at least 3 weeks in advance. Inclusion not guaranteed.</p>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="tinytitle">Print title (24 characters)</label>
+                                <input type="text" class="form-control" name="tinytitle" id="tinytitle" value="{{tinytitle}}" maxlength="24" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="printdescr">Print description (120 characters)</label>
+                                <textarea class="form-control" name="printdescr" id="printdescr" maxlength="120" >{{printdescr}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="printcontact">Print contact info (255 characters)</label>
+                                <input type="text" class="form-control" name="printcontact" id="printcontact" value="{{printcontact}}" maxlength="255" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <img src="images/ride-leading-comic-thumbnail.png" class="comic-thumbnail" alt="">
+            <p>For tips on making your ride successful, we ask that you read the <a href="rideleadingcomic.html">Ride Leading Comic</a> at least once before submitting an event.</p>
             <div class="checkbox">
                 <input type="hidden" name="read_comic" value="0" />
                 <label class="control-label" for="read_comic">
