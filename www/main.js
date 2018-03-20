@@ -92,7 +92,7 @@ $(document).ready( function() {
 
         container.empty()
              .append($('#scrollToTop').html())
-             .append($('#legend-template').html());
+             .append($('#ride-list-heading').html());
 
         getEventHTML({
             startdate: startDate,
@@ -124,8 +124,7 @@ $(document).ready( function() {
         curPage = "viewEvent" + id;
         container.empty()
             .append($('#show-all-template').html())
-            .append($('#scrollToTop').html())
-            .append($('#legend-template').html());
+            .append($('#scrollToTop').html());
 
         getEventHTML({id:id}, function (eventHTML) {
             if (curPage !== "viewEvent" + id) {
@@ -150,14 +149,14 @@ $(document).ready( function() {
         container.empty()
              .append($('#pedalpalooza-header').html())
              .append($('#scrollToTop').html())
-             .append($('#legend-template').html());
+             .append($('#ride-list-heading').html());
         getEventHTML({
             startdate: startDate,
             enddate: endDate
         }, function (eventHTML) {
             if (curPage !== "viewPedalpalooza") {
                 return;
-            } 
+            }
              container.append(eventHTML);
              checkAnchors();
         });

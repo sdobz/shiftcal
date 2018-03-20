@@ -19,6 +19,20 @@
 <body>
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="icon-location" viewBox="0 0 80 80">
+          <path fill-rule="evenodd" d="M21.2223414,40.1091727 C19.1768831,36.7198628 18,32.7473693 18,28.5 C18,16.0735931 28.0735931,6 40.5,6 C52.9264069,6 63,16.0735931 63,28.5 C63,32.6286702 61.8879773,36.4976135 59.947107,39.823655 L40.5,74 L21.2223414,40.1091727 Z M40.5,38 C45.1944204,38 49,34.1944204 49,29.5 C49,24.8055796 45.1944204,21 40.5,21 C35.8055796,21 32,24.8055796 32,29.5 C32,34.1944204 35.8055796,38 40.5,38 Z"/>
+        </symbol>
+
+        <symbol id="icon-organizer" viewBox="0 0 80 80">
+          <path fill-rule="evenodd" d="M52.9056214,38.2017711 C55.8537899,42.1877258 58.491916,46.1204688 60.8199997,50 C65.3379147,57.528678 67.9927053,65.4335097 68.7843714,73.7144951 C68.942054,75.3638318 67.7328248,76.8287066 66.0834876,76.9863841 C65.9885912,76.9954562 65.8933164,77 65.7979873,77 L16.0495024,76.9999956 C14.3926506,76.9999956 13.0495068,75.6568518 13.0495068,74 C13.0495068,73.9434873 13.0511037,73.8869859 13.0542955,73.8305635 C13.4917633,66.097245 16.1569979,58.1537239 21.0499992,50 C23.3821111,46.1137562 25.9050237,42.3147942 28.6187369,38.6031141 C31.9408037,41.060291 36.0507357,42.5131458 40.5,42.5131458 C45.1863826,42.5131458 49.4963003,40.9013082 52.9056188,38.2017676 Z M40.5,40 C30.8350169,40 23,32.1649831 23,22.5 C23,12.8350169 30.8350169,5 40.5,5 C50.1649831,5 58,12.8350169 58,22.5 C58,32.1649831 50.1649831,40 40.5,40 Z"/>
+        </symbol>
+
+        <symbol id="icon-arrow-down" viewBox="0 0 24 24">
+          <polyline fill="none" stroke-width="4" points="0 0 10.01 10.01 0 20.02" transform="rotate(90 8 14)"/>
+        </symbol>
+    </svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="shift-logo" viewBox="0 0 206 112">
             <g fill-rule="evenodd" transform="translate(2 2)">
               <g transform="translate(27)">
@@ -193,12 +207,9 @@
     <script id="scrollToTop" type="text/template">
         <a href="#" class="scrollToTop">Back To Top</a>
     </script>
-    <script id="legend-template" type="text/template">
-        <div class="plain">
-        	<p class="audience-F">Family Friendly events have green times.</p>
-        	<p class="audience-A">Adult Only (21+) events have red times.</p>
-        	<p class="area-V">Events in the Vancouver area have blue times.</p>
-    	</div>
+
+    <script id="ride-list-heading" type="text/template">
+        <h1>Events</h1>
     </script>
 
     <script id="view-events-template" type="text/template">
@@ -209,19 +220,47 @@
                 {{#events}}
                     <li class="event row {{#cancelled}}cancelled{{/cancelled}}" data-event-id="{{id}}">
                         <div class="time col-xs-2">
-                            <h3 class="audience-{{audience}} area-{{area}}">{{displayTime}}</h3>
+                            <p><time>{{displayTime}}</time></p>
+                            {{#audiencelabel}}
+                                <span class="audience-{{audience}}">{{audiencelabel}}</span>
+                            {{/audiencelabel}}
                         </div>
-                            <div class="col-xs-10" >
-                                <div class="summary">
-                                    <h3>
-                                        <button type="button" aria-expanded="false" class="expandDetails" data-toggle="collapse" data-target="#detailsContainer{{caldaily_id}}">
-                                        {{title}}
-                                        {{#cancelled}}<span class="cancelled-text"> - CANCELLED</span>{{/cancelled}}
-                                        {{#newsflash}}<span class="newsflash"> - {{newsflash}}</span>{{/newsflash}}
-                                        </button>
-                                    </h3>
+                        <div class="col-xs-10" >
+                            <div class="summary">
+                                <h3>
+                                    <button type="button" aria-expanded="false" class="expandDetails" data-toggle="collapse" data-target="#detailsContainer{{caldaily_id}}">
+                                    <svg class="icon" role="img" aria-hidden="true">
+                                        <use xlink:href="#icon-arrow-down" />
+                                    </svg>
+                                    {{title}}
+                                    {{#cancelled}}<span class="cancelled-text"> - CANCELLED</span>{{/cancelled}}
+                                    {{#newsflash}}<span class="newsflash"> - {{newsflash}}</span>{{/newsflash}}
+                                    </button>
+                                </h3>
+                                <div>
+                                    {{#mapLink}}
+                                    <a href="{{mapLink}}" target="_blank">
+                                    <svg class="icon" role="img" aria-label="Location"><use xlink:href="#icon-location" /></svg>
+
+                                    {{/mapLink}}
+                                    {{^mapLink}}
+                                    <p>
+                                    {{/mapLink}}
+
+                                        {{venue}}{{#address}}{{#venue}}, {{/venue}}{{address}}{{/address}}
+
+                                    {{^mapLink}}
+                                    </p>
+                                    {{/mapLink}}
+                                    {{#mapLink}}
+                                    </a>
+                                    {{/mapLink}}
+
+                                    <p>{{locdetails}}</p>
                                 </div>
+                                <svg class="icon" role="img" aria-label="Organizer"><use xlink:href="#icon-organizer" /></svg> {{organizer}}
                             </div>
+                        </div>
                         <div class="col-xs-2">
                         </div>
                         <div id="detailsContainer{{caldaily_id}}" {{^ expanded }}class="collapse"{{/ expanded }}>
@@ -231,26 +270,6 @@
                                         {{# image}}
                                             <img src="{{image}}" />
                                         {{/ image}}
-                                    </div>
-                                    <div>
-                                        {{#mapLink}}
-                                        <a href="{{mapLink}}" target="_blank">
-                                        <img src="images/google-maps-icon.png" alt="Location" />
-                                        {{/mapLink}}
-                                        {{^mapLink}}
-                                        <p>
-                                        {{/mapLink}}
-
-                                            {{venue}}{{#address}}{{#venue}}, {{/venue}}{{address}}{{/address}}
-
-                                        {{^mapLink}}
-                                        </p>
-                                        {{/mapLink}}
-                                        {{#mapLink}}
-                                        </a>
-                                        {{/mapLink}}
-
-                                        {{locdetails}}
                                     </div>
 
                                 {{ #weburl }}
@@ -269,8 +288,6 @@
                                 <p>{{details}}</p>
 
                                 <p class="contactInfo">
-                                    <img src="images/profile.png" alt="Organizer" /> {{organizer}}
-
                                     {{#email}}
                                         <a href="mailto:{{email}}"><img src="images/email.png" alt="Email" /> {{email}}</a>
                                     {{/email}}
@@ -287,22 +304,18 @@
                                             href="event-{{caldaily_id}}"
                                         {{/preview}}
                                         class="share-link">
-                                        Sharable link
-
-                                    </a>
+                                        Sharable link</a>
                                     <a
                                         {{^preview}}
                                             href="{{exportlink}}"
                                         {{/preview}}
                                         data-id="{{caldaily_id}}"
                                         class="export-link">
-                                        Export to calendar
-                                    </a>
+                                        Export to calendar</a>
                                     <a
                                        href="https://www.facebook.com/sharer/sharer.php?u={{shareable}}"
                                        target="_blank">
-                                       <img src="images/shareonfacebook-2.png" alt="Share on Facebook"/>
-                                    </a>
+                                       <img src="images/shareonfacebook-2.png" alt="Share on Facebook"/></a>
                                 </p>
                                 {{#preview}}
                                      <hr>
