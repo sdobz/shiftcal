@@ -154,6 +154,7 @@ h1 {
 
 .newsflash {
     color: rgb(255, 0, 255);
+    overflow-wrap: break-word;
 }
 
 h3 {
