@@ -206,6 +206,7 @@ h3 {
 
 .eventDetails {
     color: rgb(64, 64, 64);
+    overflow-wrap: break-word;
 }
 
 .btn{
