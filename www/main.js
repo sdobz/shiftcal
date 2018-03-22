@@ -87,7 +87,7 @@ $(document).ready( function() {
     function viewEvents(){
         var startDate = new Date();
         var endDate = new Date(startDate);
-        endDate.setDate(startDate.getDate() + 9);
+        endDate.setDate(startDate.getDate() + 10);
         curPage = "viewEvents";
 
         container.empty()
@@ -107,7 +107,7 @@ $(document).ready( function() {
              $(document).off('click', '#load-more')
                   .on('click', '#load-more', function(e) {
                       startDate.setDate(startDate.getDate() + 10);
-                      endDate.setDate(startDate.getDate() + 9);
+                      endDate.setDate(endDate.getDate() + 10);
                       getEventHTML({
                           startdate: startDate,
                           enddate: endDate
