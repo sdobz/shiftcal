@@ -85,18 +85,22 @@ $(document).ready( function() {
     }
 
     function viewEvents(){
-        var startDate = new Date();
-        var endDate = new Date(startDate);
-        endDate.setDate(startDate.getDate() + 10);
         curPage = "viewEvents";
+
+        var days = 10;
+        function daysAfter(d) {
+            return new Date ((new Date(d)).setDate(d.getDate() + days));
+        }
+        var thisStart = new Date();
+        var nextStart = daysAfter(thisStart);
 
         container.empty()
              .append($('#scrollToTop').html())
              .append($('#ride-list-heading').html());
 
         getEventHTML({
-            startdate: startDate,
-            enddate: endDate
+            startdate: thisStart,
+            enddate: nextStart
         }, function (eventHTML) {
             if (curPage !== "viewEvents") {
                 return;
@@ -106,11 +110,11 @@ $(document).ready( function() {
              checkAnchors();
              $(document).off('click', '#load-more')
                   .on('click', '#load-more', function(e) {
-                      startDate.setDate(startDate.getDate() + 10);
-                      endDate.setDate(endDate.getDate() + 10);
+                      thisStart = nextStart;
+                      nextStart = daysAfter(thisStart);
                       getEventHTML({
-                          startdate: startDate,
-                          enddate: endDate
+                          startdate: thisStart,
+                          enddate: nextStart
                       }, function(eventHTML) {
                           $('#load-more').before(eventHTML);
                           checkAnchors();
