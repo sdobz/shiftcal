@@ -218,7 +218,9 @@
         <h2>{{date}}</h2>
             <ul class="events-list">
                 {{#events}}
-                    <li class="event row {{#cancelled}}cancelled{{/cancelled}}" data-event-id="{{id}}">
+
+                    <li class="event row {{#cancelled}}cancelled{{/cancelled}} {{#featured}}featured{{/featured}}" data-event-id="{{id}}">
+                        {{#featured}}<p class="featured-text" id="featured{{caldaily_id}}"><span aria-hidden="true">★ </span>Featured Event<span aria-hidden="true"> ★</span></p>{{/featured}}
                         <div class="time col-xs-2">
                             <p><time>{{displayTime}}</time></p>
                             {{#audiencelabel}}
@@ -227,16 +229,40 @@
                         </div>
                         <div class="col-xs-10" >
                             <div class="summary">
+                                {{# featured }}
+                                {{^ newsflash }}
+                                <h3 aria-describedby="featured{{caldaily_id}}">
+                                {{/ newsflash }}
+                                {{/ featured }}
+
+                                {{^ featured }}
+                                {{# newsflash }}
+                                <h3 aria-describedby="newsflash{{caldaily_id}}">
+                                {{/ newsflash }}
+                                {{/ featured }}
+
+                                {{# featured }}
+                                {{# newsflash }}
+                                <h3 aria-describedby="featured{{caldaily_id}} newsflash{{caldaily_id}}">
+                                {{/ newsflash }}
+                                {{/ featured }}
+
+                                {{^ featured }}
+                                {{^ newsflash }}
                                 <h3>
+                                {{/ newsflash }}
+                                {{/ featured }}
+
                                     <button type="button" aria-expanded="false" class="expandDetails" data-toggle="collapse" data-target="#detailsContainer{{caldaily_id}}">
                                     <svg class="icon" role="img" aria-hidden="true">
                                         <use xlink:href="#icon-arrow-down" />
                                     </svg>
                                     {{title}}
                                     {{#cancelled}}<span class="cancelled-text"> - CANCELLED</span>{{/cancelled}}
-                                    {{#newsflash}}<span class="newsflash"> - {{newsflash}}</span>{{/newsflash}}
                                     </button>
                                 </h3>
+                                {{#newsflash}}<p class="newsflash" id="newsflash{{caldaily_id}}">{{newsflash}}</p>{{/newsflash}}
+
                                 <div>
                                     {{#mapLink}}
                                     <a href="{{mapLink}}" target="_blank">
@@ -258,7 +284,7 @@
 
                                     <p>{{locdetails}}</p>
                                 </div>
-                                <svg class="icon" role="img" aria-label="Organizer"><use xlink:href="#icon-organizer" /></svg> {{organizer}}
+                                <p><svg class="icon" role="img" aria-label="Organizer"><use xlink:href="#icon-organizer" /></svg> {{organizer}}</p>
                             </div>
                         </div>
                         <div class="col-xs-2">

@@ -143,6 +143,18 @@ h1 {
     transform: rotate(-90deg);
 }
 
+.event.featured {
+    background-color: #FCFAF2;
+    border: 1px solid #FFDD66;
+}
+
+.event.featured .featured-text {
+    text-align: center;
+    font-weight: bold;
+    color: #630;
+    text-transform: uppercase;
+}
+
 .event.cancelled div {
     text-decoration: line-through;
 }
