@@ -37,6 +37,7 @@ class Event extends fActiveRecord {
             'printdescr' => $this->getPrintdescr(),
             'datestype' => $this->getDatestype(),
             'area' => $this->getArea(),
+            'featured' => $this->getHighlight() != 0,
             //'printcontact' => $this->getPrintcontact()
         );
 

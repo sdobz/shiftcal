@@ -86,7 +86,7 @@ svg.icon {
 
 .container {
 	padding-left: 5px;
-	padding-right: 0px;
+	padding-right: 5px;
     margin: 0 auto;
     max-width: 800px;
 }
@@ -128,7 +128,8 @@ h1 {
     list-style-type:none;
     font-size:1em;
     padding: 10px 0;
-    margin-right:0;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .event.row .summary h3 button {
@@ -143,6 +144,18 @@ h1 {
     transform: rotate(-90deg);
 }
 
+.event.featured {
+    background-color: #FCFAF2;
+    border: 1px solid #FFDD66;
+}
+
+.event.featured .featured-text {
+    text-align: center;
+    font-weight: bold;
+    color: #630;
+    text-transform: uppercase;
+}
+
 .event.cancelled div {
     text-decoration: line-through;
 }
@@ -155,6 +168,19 @@ h1 {
 .newsflash {
     color: rgb(255, 0, 255);
     overflow-wrap: break-word;
+}
+
+.col-xs-2 {
+    width: 20%;
+}
+
+.col-xs-10 {
+    width: 80%;
+}
+
+.col-xs-2, .col-xs-10 {
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 h3 {

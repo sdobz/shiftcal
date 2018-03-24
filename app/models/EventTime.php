@@ -80,15 +80,16 @@ class EventTime extends fActiveRecord {
         $caldaily_id = $this->getPkid();
         return "$base/event-" . $caldaily_id;
     }
-    
+
     public function toEventSummaryArray() {
-	$eventArray = $this->getEvent()->toArray();
-	$eventArray['date'] = $this->getFormattedDate();
-	$eventArray['caldaily_id'] = $this->getPkid();
-	$eventArray['shareable'] = $this->getShareable();
-	$eventArray['cancelled'] = $this->getEventstatus() == 'C';
-	$eventArray['newsflash'] = $this->getNewsflash();
-	return $eventArray;
+        $eventArray = $this->getEvent()->toArray();
+        $eventArray['date'] = $this->getFormattedDate();
+        $eventArray['caldaily_id'] = $this->getPkid();
+        $eventArray['shareable'] = $this->getShareable();
+        $eventArray['cancelled'] = $this->getEventstatus() == 'C';
+        $eventArray['newsflash'] = $this->getNewsflash();
+
+        return $eventArray;
     }
 }
 
