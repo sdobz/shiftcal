@@ -170,6 +170,19 @@ h1 {
     overflow-wrap: break-word;
 }
 
+.col-xs-2 {
+    width: 20%;
+}
+
+.col-xs-10 {
+    width: 80%;
+}
+
+.col-xs-2, .col-xs-10 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 h3 {
     font-size: 1em;
     font-weight: bold;
