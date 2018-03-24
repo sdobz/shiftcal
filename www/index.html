@@ -282,7 +282,9 @@
                                     </a>
                                     {{/mapLink}}
 
+                                    {{#locdetails}}
                                     <p>{{locdetails}}</p>
+                                    {{/locdetails}}
                                 </div>
                                 <p><svg class="icon" role="img" aria-label="Organizer"><use xlink:href="#icon-organizer" /></svg> {{organizer}}</p>
                             </div>
@@ -306,7 +308,7 @@
                                 </a></p>
                                 {{ /weburl }}
 
-                                <p><img src="images/alarm.png" alt="Time" /> {{displayTime}}{{#timedetails}}, {{timedetails}}{{/timedetails}}</p>
+                                <p><img src="images/alarm.png" alt="Time" /> {{displayDate}}, {{displayTime}}{{#timedetails}}, {{timedetails}}{{/timedetails}}</p>
                                 {{#eventduration}}
                                 <p><img src="images/stopwatch.png" alt="Duration" /> {{eventduration}} minutes</p>
                                 {{/eventduration}}
