@@ -26,19 +26,12 @@ $(document).ready( function() {
                     };
                     mustacheData.dates.push(groupedByDate[date]);
                 }
-                var timeParts = value.time.split(':');
-                var hour = parseInt(timeParts[0]);
-                var meridian = 'AM';
-                if ( hour === 0 ) {
-                    hour = 12;
-                } else if ( hour >= 12 ) {
-                    meridian = 'PM';
-                    if ( hour > 12 ) {
-                        hour = hour - 12;
-                    }
-                }
-                value.displayTime = hour + ':' + timeParts[1] + ' ' + meridian;
+
+                value.displayStartTime = container.formatTime(value.time);
                 value.displayDate = container.formatDate(groupedByDate[date]['yyyymmdd'], abbreviated=true);
+                if (value.endtime) {
+                  value.displayEndTime = container.formatTime(value.endtime);
+                }
 
                 value.mapLink = container.getMapLink(value.address);
                 if ('id' in options) {

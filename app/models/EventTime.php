@@ -69,6 +69,15 @@ class EventTime extends fActiveRecord {
         }
     }
 
+    private function getEndTime($starttime, $duration) {
+        if ($duration == null) {
+            return null;
+        }
+        $start = new DateTime($starttime);
+        $start->modify("+{$duration} minutes");
+        return $start->format('H:i:s');
+    }
+
     public function getFormattedDate() {
         return $this->getEventdate()->format('Y-m-d');
     }
@@ -88,6 +97,7 @@ class EventTime extends fActiveRecord {
         $eventArray['shareable'] = $this->getShareable();
         $eventArray['cancelled'] = $this->getEventstatus() == 'C';
         $eventArray['newsflash'] = $this->getNewsflash();
+        $eventArray['endtime'] = $this->getEndTime($eventArray['time'], $eventArray['eventduration']);
 
         return $eventArray;
     }

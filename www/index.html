@@ -222,7 +222,7 @@
                     <li class="event row {{#cancelled}}cancelled{{/cancelled}} {{#featured}}featured{{/featured}}" data-event-id="{{id}}">
                         {{#featured}}<p class="featured-text" id="featured{{caldaily_id}}"><span aria-hidden="true">★ </span>Featured Event<span aria-hidden="true"> ★</span></p>{{/featured}}
                         <div class="time col-xs-2">
-                            <p><time>{{displayTime}}</time></p>
+                            <p><time>{{displayStartTime}}</time></p>
                             {{#audiencelabel}}
                                 <span class="audience-{{audience}}">{{audiencelabel}}</span>
                             {{/audiencelabel}}
@@ -308,10 +308,10 @@
                                 </a></p>
                                 {{ /weburl }}
 
-                                <p><img src="images/alarm.png" alt="Time" /> {{displayDate}}, {{displayTime}}{{#timedetails}}, {{timedetails}}{{/timedetails}}</p>
-                                {{#eventduration}}
-                                <p><img src="images/stopwatch.png" alt="Duration" /> {{eventduration}} minutes</p>
-                                {{/eventduration}}
+                                <p><img src="images/alarm.png" alt="Time" /> {{displayDate}}, {{displayStartTime}}{{#timedetails}}, {{timedetails}}{{/timedetails}}</p>
+                                {{#endtime}}
+                                <p><img src="images/stopwatch.png" alt="End Time" /> {{displayEndTime}}</p>
+                                {{/endtime}}
 
                                 <p>{{details}}</p>
 
