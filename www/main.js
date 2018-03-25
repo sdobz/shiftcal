@@ -38,8 +38,8 @@ $(document).ready( function() {
                     }
                 }
                 value.displayTime = hour + ':' + timeParts[1] + ' ' + meridian;
-                var dateOptions = { weekday: "short", month: "short", day: "numeric" };
-                value.displayDate = new Date(date).toLocaleDateString("en-US", dateOptions);
+                value.displayDate = container.formatDate(groupedByDate[date]['yyyymmdd'], abbreviated=true);
+
                 value.mapLink = container.getMapLink(value.address);
                 if ('id' in options) {
                     value.expanded = true;
