@@ -73,9 +73,9 @@ class EventTime extends fActiveRecord {
         if ($duration == null) {
             return null;
         }
-        $start = new DateTime($starttime);
-        $start->modify("+{$duration} minutes");
-        return $start->format('H:i:s');
+        $endtime = new DateTime($starttime);
+        $endtime->modify("+{$duration} minutes");
+        return $endtime->format('H:i:s');
     }
 
     public function getFormattedDate() {
