@@ -30,6 +30,14 @@
         <symbol id="icon-arrow-down" viewBox="0 0 24 24">
           <polyline fill="none" stroke-width="4" points="0 0 10.01 10.01 0 20.02" transform="rotate(90 8 14)"/>
         </symbol>
+
+        <symbol id="icon-calendar" viewBox="0 0 80 80">
+            <g fill-rule="evenodd" transform="translate(3 8)">
+              <path fill="none" stroke-width="3" d="M4,1.5 C2.61928813,1.5 1.5,2.61928813 1.5,4 L1.5,60 C1.5,61.3807119 2.61928813,62.5 4,62.5 L70,62.5 C71.3807119,62.5 72.5,61.3807119 72.5,60 L72.5,4 C72.5,2.61928813 71.3807119,1.5 70,1.5 L4,1.5 Z"/>
+              <path d="M6,2 L68,2 C70.209139,2 72,3.790861 72,6 L72,17 L2,17 L2,6 C2,3.790861 3.790861,2 6,2 Z"/>
+              <path fill="none" stroke-linecap="square" stroke-width="3" d="M1.5 30.5L71.0161852 30.5M2.5 45.5L72.0161852 45.5M18 2.4979514L18 62.5020832M37 2.4979514L37 62.5020832M56 2.4979514L56 62.5020832"/>
+            </g>
+        </symbol>
     </svg>
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -125,19 +133,38 @@
     </div><!-- /.modal -->
 
     <script id="pedalpalooza-header" type="text/template">
-        <img alt="Pedalpalooza" id="pedalpalooza-img" src="images/pp2017.jpg">
-        <div class="pg-width">
-    	    <p> Pedalpalooza is 3+ weeks of bikey fun. With ~300 different events, most organized by individuals, bikers of all persuasions are likely to find many events of interest. Nearly all events are free. </p>
-    	    <p> Visiting from out of town? We've started a <a href="http://www.shift2bikes.org/allbike.php#Visitor_Info">Visitor Info</a> page.</p>
-    	    <p> <a href="http://www.shift2bikes.org/pedalpalooza/index.shtml">Pedalpalooza from prior years</a> </p>
-    	    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="YJYFXDPLSCW8U">
-                <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-            </form>
+        <div id="pp-banner">
+            <img alt="Pedalpalooza" id="pedalpalooza-img" src="images/pp2017-banner.jpg">
+            <br>
+              <span style="font-weight: bold; font-size: 24px;">Pedalpalooza!</span>
+              <span>All June, 2017</span>
+            <br>
+                <button type="button" aria-expanded="false" data-toggle="collapse" data-target="#pp-description" style="border: none; background: none; color: #663300;">
+                <svg class="icon expand" role="img" aria-hidden="true">
+                    <use xlink:href="#icon-arrow-down" />
+                </svg>
+                <span>About Pedalpalooza</span>
+            </button>
+            <div id="pp-description" class="collapse">
+                <p> Pedalpalooza is 3+ weeks of bikey fun. With ~300 different events, most organized by individuals, bikers of all persuasions are likely to find many events of interest. Nearly all events are free. </p>
+                <p> Visiting from out of town? We've started a <a href="http://www.shift2bikes.org/allbike.php#Visitor_Info">Visitor Info</a> page.</p>
+                <p> <a href="#">More info…</a> </p>
+                <p> <a href="http://www.shift2bikes.org/pedalpalooza/index.shtml">Pedalpalooza from prior years</a> </p>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="YJYFXDPLSCW8U">
+                    <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                </form>
+            </div>
     	</div>
-        <div id="date-select-container-pedalpalooza" class="date-select-container-style form-group">
+        <button type="button" aria-expanded="false" data-toggle="collapse" data-target="#date-select-container-pedalpalooza" class="jump-to-date">
+            <span>Jump to date</span>
+            <svg class="icon" role="img" aria-hidden="true">
+                <use xlink:href="#icon-calendar" />
+            </svg>
+        </button>
+        <div id="date-select-container-pedalpalooza" class="date-select-container-style jump-to-date form-group collapse">
             <table class="day-of-week">
                 <tbody><tr>
                     <td class="calendar-month-title"></td>
@@ -203,6 +230,7 @@
                 </table>
             </div>
         </div>
+
     </script>
     <script id="scrollToTop" type="text/template">
         <a href="#" class="scrollToTop">Back To Top</a>
@@ -254,7 +282,7 @@
                                 {{/ featured }}
 
                                     <button type="button" aria-expanded="false" class="expandDetails" data-toggle="collapse" data-target="#detailsContainer{{caldaily_id}}">
-                                    <svg class="icon" role="img" aria-hidden="true">
+                                    <svg class="icon expand" role="img" aria-hidden="true">
                                         <use xlink:href="#icon-arrow-down" />
                                     </svg>
                                     {{title}}
@@ -370,12 +398,6 @@
 
     <script id="mustache-edit" type="text/template">
 
-        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-            <symbol id="icon-arrow-down" viewBox="0 0 24 24">
-              <polyline fill="none" stroke-width="4" points="0 0 10.01 10.01 0 20.02" transform="rotate(90 8 14)"/>
-            </symbol>
-        </svg>
-
         <h1>Add Event</h1>
         <div id="edit-header" >
                 <button id="preview-edit-button" type="button" class="btn btn-addEvent">Edit</button>
@@ -400,7 +422,7 @@
                         <h2>
                             <a role="button" data-toggle="collapse" href="#general-fields" aria-expanded="true">
                                 Event Description
-                                <svg class="icon" role="img" aria-hidden="true">
+                                <svg class="icon expand" role="img" aria-hidden="true">
                                     <use xlink:href="#icon-arrow-down" />
                                 </svg>
                             </a>
@@ -451,7 +473,7 @@
                         <h2>
                             <a role="button" data-toggle="collapse" href="#timeandlocation-fields" aria-expanded="true">
                                 Time and Location
-                                <svg class="icon" role="img" aria-hidden="true">
+                                <svg class="icon expand" role="img" aria-hidden="true">
                                     <use xlink:href="#icon-arrow-down" />
                                 </svg>
                             </a>
@@ -549,7 +571,7 @@
                         <h2>
                             <a role="button" data-toggle="collapse" href="#contact-fields" aria-expanded="true">
                                 Contact Info
-                                <svg class="icon" role="img" aria-hidden="true">
+                                <svg class="icon expand" role="img" aria-hidden="true">
                                     <use xlink:href="#icon-arrow-down" />
                                 </svg>
                             </a>
@@ -624,7 +646,7 @@
                         <h2>
                             <a role="button" data-toggle="collapse" href="#print-fields" aria-expanded="true">
                                 Print Calendar Info
-                                <svg class="icon" role="img" aria-hidden="true">
+                                <svg class="icon expand" role="img" aria-hidden="true">
                                     <use xlink:href="#icon-arrow-down" />
                                 </svg>
                             </a>

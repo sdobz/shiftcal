@@ -75,6 +75,7 @@ main a, button {
 svg.icon {
   width: 16px;
   height: 16px;
+  vertical-align: middle;
   fill: currentColor;
   stroke: currentColor;
   polyline: currentColor;
@@ -105,6 +106,7 @@ h1 {
     text-align: center;
     font-size: 2em;
     font-weight: bold;
+    clear: both;
 }
 
 .date h2 {
@@ -138,10 +140,6 @@ h1 {
     width: 100%;
     text-align: left;
     padding: 0;
-}
-
-.event.row .summary button[aria-expanded="false"] .icon {
-    transform: rotate(-90deg);
 }
 
 .event.featured {
@@ -270,7 +268,6 @@ a.expandDetails {
 }
 
 #pedalpalooza-img {
-    float: left;
     max-width: 438px;
     width: 100%;
     height: auto;
@@ -281,18 +278,42 @@ a.expandDetails {
     font-weight: normal;
 }
 
+#pp-banner {
+    text-align: center;
+    border: 1px solid #663300;
+    color: #663300;
+    background: #FCEDD7;
+    padding: 1em;
+}
+
+#pp-description {
+    text-align: left;
+}
+
 /* Date Picker CSS */
 #date-select-container {
     margin: 0 auto;
 }
 #date-select-container-pedalpalooza {
-    margin: 10px 0px 5px 0px;
-    float: left;
+    margin: 10px 0px;
 }
 .date-select-container-style {
-    width: 320px;
+    width: 310px;
     background-color: #fff56f;
 }
+.date-select-container-style.jump-to-date {
+    float: right;
+    clear: right;
+}
+button.jump-to-date {
+    float: right;
+    border: 1px solid #663300;
+    background: none;
+    border-radius: 2px;
+    color: #663300;
+    margin: 4px 0;
+}
+
 #date-select {
     height: 130px;
 }
@@ -446,7 +467,7 @@ button.more-events {
     stroke: currentColor;
 }
 
-.panel-heading a[aria-expanded="false"] .icon {
+[aria-expanded="false"] .icon.expand {
     transform: rotate(-90deg);
 }
 
