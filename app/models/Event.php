@@ -141,6 +141,7 @@ class Event extends fActiveRecord {
 
     private function getImagePath() {
         global $IMAGEDIR;
+        global $IMAGEPATH;
 
         $old_name = $this->getImage();
         if ($old_name == null) {
@@ -157,7 +158,7 @@ class Event extends fActiveRecord {
 
         if ($new_name === $old_name) {
             // Named correctly
-            return $old_path;
+            return "$IMAGEPATH/$old_name";
         }
 
         // Named incorrectly, move, update db, return
@@ -169,7 +170,7 @@ class Event extends fActiveRecord {
         $this->setImage($new_name);
         $this->store();
 
-        return $new_path;
+        return "$IMAGEPATH/$new_name";
     }
 }
 
