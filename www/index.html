@@ -135,11 +135,11 @@
     <script id="pedalpalooza-header" type="text/template">
         <div id="pp-banner">
             <img alt="Pedalpalooza" id="pedalpalooza-img" src="images/pp2017-banner.jpg">
-            <br>
-              <span style="font-weight: bold; font-size: 24px;">Pedalpalooza!</span>
+            <div>
+              <span class="pp-headline">Pedalpalooza!</span>
               <span>All June, 2017</span>
-            <br>
-                <button type="button" aria-expanded="false" data-toggle="collapse" data-target="#pp-description" style="border: none; background: none; color: #663300;">
+            </div>
+                <button type="button" aria-expanded="false" data-toggle="collapse" data-target="#pp-description">
                 <svg class="icon expand" role="img" aria-hidden="true">
                     <use xlink:href="#icon-arrow-down" />
                 </svg>
@@ -148,7 +148,7 @@
             <div id="pp-description" class="collapse">
                 <p> Pedalpalooza is 3+ weeks of bikey fun. With ~300 different events, most organized by individuals, bikers of all persuasions are likely to find many events of interest. Nearly all events are free. </p>
                 <p> Visiting from out of town? We've started a <a href="http://www.shift2bikes.org/allbike.php#Visitor_Info">Visitor Info</a> page.</p>
-                <p> <a href="#">More info…</a> </p>
+                <p> <a href="https://docs.shift2bikes.org/pages/pedalpalooza/">More info…</a> </p>
                 <p> <a href="http://www.shift2bikes.org/pedalpalooza/index.shtml">Pedalpalooza from prior years</a> </p>
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                     <input type="hidden" name="cmd" value="_s-xclick">
@@ -160,8 +160,8 @@
     	</div>
         <button type="button" aria-expanded="false" data-toggle="collapse" data-target="#date-select-container-pedalpalooza" class="jump-to-date">
             <span>Jump to date</span>
-            <svg class="icon" role="img" aria-hidden="true">
-                <use xlink:href="#icon-calendar" />
+            <svg class="icon expand" role="img" aria-hidden="true">
+                <use xlink:href="#icon-arrow-down" />
             </svg>
         </button>
         <div id="date-select-container-pedalpalooza" class="date-select-container-style jump-to-date form-group collapse">
@@ -230,8 +230,8 @@
                 </table>
             </div>
         </div>
-
     </script>
+
     <script id="scrollToTop" type="text/template">
         <a href="#" class="scrollToTop">Back To Top</a>
     </script>

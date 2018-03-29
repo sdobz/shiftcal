@@ -280,14 +280,27 @@ a.expandDetails {
 
 #pp-banner {
     text-align: center;
-    border: 1px solid #663300;
     color: #663300;
-    background: #FCEDD7;
+    background: #FCFAF2;
+    border: 1px solid #FFDD66;
     padding: 1em;
+}
+
+#pp-banner .pp-headline {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+#pp-banner button[data-toggle="collapse"] {
+    border: none;
+    background: none;
+    color: #663300;
 }
 
 #pp-description {
     text-align: left;
+    max-width: 438px;
+    margin: 0 auto;
 }
 
 /* Date Picker CSS */
@@ -307,11 +320,15 @@ a.expandDetails {
 }
 button.jump-to-date {
     float: right;
-    border: 1px solid #663300;
+    border: none;
     background: none;
-    border-radius: 2px;
-    color: #663300;
     margin: 4px 0;
+}
+button.jump-to-date .icon.expand {
+    transform: rotate(0deg); /* arrow pointing down */
+}
+button.jump-to-date[aria-expanded="true"] .icon.expand {
+    transform: rotate(180deg); /* arrow pointing up */
 }
 
 #date-select {
