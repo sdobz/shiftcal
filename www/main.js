@@ -102,7 +102,7 @@ $(document).ready( function() {
              .append($('#scrollToTop').html())
              .append($('#ride-list-heading').html());
 
-        // range is inclusive -- all rides through 11:59pm on end date are included
+        // range is inclusive -- all rides on end date are included, even if they start at 11:59pm
         getEventHTML({
             startdate: firstDayOfRange,
             enddate: lastDayOfRange
