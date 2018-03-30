@@ -87,20 +87,25 @@ $(document).ready( function() {
     function viewEvents(){
         curPage = "viewEvents";
 
-        var days = 10;
-        function daysAfter(d) {
+        function daysAfter(d, days) {
             return new Date ((new Date(d)).setDate(d.getDate() + days));
         }
-        var thisStart = new Date();
-        var nextStart = daysAfter(thisStart);
+
+        var nextDay = 1;
+        var dayRange = 10;
+
+        var currentDateTime = new Date();
+        var firstDayOfRange = new Date(currentDateTime.setHours(0,0,0,0)); // set time to midnight
+        var lastDayOfRange = daysAfter(firstDayOfRange, dayRange);
 
         container.empty()
              .append($('#scrollToTop').html())
              .append($('#ride-list-heading').html());
 
+        // range is inclusive -- all rides through 11:59pm on end date are included
         getEventHTML({
-            startdate: thisStart,
-            enddate: nextStart
+            startdate: firstDayOfRange,
+            enddate: lastDayOfRange
         }, function (eventHTML) {
             if (curPage !== "viewEvents") {
                 return;
@@ -110,11 +115,11 @@ $(document).ready( function() {
              checkAnchors();
              $(document).off('click', '#load-more')
                   .on('click', '#load-more', function(e) {
-                      thisStart = nextStart;
-                      nextStart = daysAfter(thisStart);
+                      firstDayOfRange = daysAfter(lastDayOfRange, nextDay);
+                      lastDayOfRange = daysAfter(firstDayOfRange, dayRange);
                       getEventHTML({
-                          startdate: thisStart,
-                          enddate: nextStart
+                          startdate: firstDayOfRange,
+                          enddate: lastDayOfRange
                       }, function(eventHTML) {
                           $('#load-more').before(eventHTML);
                           checkAnchors();
