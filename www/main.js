@@ -9,7 +9,7 @@ $(document).ready( function() {
             url += 'id=' + options['id'];
         }
         if ('startdate' in options && 'enddate' in options) {
-            url += 'startdate=' + options['startdate'].toISOString() + '&enddate=' + options['enddate'].toISOString();
+            url += 'startdate=' + moment(options['startdate']).format("YYYY-MM-DD") + '&enddate=' + moment(options['enddate']).format("YYYY-MM-DD");
         }
 
         $.get( url, function( data ) {
@@ -82,20 +82,25 @@ $(document).ready( function() {
     function viewEvents(){
         curPage = "viewEvents";
 
-        var days = 10;
-        function daysAfter(d) {
+        function daysAfter(d, days) {
             return new Date ((new Date(d)).setDate(d.getDate() + days));
         }
-        var thisStart = new Date();
-        var nextStart = daysAfter(thisStart);
+
+        var nextDay = 1;
+        var dayRange = 10;
+
+        var currentDateTime = new Date();
+        var firstDayOfRange = new Date(currentDateTime.setHours(0,0,0,0)); // set time to midnight
+        var lastDayOfRange = daysAfter(firstDayOfRange, dayRange);
 
         container.empty()
              .append($('#scrollToTop').html())
              .append($('#ride-list-heading').html());
 
+        // range is inclusive -- all rides on end date are included, even if they start at 11:59pm
         getEventHTML({
-            startdate: thisStart,
-            enddate: nextStart
+            startdate: firstDayOfRange,
+            enddate: lastDayOfRange
         }, function (eventHTML) {
             if (curPage !== "viewEvents") {
                 return;
@@ -105,11 +110,11 @@ $(document).ready( function() {
              checkAnchors();
              $(document).off('click', '#load-more')
                   .on('click', '#load-more', function(e) {
-                      thisStart = nextStart;
-                      nextStart = daysAfter(thisStart);
+                      firstDayOfRange = daysAfter(lastDayOfRange, nextDay);
+                      lastDayOfRange = daysAfter(firstDayOfRange, dayRange);
                       getEventHTML({
-                          startdate: thisStart,
-                          enddate: nextStart
+                          startdate: firstDayOfRange,
+                          enddate: lastDayOfRange
                       }, function(eventHTML) {
                           $('#load-more').before(eventHTML);
                           checkAnchors();
