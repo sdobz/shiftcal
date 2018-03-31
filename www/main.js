@@ -152,6 +152,7 @@ $(document).ready( function() {
         var pedalpalooza = '/cal/images/pp2017.jpg';
         container.empty()
              .append($('#pedalpalooza-header').html())
+             .append($('#jump-to-date').html())
              .append($('#scrollToTop').html())
              .append($('#ride-list-heading').html());
         getEventHTML({
