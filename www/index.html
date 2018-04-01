@@ -29,6 +29,15 @@
           <path fill-rule="evenodd" d="M52.9056214,38.2017711 C55.8537899,42.1877258 58.491916,46.1204688 60.8199997,50 C65.3379147,57.528678 67.9927053,65.4335097 68.7843714,73.7144951 C68.942054,75.3638318 67.7328248,76.8287066 66.0834876,76.9863841 C65.9885912,76.9954562 65.8933164,77 65.7979873,77 L16.0495024,76.9999956 C14.3926506,76.9999956 13.0495068,75.6568518 13.0495068,74 C13.0495068,73.9434873 13.0511037,73.8869859 13.0542955,73.8305635 C13.4917633,66.097245 16.1569979,58.1537239 21.0499992,50 C23.3821111,46.1137562 25.9050237,42.3147942 28.6187369,38.6031141 C31.9408037,41.060291 36.0507357,42.5131458 40.5,42.5131458 C45.1863826,42.5131458 49.4963003,40.9013082 52.9056188,38.2017676 Z M40.5,40 C30.8350169,40 23,32.1649831 23,22.5 C23,12.8350169 30.8350169,5 40.5,5 C50.1649831,5 58,12.8350169 58,22.5 C58,32.1649831 50.1649831,40 40.5,40 Z"/>
         </symbol>
 
+        <symbol id="icon-newsflash" viewBox="0 0 80 80">
+            <g fill="none" fill-rule="evenodd" stroke-width="6" transform="translate(4 10)">
+              <path d="M3.12553035,61 L19.1818698,54.3433076 L19.4337312,54.4482511 C24.5085876,56.5628005 30.1532262,57.6825425 36,57.6825425 C55.9229334,57.6825425 72,44.7042439 72,28.8412713 C72,12.9782986 55.9229334,0 36,0 C16.0770666,0 0,12.9782986 0,28.8412713 C0,34.9644043 2.39496175,40.8098694 6.7916417,45.6901997 L7.09492946,46.0268502 L3.12553035,61 Z"/>
+              <g stroke-linecap="round" transform="translate(16 23)">
+                <path d="M0 0L40 0M0 13L26 13"/>
+              </g>
+            </g>
+        </symbol>
+
         <symbol id="icon-arrow-down" viewBox="0 0 24 24">
           <polyline fill="none" stroke-width="4" points="0 0 10.01 10.01 0 20.02" transform="rotate(90 8 14)"/>
         </symbol>
@@ -244,10 +253,14 @@
                     <li class="event row {{#cancelled}}cancelled{{/cancelled}} {{#featured}}featured{{/featured}}" data-event-id="{{id}}">
                         {{#featured}}<p class="featured-text" id="featured{{caldaily_id}}"><span aria-hidden="true">★ </span>Featured Event<span aria-hidden="true"> ★</span></p>{{/featured}}
                         <div class="time col-xs-2">
+                            {{#cancelled}}<del>{{/cancelled}}
+
                             <p><time>{{displayStartTime}}</time></p>
                             {{#audiencelabel}}
                                 <span class="audience-{{audience}}">{{audiencelabel}}</span>
                             {{/audiencelabel}}
+
+                            {{#cancelled}}</del>{{/cancelled}}
                         </div>
                         <div class="col-xs-10" >
                             <div class="summary">
@@ -279,13 +292,25 @@
                                     <svg class="icon expand" role="img" aria-hidden="true">
                                         <use xlink:href="#icon-arrow-down" />
                                     </svg>
+
+                                    {{#cancelled}}<del>{{/cancelled}}
+
                                     {{title}}
-                                    {{#cancelled}}<span class="cancelled-text"> - CANCELLED</span>{{/cancelled}}
+
+                                    {{#cancelled}}
+                                    </del> <ins><span class="cancelled-text">cancelled</span></ins>
+                                    {{/cancelled}}
+
                                     </button>
                                 </h3>
-                                {{#newsflash}}<p class="newsflash" id="newsflash{{caldaily_id}}">{{newsflash}}</p>{{/newsflash}}
 
-                                <div>
+                                {{#newsflash}}
+                                <ins><p class="newsflash" id="newsflash{{caldaily_id}}"><svg class="icon" role="img" aria-label="Update"><use xlink:href="#icon-newsflash" /></svg> {{newsflash}}</p></ins>
+                                {{/newsflash}}
+
+                                {{#cancelled}}<del>{{/cancelled}}
+
+                                <div class="location">
                                     {{#mapLink}}
                                     <a href="{{mapLink}}" target="_blank">
                                     <svg class="icon" role="img" aria-label="Location"><use xlink:href="#icon-location" /></svg>
@@ -309,12 +334,18 @@
                                     {{/locdetails}}
                                 </div>
                                 <p><svg class="icon" role="img" aria-label="Organizer"><use xlink:href="#icon-organizer" /></svg> {{organizer}}</p>
+
+                                {{#cancelled}}</del>{{/cancelled}}
+
                             </div>
                         </div>
                         <div class="col-xs-2">
                         </div>
                         <div id="detailsContainer{{caldaily_id}}" {{^ expanded }}class="collapse"{{/ expanded }}>
                             <div class="eventDetails  col-xs-10">
+
+                                {{#cancelled}}<del>{{/cancelled}}
+
                                 <div class="mainDetails">
                                     <div class="eventImg">
                                         {{# image}}
@@ -375,6 +406,8 @@
                                      <br>
                                        print description: {{printdescr}}
                                 {{/preview}}
+
+                                {{#cancelled}}</del>{{/cancelled}}
                             </div>
                         </div>
                     </li>
