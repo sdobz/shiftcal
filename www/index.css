@@ -184,17 +184,34 @@ h1 {
     text-transform: uppercase;
 }
 
-.event.cancelled div {
+.event.cancelled del,
+.event.cancelled del * {
     text-decoration: line-through;
+}
+.event.cancelled ins
+{
+    text-decoration: none;
 }
 
 .cancelled-text {
-    color: red;
-    font-weight: bold;
+    font-weight: normal;
+    text-transform: uppercase;
+    background: #D00000;
+    color: white;
+    padding: 2px 4px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    display: inline-block;
+    width: auto;
 }
 
 .newsflash {
-    color: rgb(255, 0, 255);
+    color: #D00000;
+    border: 1px dashed #D00000;
+    border-radius: 2px;
+    padding: 2px 4px;
+    display: inline-block;
+    width: auto;
     overflow-wrap: break-word;
 }
 
