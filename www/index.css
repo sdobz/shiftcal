@@ -95,6 +95,26 @@ svg.icon {
    visibility: hidden;
 }
 
+.facebook-share a {
+    color: #3C5A99;
+    border: 1px solid #3C5A99;
+    border-radius: 2px;
+    width: auto;
+    padding: 4px;
+}
+.facebook-share a:hover {
+    text-decoration: none;
+}
+.facebook-share a:focus {
+    text-decoration: none;
+    color: white;
+    background: #3C5A99;
+}
+.facebook-share img {
+    height: 24px;
+    width: 24px;
+}
+
 .container {
 	padding-left: 5px;
 	padding-right: 5px;
