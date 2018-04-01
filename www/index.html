@@ -348,25 +348,27 @@
 
                                     {{contact}}
                                 </p>
-                                <p class="eventlink">
-                                    <a
-                                        {{^preview}}
-                                            href="event-{{caldaily_id}}"
-                                        {{/preview}}
-                                        class="share-link">
-                                        Sharable link</a>
-                                    <a
-                                        {{^preview}}
-                                            href="{{exportlink}}"
-                                        {{/preview}}
-                                        data-id="{{caldaily_id}}"
-                                        class="export-link">
-                                        Export to calendar</a>
-                                    <a
-                                       href="https://www.facebook.com/sharer/sharer.php?u={{shareable}}"
-                                       target="_blank">
-                                       <img src="images/shareonfacebook-2.png" alt="Share on Facebook"/></a>
-                                </p>
+                                <div class="eventlink">
+                                    <p class="facebook-share">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{shareable}}" target="_blank">
+                                        <img src="images/facebook.svg" alt="Facebook"/>Share</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            {{^preview}}
+                                                href="event-{{caldaily_id}}"
+                                            {{/preview}}
+                                            class="share-link">
+                                            Sharable link</a>
+                                        <a
+                                            {{^preview}}
+                                                href="{{exportlink}}"
+                                            {{/preview}}
+                                            data-id="{{caldaily_id}}"
+                                            class="export-link">
+                                            Export to calendar</a>
+                                    </p>
+                                </div>
                                 {{#preview}}
                                      <hr>
                                      The following will only show on the print calendar.
