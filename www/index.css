@@ -361,6 +361,9 @@ a.expandDetails {
     width: 310px;
     background-color: #fff56f;
 }
+form#event-entry .date-select-container-style {
+    width: 280px;
+}
 .date-select-container-style.jump-to-date {
     float: right;
     clear: right;
@@ -509,7 +512,7 @@ button.more-events {
 }
 
 .panel {
-    min-width: 320px;
+    min-width: 310px;
 }
 
 .panel h2 {
