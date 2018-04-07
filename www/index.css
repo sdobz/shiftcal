@@ -210,8 +210,6 @@ h1 {
     border: 1px dashed #D00000;
     border-radius: 2px;
     padding: 2px 4px;
-    display: inline-block;
-    width: auto;
     overflow-wrap: break-word;
 }
 
