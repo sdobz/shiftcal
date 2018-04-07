@@ -95,7 +95,7 @@
         template = $('#mustache-edit').html();
         rendered = Mustache.render(template, shiftEvent);
         callback(rendered);
-        
+
         $('#date-select').setupDatePicker(shiftEvent['dates'] || []);
 
         $('#edit-header').affix({
@@ -111,6 +111,7 @@
             var postVars,
                 isNew = !shiftEvent.id;
             $('.form-group').removeClass('has-error');
+            $('[aria-invalid="true"]').attr('aria-invalid', false);
             $('.help-block').remove();
             $('#save-result').removeClass('text-danger').text('');
             postVars = eventFromForm();
@@ -159,6 +160,7 @@
                         var input = $('[name=' + fieldName + ']'),
                             parent = input.closest('.form-group,.checkbox'),
                             label = $('label', parent);
+                        input.attr('aria-invalid', true);
                         parent
                             .addClass('has-error')
                             .append('<div class="help-block">' + message + '</div>');
@@ -190,7 +192,7 @@
             });
         });
     }
-    
+
     function previewEvent(shiftEvent, callback) {
         var previewEvent = {},
             mustacheData;
@@ -207,7 +209,7 @@
         };
         $.each(previewEvent.dates, function(index, value) {
             var date = $form.formatDate(value);
-            mustacheData.dates.push({ date: date, events: [previewEvent] });            
+            mustacheData.dates.push({ date: date, events: [previewEvent] });
         });
         $('#preview-button').hide();
         $('#preview-edit-button').show();
@@ -215,7 +217,7 @@
         var info = Mustache.render(template, mustacheData);
         callback(info);
     }
-    
+
     function eventFromForm() {
         var harvestedEvent = {};
         $('form').serializeArray().map(function (x) {
