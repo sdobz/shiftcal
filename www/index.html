@@ -343,6 +343,7 @@
 
                             </div>
                         </div>
+
                         <div class="col-xs-2">
                         </div>
                         <div id="detailsContainer{{caldaily_id}}" {{^ expanded }}class="collapse"{{/ expanded }}>
@@ -357,14 +358,6 @@
                                         {{/ image}}
                                     </div>
 
-                                {{ #weburl }}
-                                <p><a href="{{weburl}}" target="_blank">
-                                    <img src="images/webpage.png" alt="Website" />
-                                    {{#webname}}{{webname}}{{/webname}}
-                                    {{^webname}}Website{{/webname}}
-                                </a></p>
-                                {{ /weburl }}
-
                                 <p><img src="images/alarm.png" alt="Time" /> {{displayDate}}, {{displayStartTime}}{{#timedetails}}, {{timedetails}}{{/timedetails}}</p>
                                 {{#endtime}}
                                 <p><img src="images/stopwatch.png" alt="End Time" /> {{displayEndTime}}</p>
@@ -372,17 +365,34 @@
 
                                 <p>{{details}}</p>
 
+                                {{#email}}
                                 <p class="contactInfo">
-                                    {{#email}}
-                                        <a href="mailto:{{email}}"><img src="images/email.png" alt="Email" /> {{email}}</a>
-                                    {{/email}}
+                                    <a href="mailto:{{email}}"><img src="images/email.png" alt="Email" /> {{email}}</a>
+                                </p>
+                                {{/email}}
 
-                                    {{#phone}}
-                                        <a href="tel:{{phone}}"><img src="images/phone.png" alt="Phone" /> {{phone}}</a>
-                                    {{/phone}}
+                                {{#phone}}
+                                <p class="contactInfo">
+                                    <a href="tel:{{phone}}"><img src="images/phone.png" alt="Phone" /> {{phone}}</a>
+                                </p>
+                                {{/phone}}
 
+                                {{ #weburl }}
+                                <p class="contactInfo">
+                                    <a href="{{weburl}}" target="_blank">
+                                        <img src="images/webpage.png" alt="Website" />
+                                        {{#webname}}{{webname}}{{/webname}}
+                                        {{^webname}}Website{{/webname}}
+                                    </a>
+                                </p>
+                                {{ /weburl }}
+
+                                {{#contact}}
+                                <p class="contactInfo">
                                     {{contact}}
                                 </p>
+                                {{/contact}}
+
                                 <div class="eventlink">
                                     <p class="facebook-share">
                                         <a href="https://www.facebook.com/sharer/sharer.php?u={{shareable}}" target="_blank">
