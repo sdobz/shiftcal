@@ -142,13 +142,13 @@
               <span class="pp-headline">Pedalpalooza!</span>
               <span>All June, 2017</span>
             </div>
-                <button type="button" aria-expanded="false" data-toggle="collapse" data-target="#pp-description">
+                <button type="button" aria-expanded="false" class="expand-details" data-toggle-target="#pp-description">
                 <svg class="icon expand" role="img" aria-hidden="true">
                     <use xlink:href="#icon-arrow-down" />
                 </svg>
                 <span>About Pedalpalooza</span>
             </button>
-            <div id="pp-description" class="collapse">
+            <div id="pp-description" hidden>
                 <p> Pedalpalooza is 3+ weeks of bikey fun. With ~300 different events, most organized by individuals, bikers of all persuasions are likely to find many events of interest. Nearly all events are free. </p>
                 <p> Visiting from out of town? We've started a <a href="http://www.shift2bikes.org/allbike.php#Visitor_Info">Visitor Info</a> page.</p>
                 <p> <a href="https://docs.shift2bikes.org/pages/pedalpalooza/">More info…</a> </p>
@@ -165,13 +165,13 @@
     </script>
 
     <script id="jump-to-date" type="text/template">
-        <button type="button" aria-expanded="false" data-toggle="collapse" data-target="#date-select-container-pedalpalooza" class="jump-to-date">
+        <button type="button" aria-expanded="false" data-toggle-target="#date-select-container-pedalpalooza" class="jump-to-date">
             <span>Jump to date</span>
             <svg class="icon expand" role="img" aria-hidden="true">
                 <use xlink:href="#icon-arrow-down" />
             </svg>
         </button>
-        <div id="date-select-container-pedalpalooza" class="date-select-container-style jump-to-date form-group collapse">
+        <div id="date-select-container-pedalpalooza" class="date-select-container-style jump-to-date form-group" hidden>
             <table class="day-of-week">
                 <tbody><tr>
                     <td class="calendar-month-title"></td>
@@ -292,7 +292,7 @@
                                 {{/ newsflash }}
                                 {{/ featured }}
 
-                                    <button type="button" aria-expanded="false" class="expandDetails" data-toggle="collapse" data-target="#detailsContainer{{caldaily_id}}">
+                                    <button type="button" aria-expanded="{{^ expanded }}false{{/ expanded }}{{# expanded }}true{{/ expanded }}" class="expand-details" data-toggle-target="#event-details-{{caldaily_id}}">
                                     <svg class="icon expand" role="img" aria-hidden="true">
                                         <use xlink:href="#icon-arrow-down" />
                                     </svg>
@@ -343,78 +343,77 @@
 
                             </div>
                         </div>
+
                         <div class="col-xs-2">
                         </div>
-                        <div id="detailsContainer{{caldaily_id}}" {{^ expanded }}class="collapse"{{/ expanded }}>
-                            <div class="eventDetails  col-xs-10">
+                        <div class="event-details col-xs-10" id="event-details-{{caldaily_id}}" {{^ expanded }}hidden{{/ expanded }} >
 
-                                {{#cancelled}}<del>{{/cancelled}}
+                            {{#cancelled}}<del>{{/cancelled}}
 
-                                <div class="mainDetails">
-                                    <div class="eventImg">
-                                        {{# image}}
-                                            <img src="{{image}}" />
-                                        {{/ image}}
-                                    </div>
-
-                                {{ #weburl }}
-                                <p><a href="{{weburl}}" target="_blank">
-                                    <img src="images/webpage.png" alt="Website" />
-                                    {{#webname}}{{webname}}{{/webname}}
-                                    {{^webname}}Website{{/webname}}
-                                </a></p>
-                                {{ /weburl }}
-
-                                <p><img src="images/alarm.png" alt="Time" /> {{displayDate}}, {{displayStartTime}}{{#timedetails}}, {{timedetails}}{{/timedetails}}</p>
-                                {{#endtime}}
-                                <p><img src="images/stopwatch.png" alt="End Time" /> {{displayEndTime}}</p>
-                                {{/endtime}}
-
-                                <p>{{details}}</p>
-
-                                <p class="contactInfo">
-                                    {{#email}}
-                                        <a href="mailto:{{email}}"><img src="images/email.png" alt="Email" /> {{email}}</a>
-                                    {{/email}}
-
-                                    {{#phone}}
-                                        <a href="tel:{{phone}}"><img src="images/phone.png" alt="Phone" /> {{phone}}</a>
-                                    {{/phone}}
-
-                                    {{contact}}
-                                </p>
-                                <div class="eventlink">
-                                    <p class="facebook-share">
-                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{shareable}}" target="_blank">
-                                        <img src="images/facebook.svg" alt="Facebook"/>Share</a>
-                                    </p>
-                                    <p>
-                                        <a
-                                            {{^preview}}
-                                                href="event-{{caldaily_id}}"
-                                            {{/preview}}
-                                            class="share-link">
-                                            Sharable link</a>
-                                        <a
-                                            {{^preview}}
-                                                href="{{exportlink}}"
-                                            {{/preview}}
-                                            data-id="{{caldaily_id}}"
-                                            class="export-link">
-                                            Export to calendar</a>
-                                    </p>
+                            <div class="mainDetails">
+                                <div class="eventImg">
+                                    {{# image}}
+                                        <img src="{{image}}" />
+                                    {{/ image}}
                                 </div>
-                                {{#preview}}
-                                     <hr>
-                                     The following will only show on the print calendar.
-                                     <br>
-                                       print title: {{tinytitle}}
-                                     <br>
-                                       print description: {{printdescr}}
-                                {{/preview}}
 
-                                {{#cancelled}}</del>{{/cancelled}}
+                            {{ #weburl }}
+                            <p><a href="{{weburl}}" target="_blank">
+                                <img src="images/webpage.png" alt="Website" />
+                                {{#webname}}{{webname}}{{/webname}}
+                                {{^webname}}Website{{/webname}}
+                            </a></p>
+                            {{ /weburl }}
+
+                            <p><img src="images/alarm.png" alt="Time" /> {{displayDate}}, {{displayStartTime}}{{#timedetails}}, {{timedetails}}{{/timedetails}}</p>
+                            {{#endtime}}
+                            <p><img src="images/stopwatch.png" alt="End Time" /> {{displayEndTime}}</p>
+                            {{/endtime}}
+
+                            <p>{{details}}</p>
+
+                            <p class="contactInfo">
+                                {{#email}}
+                                    <a href="mailto:{{email}}"><img src="images/email.png" alt="Email" /> {{email}}</a>
+                                {{/email}}
+
+                                {{#phone}}
+                                    <a href="tel:{{phone}}"><img src="images/phone.png" alt="Phone" /> {{phone}}</a>
+                                {{/phone}}
+
+                                {{contact}}
+                            </p>
+                            <div class="eventlink">
+                                <p class="facebook-share">
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{shareable}}" target="_blank">
+                                    <img src="images/facebook.svg" alt="Facebook"/>Share</a>
+                                </p>
+                                <p>
+                                    <a
+                                        {{^preview}}
+                                            href="event-{{caldaily_id}}"
+                                        {{/preview}}
+                                        class="share-link">
+                                        Sharable link</a>
+                                    <a
+                                        {{^preview}}
+                                            href="{{exportlink}}"
+                                        {{/preview}}
+                                        data-id="{{caldaily_id}}"
+                                        class="export-link">
+                                        Export to calendar</a>
+                                </p>
                             </div>
+                            {{#preview}}
+                                 <hr>
+                                 The following will only show on the print calendar.
+                                 <br>
+                                   print title: {{tinytitle}}
+                                 <br>
+                                   print description: {{printdescr}}
+                            {{/preview}}
+
+                            {{#cancelled}}</del>{{/cancelled}}
                         </div>
                     </li>
                 {{/events}}

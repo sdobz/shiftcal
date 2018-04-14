@@ -273,7 +273,7 @@ h3 {
     margin-bottom: 5px;
 }
 
-.eventDetails {
+.event-details {
     color: rgb(64, 64, 64);
     overflow-wrap: break-word;
 }
@@ -290,7 +290,7 @@ h3 {
     text-decoration: none;
 }
 
-a.expandDetails {
+a.expand-details {
     color:inherit;
 }
 
@@ -336,7 +336,7 @@ a.expandDetails {
     font-size: 24px;
 }
 
-#pp-banner button[data-toggle="collapse"] {
+#pp-banner button[data-toggle-target] {
     border: none;
     background: none;
     color: #663300;
