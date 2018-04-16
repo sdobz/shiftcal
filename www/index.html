@@ -468,12 +468,12 @@
                         <div class="panel-body">
                             <div class="form-group">
                                 <label class="control-label req-label" for="title">Event name</label>
-                                <input type="text" class="form-control" name="title" id="title" value="{{title}}" required="true" />
+                                <input type="text" class="form-control" name="title" id="title" value="{{title}}" required="true" aria-invalid="false"/>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label req-label" for="details">Details</label>
-                                <textarea class="form-control" name="details" id="details" required="true" aria-describedby="details-help">{{details}}</textarea>
+                                <textarea class="form-control" name="details" id="details" required="true" aria-invalid="false" aria-describedby="details-help">{{details}}</textarea>
                                 <p class="input-help" id="details-help">If there are fees, you <strong>must</strong> list them here. If you don't, people will assume the event is free.</p>
                             </div>
 
@@ -561,11 +561,11 @@
 
                             <div class="form-group">
                                 <label class="control-label req-label" for="venue">Location name</label>
-                                <input type="text" class="form-control" name="venue" id="venue" value="{{venue}}" required="true" />
+                                <input type="text" class="form-control" name="venue" id="venue" value="{{venue}}" required="true" aria-invalid="false" />
                             </div>
                             <div class="form-group">
                                 <label class="control-label req-label" for="address">Address</label>
-                                <input type="text" class="form-control" name="address" id="address" value="{{address}}" required="true" aria-describedby="address-help" />
+                                <input type="text" class="form-control" name="address" id="address" value="{{address}}" required="true" aria-invalid="false" aria-describedby="address-help" />
                                 <p class="input-help" id="address-help">Provide either a street address or cross streets. This should be mappable by online maps such as Google Maps. If you haven't chosen a location yet, enter "TBA" for now.</p>
                             </div>
                             <div class="form-group">
@@ -616,12 +616,12 @@
                         <div class="panel-body">
                             <div class="form-group">
                                 <label class="control-label req-label" for="organizer">Organizer</label>
-                                <input type="text" class="form-control" name="organizer" id="organizer" value="{{organizer}}" required="true" />
+                                <input type="text" class="form-control" name="organizer" id="organizer" value="{{organizer}}" required="true" aria-invalid="false" />
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label req-label" for="email">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" value="{{email}}" aria-describedby="email-help" required="true" />
+                                <input type="text" class="form-control" name="email" id="email" value="{{email}}" aria-describedby="email-help" required="true" aria-invalid="false" />
                                 <p class="input-help" id="email-help">This must be a valid email address where we can reach you. A confirmation message will be mailed to this address.</p>
                                 <div id="email-suggestion"></div>
 

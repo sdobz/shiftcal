@@ -33,20 +33,31 @@ if (isset($_GET['enddate']) && ($parseddate = strtotime($_GET['enddate']))) {
     $enddate = time();
 }
 
-$json = array('events' => array());
+$json = array();
 
-if (isset($_GET['id'])) {
-    $events = EventTime::getByID($_GET['id']);
-}
-else {
-    $events = EventTime::getRangeVisible($startdate, $enddate);
-}
-foreach ($events as $eventTime) {
-    try{
-        $json['events'] []= $eventTime->toEventSummaryArray();
-    } catch( Exception $ex ) {
-        // For now, ignore
+if ($enddate < $startdate) {
+    http_response_code(400);
+    $message = "enddate: " . date('Y-m-d', $enddate) . " is before startdate: " . date('Y-m-d', $startdate);
+    $json['error'] = array(
+        'message' => $message
+    );
+} else {
+    $json['events'] = array();
+
+    if (isset($_GET['id'])) {
+        $events = EventTime::getByID($_GET['id']);
+    }
+    else {
+        $events = EventTime::getRangeVisible($startdate, $enddate);
     }
 
+    foreach ($events as $eventTime) {
+        try{
+            $json['events'] []= $eventTime->toEventSummaryArray();
+        } catch( Exception $ex ) {
+            // For now, ignore
+        }
+
+    }
 }
 fJSON::output($json);
