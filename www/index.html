@@ -99,10 +99,11 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <h4>Are you sure you want to cancel?</h4>
+                    <p>This event won't be saved.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="confirm-cancel" data-dismiss="modal" class="btn btn-warning">Yes</button>
-                    <button type="button" class="btn" data-dismiss="modal">No</button>
+                    <button type="button" class="btn" data-dismiss="modal">Back</button>
+                    <button type="button" id="confirm-cancel" data-dismiss="modal" class="btn btn-warning">Discard event</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -113,10 +114,12 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <h4>Are you sure you want to delete this event?</h4>
+                    <p>The event will be permanently deleted. This can't be undone.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="confirm-delete" data-dismiss="modal" class="btn btn-warning">Yes</button>
-                    <button type="button" class="btn" data-dismiss="modal">No</button>
+
+                    <button type="button" class="btn" data-dismiss="modal">Back</button>
+                    <button type="button" id="confirm-delete" data-dismiss="modal" class="btn btn-warning">Delete Event</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -434,14 +437,11 @@
 
         <h1>Add Event</h1>
         <div id="edit-header" >
-                <button id="preview-edit-button" type="button" class="btn btn-addEvent">Edit</button>
-                <button id="preview-button" type="button" class="btn btn-addEvent">Preview</button>
-                <button id="save-button" type="button" class="btn btn-addEvent">Post</button>
+                <button id="preview-edit-button" type="button" class="btn btn-add-event">Edit</button>
+                <button id="preview-button" type="button" class="btn btn-add-event">Preview</button>
+                <button id="save-button" type="button" class="btn btn-add-event">Post</button>
             {{^ id }}
-                <button id="cancel-button" type="button" class="btn btn-addEvent" data-toggle="modal" data-target="#cancel-modal">Cancel</button>
-            {{/ id }}
-            {{# id }}
-                <button id="delete-button" type="button" class="btn btn-addEvent" data-toggle="modal" data-target="#delete-modal">Delete</button>
+                <button id="cancel-button" type="button" class="btn btn-add-event" data-toggle="modal" data-target="#cancel-modal">Cancel</button>
             {{/ id }}
 
             <span id="save-result"></span>
@@ -696,7 +696,6 @@
                                     Include in the print calendar
                                 </label>
                                 <p class="input-help" id="printevent-help">You must submit at least 3 weeks in advance. Inclusion not guaranteed.</p>
-
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="tinytitle">Print title (24 characters)</label>
@@ -714,15 +713,48 @@
                     </div>
                 </div>
 
-            </div>
-            <img src="images/comic/ride-leading-comic-thumbnail.png" class="comic-thumbnail" alt="">
-            <p>For tips on making your ride successful, we ask that you read the <a href="rideleadingcomic.html">Ride Leading Comic</a> at least once before submitting an event.</p>
-            <div class="checkbox">
-                <input type="hidden" name="read_comic" value="0" />
-                <label class="control-label" for="read_comic">
-                    <input type="checkbox" name="read_comic" id="read_comic" value="1" {{# readComic }}checked{{/ readComic }} />
-                    I have read the Ride Leading Comic
-                </label>
+                <div class="ride-comic">
+                    <img src="images/comic/ride-leading-comic-thumbnail.png" class="comic-thumbnail" alt="">
+                    <p>For tips on making your ride successful, we ask that you read the <a href="rideleadingcomic.html">Ride Leading Comic</a> at least once before submitting an event.</p>
+                    <div class="checkbox">
+                        <input type="hidden" name="read_comic" value="0" />
+                        <label class="control-label" for="read_comic">
+                            <input type="checkbox" name="read_comic" id="read_comic" value="1" {{# readComic }}checked{{/ readComic }} />
+                            I have read the Ride Leading Comic
+                        </label>
+                    </div>
+                </div>
+
+                {{# id }}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2>
+                            <a role="button" data-toggle="collapse" href="#delete-event-fields" aria-expanded="true">
+                                Delete Event
+                                <svg class="icon expand" role="img" aria-hidden="true">
+                                    <use xlink:href="#icon-arrow-down" />
+                                </svg>
+                            </a>
+                        </h2>
+                    </div>
+
+                    <div id="delete-event-fields" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <!-- commenting out until cancellation option is added back
+                                <p class="input-help">If an event is no longer happening, we recommend cancelling it instead of deleting it. Cancelling it gives you an opportunity to post a message to info riders, like if it's been rescheduled to another date.</p>
+                                -->
+                                <p class="input-help">If this is a series of repeating events, <strong>this will delete the entire series</strong>.</p>
+                                <p class="input-help"><strong>Once an event is deleted, it can't be restored!</strong> If you're sure: </p>
+
+                                <button id="delete-button" type="button" class="btn btn-add-event" data-toggle="modal" data-target="#delete-modal">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {{/ id }}
+
             </div>
         </form>
     </script>

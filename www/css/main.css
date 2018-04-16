@@ -282,6 +282,11 @@ h3 {
     color: #37b;
 }
 
+.btn-add-event {
+    color: #630;
+    background: #f90;
+}
+
 .mainDetails p {
     margin-top: 1em;
 
@@ -303,6 +308,7 @@ a.expand-details {
 #edit-header {
     width:100%;
     background:white;
+    padding: 8px 16px;
 }
 
 .affix {
@@ -310,6 +316,7 @@ a.expand-details {
     top: 0;
     background: #fff;
     z-index: 1;
+    border-bottom: 1px solid transparent;
 }
 
 #pedalpalooza-img {
@@ -474,6 +481,13 @@ button.jump-to-date[aria-expanded="true"] .icon.expand {
     text-align:center;
 }
 
+.modal-dialog .modal-footer .btn-warning {
+  color: #630;
+  background-image: none;
+  background-color: #f90;
+  text-shadow: none;
+}
+
 button.more-events {
     display:block;
     width:100%;
@@ -521,6 +535,11 @@ button.more-events {
     color: #707070;
 }
 
+.panel-default > .panel-heading {
+    background-color: #F2F2F2;
+    background-image: none;
+}
+
 .panel-heading a .icon {
     height: 20px;
     width: 20px;
@@ -536,7 +555,12 @@ button.more-events {
     transform: rotate(-90deg);
 }
 
+.ride-comic {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .comic-thumbnail {
     float: left;
-    margin-right: 10px
+    margin-right: 10px;
 }

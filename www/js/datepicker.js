@@ -107,11 +107,8 @@
     function normalizeDate(date) {
         var jsd = new Date(date);
         jsd.setTime(jsd.getTime() + jsd.getTimezoneOffset()*60*1000);
-        var day = jsd.getDate();
-        var monthIndex = jsd.getMonth();
-        var year = jsd.getFullYear();
 
-        return year + '-' + (monthIndex+1) + '-' + day;
+        return moment(jsd).format("YYYY-MM-DD");
     }
 
     function isSelected(date) {
