@@ -78,7 +78,7 @@ main a, button {
     right:40px;
     display:none;
     z-index:1;
-    background: url('images/up-arrow.svg') no-repeat 0px 20px;
+    background: url('../images/icons/up-arrow.svg') no-repeat 0px 20px;
     background-position: center;
 }
 
@@ -210,8 +210,6 @@ h1 {
     border: 1px dashed #D00000;
     border-radius: 2px;
     padding: 2px 4px;
-    display: inline-block;
-    width: auto;
     overflow-wrap: break-word;
 }
 
@@ -275,7 +273,7 @@ h3 {
     margin-bottom: 5px;
 }
 
-.eventDetails {
+.event-details {
     color: rgb(64, 64, 64);
     overflow-wrap: break-word;
 }
@@ -292,7 +290,7 @@ h3 {
     text-decoration: none;
 }
 
-a.expandDetails {
+a.expand-details {
     color:inherit;
 }
 
@@ -338,7 +336,7 @@ a.expandDetails {
     font-size: 24px;
 }
 
-#pp-banner button[data-toggle="collapse"] {
+#pp-banner button[data-toggle-target] {
     border: none;
     background: none;
     color: #663300;
@@ -360,6 +358,9 @@ a.expandDetails {
 .date-select-container-style {
     width: 310px;
     background-color: #fff56f;
+}
+form#event-entry .date-select-container-style {
+    width: 280px;
 }
 .date-select-container-style.jump-to-date {
     float: right;
@@ -509,7 +510,7 @@ button.more-events {
 }
 
 .panel {
-    min-width: 320px;
+    min-width: 310px;
 }
 
 .panel h2 {

@@ -149,7 +149,7 @@ $(document).ready( function() {
         curPage = "viewPedalpalooza"
         var startDate = new Date("June 1, 2017");
         var endDate = new Date("June 30, 2017 23:59:59");
-        var pedalpalooza = '/cal/images/pp2017.jpg';
+        var pedalpalooza = '/cal/images/pp/pp2017.jpg';
         container.empty()
              .append($('#pedalpalooza-header').html())
              .append($('#jump-to-date').html())
@@ -214,7 +214,7 @@ $(document).ready( function() {
         }
     });
 
-    $(document).on('click', 'a.expandDetails', function(e) {
+    $(document).on('click', 'a.expand-details', function(e) {
         e.preventDefault();
         return false;
     });
@@ -231,6 +231,16 @@ $(document).ready( function() {
         $('#preview-edit-button').hide();
     });
 
+    $(document).on('click', 'button[data-toggle-target]', function() {
+        var target = $( this.dataset.toggleTarget );
+        if(target.attr('hidden')) {
+            target.removeAttr('hidden');
+            this.setAttribute('aria-expanded', 'true')
+        } else {
+            target.attr('hidden', '');
+            this.setAttribute('aria-expanded', 'false')
+        }
+    });
 
     //scroll to top functionality
     $(window).scroll(function(){
