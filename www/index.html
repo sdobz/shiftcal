@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.0/mustache.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/formdata.js"></script>
     <script src="js/mailcheck.min.js"></script>
     <script src="js/moment.min.js"></script>
-    <script src="helpers.js"></script>
-    <script src="addevent.js"></script>
-    <script src="datepicker.js"></script>
-    <script src="main.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/addevent.js"></script>
+    <script src="js/datepicker.js"></script>
+    <script src="js/main.js"></script>
     <title>Shift to Bikes</title>
 </head>
 <body>
@@ -137,7 +137,7 @@
 
     <script id="pedalpalooza-header" type="text/template">
         <div id="pp-banner">
-            <a href="images/pp2017.jpg"><img alt="Pedalpalooza" id="pedalpalooza-img" src="images/pp2017-banner.jpg"></a>
+            <a href="images/pp/pp2017.jpg"><img alt="Pedalpalooza" id="pedalpalooza-img" src="images/pp/pp2017-banner.jpg"></a>
             <div>
               <span class="pp-headline">Pedalpalooza!</span>
               <span>All June, 2017</span>
@@ -359,26 +359,26 @@
 
                             {{ #weburl }}
                             <p><a href="{{weburl}}" target="_blank">
-                                <img src="images/webpage.png" alt="Website" />
+                                <img src="images/icons/webpage.png" alt="Website" />
                                 {{#webname}}{{webname}}{{/webname}}
                                 {{^webname}}Website{{/webname}}
                             </a></p>
                             {{ /weburl }}
 
-                            <p><img src="images/alarm.png" alt="Time" /> {{displayDate}}, {{displayStartTime}}{{#timedetails}}, {{timedetails}}{{/timedetails}}</p>
+                            <p><img src="images/icons/alarm.png" alt="Time" /> {{displayDate}}, {{displayStartTime}}{{#timedetails}}, {{timedetails}}{{/timedetails}}</p>
                             {{#endtime}}
-                            <p><img src="images/stopwatch.png" alt="End Time" /> {{displayEndTime}}</p>
+                            <p><img src="images/icons/stopwatch.png" alt="End Time" /> {{displayEndTime}}</p>
                             {{/endtime}}
 
                             <p>{{details}}</p>
 
                             <p class="contactInfo">
                                 {{#email}}
-                                    <a href="mailto:{{email}}"><img src="images/email.png" alt="Email" /> {{email}}</a>
+                                    <a href="mailto:{{email}}"><img src="images/icons/email.png" alt="Email" /> {{email}}</a>
                                 {{/email}}
 
                                 {{#phone}}
-                                    <a href="tel:{{phone}}"><img src="images/phone.png" alt="Phone" /> {{phone}}</a>
+                                    <a href="tel:{{phone}}"><img src="images/icons/phone.png" alt="Phone" /> {{phone}}</a>
                                 {{/phone}}
 
                                 {{contact}}
@@ -386,7 +386,7 @@
                             <div class="eventlink">
                                 <p class="facebook-share">
                                     <a href="https://www.facebook.com/sharer/sharer.php?u={{shareable}}" target="_blank">
-                                    <img src="images/facebook.svg" alt="Facebook"/>Share</a>
+                                    <img src="images/icons/facebook.svg" alt="Facebook"/>Share</a>
                                 </p>
                                 <p>
                                     <a
@@ -467,12 +467,12 @@
                         <div class="panel-body">
                             <div class="form-group">
                                 <label class="control-label req-label" for="title">Event name</label>
-                                <input type="text" class="form-control" name="title" id="title" value="{{title}}" required="true" />
+                                <input type="text" class="form-control" name="title" id="title" value="{{title}}" required="true" aria-invalid="false"/>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label req-label" for="details">Details</label>
-                                <textarea class="form-control" name="details" id="details" required="true" aria-describedby="details-help">{{details}}</textarea>
+                                <textarea class="form-control" name="details" id="details" required="true" aria-invalid="false" aria-describedby="details-help">{{details}}</textarea>
                                 <p class="input-help" id="details-help">If there are fees, you <strong>must</strong> list them here. If you don't, people will assume the event is free.</p>
                             </div>
 
@@ -560,11 +560,11 @@
 
                             <div class="form-group">
                                 <label class="control-label req-label" for="venue">Location name</label>
-                                <input type="text" class="form-control" name="venue" id="venue" value="{{venue}}" required="true" />
+                                <input type="text" class="form-control" name="venue" id="venue" value="{{venue}}" required="true" aria-invalid="false" />
                             </div>
                             <div class="form-group">
                                 <label class="control-label req-label" for="address">Address</label>
-                                <input type="text" class="form-control" name="address" id="address" value="{{address}}" required="true" aria-describedby="address-help" />
+                                <input type="text" class="form-control" name="address" id="address" value="{{address}}" required="true" aria-invalid="false" aria-describedby="address-help" />
                                 <p class="input-help" id="address-help">Provide either a street address or cross streets. This should be mappable by online maps such as Google Maps. If you haven't chosen a location yet, enter "TBA" for now.</p>
                             </div>
                             <div class="form-group">
@@ -615,12 +615,12 @@
                         <div class="panel-body">
                             <div class="form-group">
                                 <label class="control-label req-label" for="organizer">Organizer</label>
-                                <input type="text" class="form-control" name="organizer" id="organizer" value="{{organizer}}" required="true" />
+                                <input type="text" class="form-control" name="organizer" id="organizer" value="{{organizer}}" required="true" aria-invalid="false" />
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label req-label" for="email">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" value="{{email}}" aria-describedby="email-help" required="true" />
+                                <input type="text" class="form-control" name="email" id="email" value="{{email}}" aria-describedby="email-help" required="true" aria-invalid="false" />
                                 <p class="input-help" id="email-help">This must be a valid email address where we can reach you. A confirmation message will be mailed to this address.</p>
                                 <div id="email-suggestion"></div>
 
@@ -715,7 +715,7 @@
                 </div>
 
             </div>
-            <img src="images/ride-leading-comic-thumbnail.png" class="comic-thumbnail" alt="">
+            <img src="images/comic/ride-leading-comic-thumbnail.png" class="comic-thumbnail" alt="">
             <p>For tips on making your ride successful, we ask that you read the <a href="rideleadingcomic.html">Ride Leading Comic</a> at least once before submitting an event.</p>
             <div class="checkbox">
                 <input type="hidden" name="read_comic" value="0" />
@@ -741,36 +741,39 @@
 
     <script id="aboutUs" type="text">
         <div>
-        	<div class="secondaryHeader">About SHIFT</div>
-			<div class="plain">
-			    <br>
-                <p>SHIFT helps other groups and individuals promote their "bike fun" events. Most of the events in this calendar are not produced by Shift. Anyone is welcome to post events. </p>
-                <p>SHIFT is the force behind Pedalpalooza. It also coordinates fun bicycling events throughout the year. Our mission is to demonstrate that bicycling is fun, liberating, empowering, sustainable, and environmentally friendly. We ask for no membership, nor dues. We ask for only a shared passion for the bicycle in all its glory: as toy, as transportation, as tool for social and environmental change! </p>
-                <p>Join the <a href="https://lists.riseup.net/www/subrequest/shift"> SHIFT listserve</a></p>
-                <h3>Volunteer</h3>
-                <p>Breakfast on the Bridges is the last friday of every month. Present breakfast to bike commuters in an interesting way - on a bridge! Contact the ever chortling Bard of the Bridges, <a href="http://www.shift2bikes.org/contacts/index.php?eCon=BonB">Timo</a></p>
-                <p>Contribute to our <a href="http://github.com/Shift2Bikes/shiftcal">source code</a></p>
-                <h3>Contact information</h3>
-                <p>Contact us <a href="http://www.shift2bikes.org/contacts/">here</a></p>
-                <h3>Our sponsors</h3>
-                <a href="http://umbrellapdx.org/"> <image alt="Umbrella PDX" src="http://umbrellapdx.org/templates/tem_trentco/images/logo.jpg" width="125"/img></a>
-                <br>
-                <br>
-                <a href="http://www.canvashost.com/"> <image alt="Canvas Host" src="http://www.canvashost.com/images/canvashost-mobile.jpg" width="125" /img></a>
-                <br>
-                <h3>Donations</h3>
+        	<h1>About SHIFT</h1>
 
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                    <input type="hidden" name="cmd" value="_s-xclick">
-                    <input type="hidden" name="hosted_button_id" value="YJYFXDPLSCW8U">
-                    <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-                </form>
-                <p>Donations to SHIFT can be made by mailing a check addressed to: </p>
-                <p>Shift c/o Umbrella </p>
-                <p>820 SW 2nd Ave. Ste. 200</p>
-                <p>Portland, OR 97204</p>
-                <p>Our 501(c)3 sponsor, Umbrella, will handle the rest.</p>
+			<div class="plain">
+                    <p>SHIFT helps other groups and individuals promote their "bike fun" events. Most of the events in this calendar are not produced by Shift. Anyone is welcome to post events. </p>
+                    <p>SHIFT is the force behind Pedalpalooza. It also coordinates fun bicycling events throughout the year. Our mission is to demonstrate that bicycling is fun, liberating, empowering, sustainable, and environmentally friendly. We ask for no membership, nor dues. We ask for only a shared passion for the bicycle in all its glory: as toy, as transportation, as tool for social and environmental change! </p>
+                    <p>Join the <a href="https://lists.riseup.net/www/subrequest/shift">SHIFT listserve</a>.</p>
+
+                <h2>Volunteer</h2>
+                    <p>Breakfast on the Bridges is the last Friday of every month. Present breakfast to bike commuters in an interesting way &mdash; on a bridge! Contact the ever chortling Bard of the Bridges, <a href="http://www.shift2bikes.org/contacts/index.php?eCon=BonB">Timo</a>.</p>
+                    <p>Contribute to our <a href="https://github.com/Shift2Bikes/shiftcal">source code</a>.</p>
+
+                <h2>Contact information</h2>
+                    <p><a href="http://www.shift2bikes.org/contacts/">Contact us</a></p>
+
+                <h2>Our sponsors</h2>
+                    <p><a href="https://umbrellapdx.org/"><img alt="Umbrella PDX" src="images/logos/umbrella-pdx-logo.png" width="125"/img></a></p>
+                    <p><a href="https://www.canvashost.com/"><img alt="Canvas Host" src="http://www.canvashost.com/images/canvashost-mobile.jpg" width="125" /img></a></p>
+
+                <h2>Donations</h2>
+                    <p>Donate to SHIFT online:
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="hosted_button_id" value="YJYFXDPLSCW8U">
+                        <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                    </form></p>
+
+                    <p>Donations to SHIFT can also be made by mailing a check addressed to: </p>
+                    <p>Shift c/o Umbrella
+                    <br>820 SW 2nd Ave. Ste. 200
+                    <br>Portland, OR 97204</p>
+
+                    <p>Our 501(c)3 sponsor, Umbrella, will handle the rest.</p>
             </div>
 
         </div>
