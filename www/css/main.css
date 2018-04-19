@@ -159,6 +159,11 @@ h1 {
     color: #663300;
 }
 
+.archive dfn {
+    font-style: normal;
+    font-weight: bold;
+}
+
 .archive-list {
     list-style: none;
     padding: 0;
