@@ -167,6 +167,12 @@ $(document).ready( function() {
         });
     }
 
+    function viewPedalpaloozaArchive() {
+        var content = $('#pedalpaloozaArchive').html();
+        container.empty().append(content);
+        checkAnchors();
+    }
+
     function dateJump(ev) {
         var e = ev.target;
         if (e.hasAttribute('data-date')) {
@@ -323,6 +329,7 @@ $(document).ready( function() {
     });
     addRoute(/viewEvents$/, viewEvents);
     addRoute(/aboutUs$/, viewAbout);
+    addRoute(/pedalpaloozaArchive$/, viewPedalpaloozaArchive);
     addRoute(/event-([0-9]*)$/, function (frag) {
         var rx = /event-([0-9]*)$/g;
         var arr = rx.exec(frag);
