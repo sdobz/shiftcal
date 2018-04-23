@@ -45,4 +45,4 @@ The Facebook app ID is 135930960098034.
 
 ## How to propose changes
 
-Please fork the master branch of the ShiftGithub/shiftcal code into a branch in your own account. Commit your changes to that branch, make a pull request against the master branch of ShiftGithub/shiftcal, and we'll try to merge it!
+Please fork the master branch of the [Shift2Bikes/shiftcal](https://github.com/Shift2Bikes/shiftcal) code into a branch in your own account. Commit your changes to that branch, make a pull request against the master branch of Shift2Bikes/shiftcal, and we'll try to merge it!
