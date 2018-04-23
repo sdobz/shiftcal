@@ -1,5 +1,20 @@
 (function($) {
 
+    $.fn.getAudienceLabel = function(audience) {
+         if (audience == null) {
+             return null;
+         }
+
+         if (audience == "A") {
+             return "21+ Only";
+         } else if (audience == "F") {
+             return "Family Friendly";
+         } else {
+           //no label needed for general (G) or any other value
+           return null;
+        }
+    };
+
     $.fn.getMapLink = function(address) {
         return 'http://maps.google.com/' +
             '?bounds=45.389771,-122.829208|45.659647,-122.404175&q=' +

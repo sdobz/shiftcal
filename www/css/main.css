@@ -379,6 +379,7 @@ a.expand-details {
     border: none;
     background: none;
     color: #663300;
+    margin-top: 16px;
 }
 
 #pp-description {
