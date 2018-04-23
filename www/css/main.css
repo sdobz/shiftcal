@@ -64,7 +64,8 @@ nav.navbar {
     text-shadow: none;
 }
 
-main a, button {
+main a,
+button {
     color: #0066BB;
 }
 
@@ -126,7 +127,8 @@ svg.icon {
     margin: 5px 10px 10px 5px;
 }
 
-.plain, .archive {
+.plain,
+.archive {
     margin: 5px 10px 10px 5px;
     clear: both;
 }
@@ -175,7 +177,8 @@ h1 {
     align-items: flex-start;
 }
 
-.archive-list .year, .archive-list .description {
+.archive-list .year,
+.archive-list .description {
     padding: 0.5em;
 }
 
@@ -253,7 +256,8 @@ h1 {
     width: 80%;
 }
 
-.col-xs-2, .col-xs-10 {
+.col-xs-2,
+.col-xs-10 {
     padding-left: 5px;
     padding-right: 5px;
 }
@@ -473,18 +477,24 @@ button.jump-to-date[aria-expanded="true"] .icon.expand {
     font-weight: bold;
 }
 
-.color-jan, .color-mar, .color-may, .color-jul, .color-sep, .color-nov {
+.color-jan, .color-mar,
+.color-may, .color-jul,
+.color-sep, .color-nov {
     background-color: #fc6;
 }
-.color-jan-odd, .color-mar-odd, .color-may-odd,
-.color-jul-odd, .color-sep-odd, .color-nov-odd {
+.color-jan-odd, .color-mar-odd,
+.color-may-odd, .color-jul-odd,
+.color-sep-odd, .color-nov-odd {
     background-color: #fd6;
 }
-.color-feb, .color-apr, .color-jun, .color-aug, .color-oct, .color-dec {
+.color-feb, .color-apr,
+.color-jun, .color-aug,
+.color-oct, .color-dec {
     background-color: #fd6;
 }
-.color-feb-odd, .color-apr-odd, .color-jun-odd,
-.color-aug-odd, .color-oct-odd, .color-dec-odd {
+.color-feb-odd, .color-apr-odd,
+.color-jun-odd, .color-aug-odd,
+.color-oct-odd, .color-dec-odd {
     background-color: #fe9;
 }
 
