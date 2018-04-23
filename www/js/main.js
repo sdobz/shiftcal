@@ -33,6 +33,8 @@ $(document).ready( function() {
                   value.displayEndTime = container.formatTime(value.endtime);
                 }
 
+                value.audienceLabel = container.getAudienceLabel(value.audience);
+
                 value.mapLink = container.getMapLink(value.address);
                 if ('id' in options) {
                     value.expanded = true;
