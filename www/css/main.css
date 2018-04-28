@@ -374,6 +374,10 @@ form#event-entry .date-select-container-style {
     float: right;
     clear: right;
 }
+#date-selected {
+    list-style-type: none;
+    padding: 0;
+}
 button.jump-to-date {
     float: right;
     border: none;
