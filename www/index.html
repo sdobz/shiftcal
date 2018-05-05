@@ -496,12 +496,21 @@
                                 </p>
                             </div>
                             {{#preview}}
-                                 <hr>
-                                 The following will only show on the print calendar.
-                                 <br>
-                                   print title: {{tinytitle}}
-                                 <br>
-                                   print description: {{printdescr}}
+                                <hr>
+                                <p>The following will show on the print calendar.</p>
+                                <ul>
+                                    <li>title: {{tinytitle}}</li>
+                                    <li>description: {{printdescr}}</li>
+                                    <li>contact info:</li>
+                                        <ul>
+                                            <li>{{organizer}}</li>
+                                            {{# printemail}}<li>{{email}}</li>{{/ printemail}}
+                                            {{# printphone}}<li>{{phone}}</li>{{/ printphone}}
+                                            {{# printweburl}}<li>{{weburl}}</li>{{/ printweburl}}
+                                            {{# printcontact}}<li>{{contact}}</li>{{/ printcontact}}
+                                        </ul>
+                                    </li>
+                                </ul>
                             {{/preview}}
 
                             {{#cancelled}}</del>{{/cancelled}}
@@ -527,7 +536,7 @@
         <div id="edit-header" >
                 <button id="preview-edit-button" type="button" class="btn btn-add-event">Edit</button>
                 <button id="preview-button" type="button" class="btn btn-add-event">Preview</button>
-                <button id="save-button" type="button" class="btn btn-add-event">Post</button>
+                <button id="save-button" type="button" class="btn btn-add-event">Save</button>
             {{^ id }}
                 <button id="cancel-button" type="button" class="btn btn-add-event" data-toggle="modal" data-target="#cancel-modal">Cancel</button>
             {{/ id }}
