@@ -574,6 +574,12 @@ button.more-events {
     font-size: 1.25em;
 }
 
+#event-entry fieldset legend {
+    font-size: 1em;
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
 .input-help {
     color: #707070;
 }

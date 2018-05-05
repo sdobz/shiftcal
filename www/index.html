@@ -793,10 +793,40 @@
                                 <label class="control-label" for="printdescr">Print description (120 characters)</label>
                                 <textarea class="form-control" name="printdescr" id="printdescr" maxlength="120" >{{printdescr}}</textarea>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label" for="printcontact">Print contact info (255 characters)</label>
-                                <input type="text" class="form-control" name="printcontact" id="printcontact" value="{{printcontact}}" maxlength="255" />
-                            </div>
+
+                            <fieldset>
+                                <legend>Print contact info</legend>
+                                <div class="checkbox">
+                                    <label class="control-label" for="printorganizer">
+                                        <input type="checkbox" name="printorganizer" id="printorganizer" value="1" checked disabled />
+                                        Organizer
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label class="control-label" for="printemail">
+                                        <input type="checkbox" name="printemail" id="printemail" value="1" {{# printemail }}checked{{/ printemail }} />
+                                        Email address
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label class="control-label" for="printphone">
+                                        <input type="checkbox" name="printphone" id="printphone" value="1" {{# printphone }}checked{{/ printphone }} />
+                                        Phone number
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label class="control-label" for="printweburl">
+                                        <input type="checkbox" name="printweburl" id="printweburl" value="1" {{# printweburl }}checked{{/ printweburl }} />
+                                        Web link
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label class="control-label" for="printcontact">
+                                        <input type="checkbox" name="printcontact" id="printcontact" value="1" {{# printcontact }}checked{{/ printcontact }} />
+                                        Additional contact info
+                                    </label>
+                                </div>
+                            </fieldset>
                         </div>
                     </div>
                 </div>

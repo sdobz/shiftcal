@@ -37,7 +37,10 @@ class Event extends fActiveRecord {
             'datestype' => $this->getDatestype(),
             'area' => $this->getArea(),
             'featured' => $this->getHighlight() != 0,
-            //'printcontact' => $this->getPrintcontact()
+            'printemail' => $this->getPrintemail() != 0,
+            'printphone' => $this->getPrintphone() != 0,
+            'printweburl' => $this->getPrintweburl() != 0,
+            'printcontact' => $this->getPrintcontact() != 0,
         );
 
         $details['email']   = $this->getHideemail() == 0   || $include_hidden ? $this->getEmail() : null;
@@ -88,7 +91,10 @@ class Event extends fActiveRecord {
         $event->setDates(get($input['datestring'], '')); // string field 'dates' needed for legacy admin calendar
         $event->setDatestype(get($input['datestype'], 'O'));
         $event->setArea(get($input['area'], 'P')); // default to 'P'ortland
-        //$event->setPrintcontact(get($input['printcontact'], ''));
+        $event->setPrintemail(get($input['printemail'], 0));
+        $event->setPrintphone(get($input['printphone'], 0));
+        $event->setPrintweburl(get($input['printweburl'], 0));
+        $event->setPrintcontact(get($input['printcontact'], 0));
         // Length
         return $event;
     }
