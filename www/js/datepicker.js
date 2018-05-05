@@ -34,12 +34,12 @@
     };
 
     // setupDatePicker sets up the global variables and populates the date picker element
-    $.fn.setupDatePicker = function(dates) {
+    $.fn.setupDatePicker = function(events) {
         // Fill in global variables
         // Set up dateMap
         dateMap = {};
-        for (var i=0; i<dates.length; i++) {
-            dateMap[normalizeDate(dates[i])] = true;
+        for (var i=0; i<events.length; i++) {
+            dateMap[normalizeDate(events[i]['date'])] = true;
             selectedCount++;
         }
 
@@ -85,6 +85,8 @@
                     }
                 }
                 $e.toggleClass('selected', dateMap[date]);
+                // TODO: make it so changing data selection on an existing event
+                // doesn't replace the list
                 $dateSelected.html("");
                 selectedDatesListHTML($dateSelected, $datePicker.dateList());
 
@@ -95,13 +97,27 @@
 
         // Setup the month table scroll checks
         $dateSelect.scroll(checkBounds);
-        selectedDatesListHTML($dateSelected, $datePicker.dateList());
+        savedDatesListHTML($dateSelected, $datePicker.dateList(), events);
         checkBounds();
     };
 
     function selectedDatesListHTML(list, dates) {
         $.each(dates, function( index ) {
           list.append("<li>" + dates[index] + "</li>");
+        });
+        return list;
+    }
+
+    function savedDatesListHTML(list, dates, events) {
+        $.each(events, function( index ) {
+          list.append("<li data-id='" + events[index]['id'] + "'><span>" + events[index]['date'] + "</span></li>" );
+          if (events[index]['status'] == 'C') {
+            $( "li:last" ).append("<span class='cancelled-text'>cancelled</span>")
+            $( "li:last" ).append("<button type='button' data-action='restore'>Restore</button>");
+            $( "li:last" ).append("<span class='newsflash'>" + events[index]['newsflash'] + "</span>");
+          } else {
+            $( "li:last" ).append("<button type='button' data-action='cancel'>Cancel</button>");
+          }
         });
         return list;
     }

@@ -96,7 +96,7 @@
         rendered = Mustache.render(template, shiftEvent);
         callback(rendered);
 
-        $('#date-select').setupDatePicker(shiftEvent['dates'] || []);
+        $('#date-select').setupDatePicker(shiftEvent['statuses'] || []);
 
         $('#edit-header').affix({
             offset: {
