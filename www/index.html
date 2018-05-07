@@ -460,10 +460,10 @@
 
                             {{ #weburl }}
                             <p class="contactInfo">
-                                <a href="{{weburl}}" target="_blank">
+                                <a href="{{webLink}}" target="_blank">
                                     <img src="images/icons/webpage.png" alt="Website" />
                                     {{#webname}}{{webname}}{{/webname}}
-                                    {{^webname}}Website{{/webname}}
+                                    {{^webname}}{{weburl}}{{/webname}}
                                 </a>
                             </p>
                             {{ /weburl }}
