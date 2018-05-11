@@ -314,6 +314,10 @@ h3 {
     overflow-wrap: break-word;
 }
 
+.event-details .description {
+    white-space: pre-wrap;
+}
+
 .btn{
     color: #37b;
 }
