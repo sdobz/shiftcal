@@ -34,12 +34,14 @@ $(document).ready( function() {
                 }
 
                 value.audienceLabel = container.getAudienceLabel(value.audience);
-
                 value.mapLink = container.getMapLink(value.address);
+
                 if ('id' in options) {
                     value.expanded = true;
                 }
+                value.webLink = container.getWebLink(value.weburl);
                 value.exportlink = 'ics.php?id=' + value.id;
+
                 // value.showEditButton = true; // TODO: permissions
                 groupedByDate[date].events.push(value);
             });
