@@ -532,7 +532,9 @@
 
     <script id="mustache-edit" type="text/template">
 
-        <h1>Add Event</h1>
+        {{^ id }}<h1>Add Event</h1>{{/ id }}
+        {{# id }}<h1>Edit Event</h1>{{/ id }}
+
         <div id="edit-header" >
                 <button id="preview-edit-button" type="button" class="btn btn-add-event">Edit</button>
                 <button id="preview-button" type="button" class="btn btn-add-event">Preview</button>
