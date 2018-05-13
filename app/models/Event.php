@@ -102,17 +102,8 @@ class Event extends fActiveRecord {
     public function updateExistingEventTimes($dateStatuses) {
         foreach ($this->buildEventTimes('id') as $eventTime) {
             // For all existing EventTimes in the db
-            $dateStatusId = $eventTime->getPkid();
-            if (!isset($dateStatuses[$dateStatusId])) {
-                // EventTime exists in db but not in request
-                // They didn't resubmit this existing date - delete it
-                // TODO: Think about making the deletion functionality its own API endpoint
-                $eventTime->delete();
-            } else {
-                // EventTime exists in request and in db
-                // Update the existing EventTime and remove it from the array of new EventTimes
-                $eventTime->updateStatus($dateStatuses[$dateStatusId]);
-            }
+            // Delete or update
+            $eventTime->matchToDateStatus($dateStatuses);
         }
 
         // Flourish is suck. I can't figure out the "right" way to do one-to-many cause docs are crap
