@@ -224,6 +224,7 @@
             harvestedEvent[x.name] = x.value;
         });
         harvestedEvent['dates'] = $('#date-picker').dateList();
+        harvestedEvent['statuses'] = $('#date-picker').eventList();
         return harvestedEvent;
     }
 

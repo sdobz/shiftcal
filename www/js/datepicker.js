@@ -33,6 +33,21 @@
         return dates;
     };
 
+    $.fn.eventList = function() {
+        var events = $("#date-selected li");
+        var statuses = events.map( function(event) {
+          var status = {};
+          status['id'] = event.attributes['data-id'];
+          status['date'] = event.querySelector('span').innerHTML;
+          status['status'] = event.querySelector('select option[selected]').value;
+          status['newsflash'] = event.querySelector('.newsflash').value;
+          return status;
+        });
+        console.log(statuses);
+        return statuses;
+    };
+
+
     // setupDatePicker sets up the global variables and populates the date picker element
     $.fn.setupDatePicker = function(events) {
         // Fill in global variables
@@ -111,12 +126,16 @@
     function savedDatesListHTML(list, dates, events) {
         $.each(events, function( index ) {
           list.append("<li data-id='" + events[index]['id'] + "'><span>" + events[index]['date'] + "</span></li>" );
+          $( "li:last" ).append("<select></select>");
           if (events[index]['status'] == 'C') {
-            $( "li:last" ).append("<span class='cancelled-text'>cancelled</span>")
-            $( "li:last" ).append("<button type='button' data-action='restore'>Restore</button>");
-            $( "li:last" ).append("<span class='newsflash'>" + events[index]['newsflash'] + "</span>");
+            $( "li:last select" ).append("<option value='A'>Scheduled</option><option value='C' selected='selected'>Cancelled</option></select>");
           } else {
-            $( "li:last" ).append("<button type='button' data-action='cancel'>Cancel</button>");
+            $( "li:last select" ).append("<option value='A' selected='selected'>Scheduled</option><option value='C'>Cancelled</option></select>");
+          }
+          if ( events[index]['newsflash']) {
+            $( "li:last" ).append("<input type='text' class='newsflash' value='" + events[index]['newsflash'] + "'>");
+          } else {
+            $( "li:last" ).append("<input type='text' class='newsflash'>");
           }
         });
         return list;
