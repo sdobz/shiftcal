@@ -64,7 +64,7 @@ class EventTime extends fActiveRecord {
     }
 
     private function updateStatus($dateStatus) {
-        $status = EventTime::checkStatusNotNull($dateStatus['status']);
+        $status = $dateStatus['status'];
         if ($this->getEventstatus() !== $status) {
             // EventTime status is different than the request, update EventTime db entry
             $this->setEventstatus($status);
