@@ -64,7 +64,8 @@ nav.navbar {
     text-shadow: none;
 }
 
-main a, button {
+main a,
+button {
     color: #0066BB;
 }
 
@@ -126,7 +127,8 @@ svg.icon {
     margin: 5px 10px 10px 5px;
 }
 
-.plain {
+.plain,
+.archive {
     margin: 5px 10px 10px 5px;
     clear: both;
 }
@@ -150,6 +152,39 @@ h1 {
     font-weight: bold;
     font-size: 1em;
     line-height: 1.5em;
+}
+
+.archive .byline {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: #663300;
+}
+
+.archive dfn {
+    font-style: normal;
+    font-weight: bold;
+}
+
+.archive-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.archive-list li {
+    display: flex;
+    align-items: flex-start;
+}
+
+.archive-list .year,
+.archive-list .description {
+    padding: 0.5em;
+}
+
+.archive-list .year {
+    color: #630;
+    background: #f90;
 }
 
 .events-list {
@@ -221,7 +256,8 @@ h1 {
     width: 80%;
 }
 
-.col-xs-2, .col-xs-10 {
+.col-xs-2,
+.col-xs-10 {
     padding-left: 5px;
     padding-right: 5px;
 }
@@ -276,6 +312,10 @@ h3 {
 .event-details {
     color: rgb(64, 64, 64);
     overflow-wrap: break-word;
+}
+
+.event-details .description {
+    white-space: pre-wrap;
 }
 
 .btn{
@@ -445,18 +485,24 @@ button.jump-to-date[aria-expanded="true"] .icon.expand {
     font-weight: bold;
 }
 
-.color-jan, .color-mar, .color-may, .color-jul, .color-sep, .color-nov {
+.color-jan, .color-mar,
+.color-may, .color-jul,
+.color-sep, .color-nov {
     background-color: #fc6;
 }
-.color-jan-odd, .color-mar-odd, .color-may-odd,
-.color-jul-odd, .color-sep-odd, .color-nov-odd {
+.color-jan-odd, .color-mar-odd,
+.color-may-odd, .color-jul-odd,
+.color-sep-odd, .color-nov-odd {
     background-color: #fd6;
 }
-.color-feb, .color-apr, .color-jun, .color-aug, .color-oct, .color-dec {
+.color-feb, .color-apr,
+.color-jun, .color-aug,
+.color-oct, .color-dec {
     background-color: #fd6;
 }
-.color-feb-odd, .color-apr-odd, .color-jun-odd,
-.color-aug-odd, .color-oct-odd, .color-dec-odd {
+.color-feb-odd, .color-apr-odd,
+.color-jun-odd, .color-aug-odd,
+.color-oct-odd, .color-dec-odd {
     background-color: #fe9;
 }
 
@@ -534,6 +580,12 @@ button.more-events {
 
 .panel h2 {
     font-size: 1.25em;
+}
+
+#event-entry fieldset legend {
+    font-size: 1em;
+    margin-bottom: 0;
+    border-bottom: none;
 }
 
 .input-help {

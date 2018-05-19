@@ -34,12 +34,14 @@ $(document).ready( function() {
                 }
 
                 value.audienceLabel = container.getAudienceLabel(value.audience);
-
                 value.mapLink = container.getMapLink(value.address);
+
                 if ('id' in options) {
                     value.expanded = true;
                 }
+                value.webLink = container.getWebLink(value.weburl);
                 value.exportlink = 'ics.php?id=' + value.id;
+
                 // value.showEditButton = true; // TODO: permissions
                 groupedByDate[date].events.push(value);
             });
@@ -167,6 +169,12 @@ $(document).ready( function() {
              container.append(eventHTML);
              checkAnchors();
         });
+    }
+
+    function viewPedalpaloozaArchive() {
+        var content = $('#pedalpaloozaArchive').html();
+        container.empty().append(content);
+        checkAnchors();
     }
 
     function dateJump(ev) {
@@ -325,6 +333,7 @@ $(document).ready( function() {
     });
     addRoute(/viewEvents$/, viewEvents);
     addRoute(/aboutUs$/, viewAbout);
+    addRoute(/pedalpaloozaArchive$/, viewPedalpaloozaArchive);
     addRoute(/event-([0-9]*)$/, function (frag) {
         var rx = /event-([0-9]*)$/g;
         var arr = rx.exec(frag);

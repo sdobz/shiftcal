@@ -1,37 +1,28 @@
 <?php
 
 class EventTime extends fActiveRecord {
+    public static function createNewEventTime($eventId, $dateStatus) {
+        $date = $dateStatus['date'];
+        $newsflash = $dateStatus['newsflash'];
+        $status = EventTime::checkStatusNotNull($dateStatus);
 
-    public static function matchEventTimesToDates($event, $phpDates) {
-        $dates = array();
-        foreach ($phpDates as $dateVal) {
-            $dates []= $dateVal->format('Y-m-d');
-        }
+        $eventTime = new EventTime();
+        $eventTime->setModified(time());
+        $eventTime->setId($eventId);
+        $eventTime->setEventdate($date->format('Y-m-d'));
+        $eventTime->setEventstatus($status);
+        $eventTime->setNewsflash($newsflash);
+        $eventTime->store();
+    }
 
-        foreach ($event->buildEventTimes('id') as $eventTime) {
-            // For all existing dates
-            $formattedDate = $eventTime->getFormattedDate();
-            if (!in_array($formattedDate, $dates)) {
-                // If they didn't submit this existing date delete it
-                $eventTime->delete();
-            }
-            else {
-                if (($key = array_search($formattedDate, $dates)) !== false) {
-                    unset($dates[$key]);
-                }
-            }
-        }
-        foreach ($dates as $newDate) {
-            $eventTime = new EventTime();
-            $eventTime->setModified(time());
-            $eventTime->setId($event->getId());
-            $eventTime->setEventdate($newDate);
-            $eventTime->setEventstatus('A');
-            $eventTime->store();
-        }
-        // Flourish is suck. I can't figure out the "right" way to do one-to-many cause docs are crap
-        // This clears a cache that causes subsequent operations (buildEventTimes) to return stale data
-        $event->related_records = array();
+    // TODO: This functionality should probably be delegated to the database
+    // but I don't know how to alter the schema to add a default value
+    // for the status column
+    public static function checkStatusNotNull($dateStatus) {
+        if (isset($dateStatus['status'])) {
+            return $dateStatus['status'];
+        } 
+        return 'A';
     }
 
     public static function getByID($id) {
@@ -57,6 +48,33 @@ class EventTime extends fActiveRecord {
         );
     }
 
+    public function matchToDateStatus($dateStatuses) {
+        $dateStatusId = $this->getPkid();
+        if (!isset($dateStatuses[$dateStatusId])) {
+            // EventTime exists in db but not in request
+            // They didn't resubmit this existing date - delete it
+            // TODO: Think about making the deletion functionality its own API endpoint
+            $this->delete();
+        } else {
+            // EventTime exists in request and in db
+            // Update the existing EventTime and remove it from the array of new EventTimes
+            $this->updateStatus($dateStatuses[$dateStatusId]);
+        }
+    }
+
+    private function updateStatus($dateStatus) {
+        $status = EventTime::checkStatusNotNull($dateStatus['status']);
+        if ($this->getEventstatus() !== $status) {
+            // EventTime status is different than the request, update EventTime db entry
+            $this->setEventstatus($status);
+        }
+        if ($this->getNewsflash() !== $dateStatus['newsflash']) {
+            // EventTime newsflash is different than the request, update EventTime db entry
+            $this->setNewsflash($dateStatus['newsflash']);
+        }
+        $this->store();
+    }
+
     private function getEvent() {
         try {
             if ($this->getEventstatus() === 'E') {
@@ -80,6 +98,15 @@ class EventTime extends fActiveRecord {
 
     public function getFormattedDate() {
         return $this->getEventdate()->format('Y-m-d');
+    }
+
+    public function getFormattedDateStatus() {
+        $dateObject = array();
+        $dateObject['id'] = $this->getPkid(); // Get ID for this EventTime
+        $dateObject['date'] = $this->getFormattedDate(); // Get pretty date
+        $dateObject['status'] = $this->getEventstatus(); 
+        $dateObject['newsflash'] = $this->getNewsflash();
+        return $dateObject;
     }
 
     protected function getShareable() {
