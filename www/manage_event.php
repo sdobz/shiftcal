@@ -87,7 +87,7 @@ function validate_date_statuses($data, $messages) {
     $validDateStatuses = array();
     $invalidDateStrings = array();
 
-    $inputDateStatuses = get($data['dateStatuses'], array());
+    $inputDateStatuses = get($data['datestatuses'], array());
     foreach ($inputDateStatuses as $dateStatus) {
         $dateString = $dateStatus['date'];
         $date =  DateTime::createFromFormat('Y-m-d', $dateString);
