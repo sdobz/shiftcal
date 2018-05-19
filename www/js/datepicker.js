@@ -39,7 +39,7 @@
           var status = {};
           status['id'] = event.getAttribute('data-id');
           status['date'] = event.querySelector('span').innerHTML;
-          status['status'] = event.querySelector('select option[selected]').value;
+          status['status'] = event.querySelector('select').value;
           status['newsflash'] = event.querySelector('.newsflash').value;
           return status;
         });
