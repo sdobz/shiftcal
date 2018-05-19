@@ -19,10 +19,11 @@ class EventTime extends fActiveRecord {
     // but I don't know how to alter the schema to add a default value
     // for the status column
     public static function checkStatusNotNull($dateStatus) {
-        if (isset($dateStatus['status'])) {
+        if (empty($dateStatus['status'])) {
+            return 'A';
+        } else {
             return $dateStatus['status'];
-        } 
-        return 'A';
+        }
     }
 
     public static function getByID($id) {
@@ -104,7 +105,7 @@ class EventTime extends fActiveRecord {
         $dateObject = array();
         $dateObject['id'] = $this->getPkid(); // Get ID for this EventTime
         $dateObject['date'] = $this->getFormattedDate(); // Get pretty date
-        $dateObject['status'] = $this->getEventstatus(); 
+        $dateObject['status'] = $this->getEventstatus();
         $dateObject['newsflash'] = $this->getNewsflash();
         return $dateObject;
     }
