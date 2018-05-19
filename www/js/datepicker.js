@@ -22,38 +22,38 @@
         "color-jul", "color-aug", "color-sep", "color-oct", "color-nov", "color-dec"];
 
     // dateList returns the currently selected list of (normalized) dates for consumption by manage_event.php
-    $.fn.dateList = function() {
-        var dates = [];
-        for (var key in dateMap) {
-            if (dateMap.hasOwnProperty(key) && dateMap[key]) {
-                dates.push(key);
-            }
-        }
-        dates.sort($('#date-select').compareDates);
-        return dates;
-    };
+//     $.fn.dateList = function() {
+//         var dates = [];
+//         for (var key in dateMap) {
+//             if (dateMap.hasOwnProperty(key) && dateMap[key]) {
+//                 dates.push(key);
+//             }
+//         }
+//         dates.sort($('#date-select').compareDates);
+//         return dates;
+//     };
 
-    $.fn.eventList = function() {
-        var events = $("#date-selected li").toArray();
-        var statuses = events.map( function(event) {
-          var status = {};
-          status['id'] = event.getAttribute('data-id');
-          status['date'] = event.querySelector('span').innerHTML;
-          status['status'] = event.querySelector('select').value;
-          status['newsflash'] = event.querySelector('.newsflash').value;
-          return status;
+    $.fn.eventsList = function() {
+        var selectedDates = $("#date-selected li").toArray();
+        var dateStatuses = selectedDates.map( function(date) {
+          var datestatus = {};
+          datestatus['id'] = date.getAttribute('data-id');
+          datestatus['date'] = date.querySelector('span').innerHTML;
+          datestatus['status'] = date.querySelector('select').value;
+          datestatus['newsflash'] = date.querySelector('.newsflash').value;
+          return datestatus;
         });
-        return statuses;
+        return dateStatuses;
     };
 
 
     // setupDatePicker sets up the global variables and populates the date picker element
-    $.fn.setupDatePicker = function(events) {
+    $.fn.setupDatePicker = function(dateStatuses) {
         // Fill in global variables
         // Set up dateMap
         dateMap = {};
-        for (var i=0; i<events.length; i++) {
-            dateMap[normalizeDate(events[i]['date'])] = true;
+        for (var i=0; i<dateStatuses.length; i++) {
+            dateMap[normalizeDate(dateStatuses[i]['date'])] = true;
             selectedCount++;
         }
 
@@ -89,10 +89,20 @@
                 dateMap[date] = !dateMap[date];
                 if (dateMap[date]) {
                     selectedCount++;
+                    dateStatuses.push({
+                        "id": null,
+                        "date": date,
+                        "status": 'A',
+                        "newsflash": null
+                    });
                     $('#save-button').prop('disabled', false);
                     $('#preview-button').prop('disabled', false);
                 } else {
                     selectedCount--;
+                    var match = dateStatuses.findIndex(function(deselectedDate) {
+                      return deselectedDate['date'] == date;
+                    });
+                    dateStatuses.splice(match, 1);
                     if ( selectedCount === 0 ) {
                         $('#save-button').prop('disabled', true);
                         $('#preview-button').prop('disabled', true);
@@ -102,7 +112,8 @@
                 // TODO: make it so changing data selection on an existing event
                 // doesn't replace the list
                 $dateSelected.html("");
-                selectedDatesListHTML($dateSelected, $datePicker.dateList());
+                //selectedDatesListHTML($dateSelected, $datePicker.dateList());
+                savedDatesListHTML($dateSelected, dateStatuses);
 
                 return false;
             }
@@ -111,7 +122,7 @@
 
         // Setup the month table scroll checks
         $dateSelect.scroll(checkBounds);
-        savedDatesListHTML($dateSelected, $datePicker.dateList(), events);
+        savedDatesListHTML($dateSelected, dateStatuses);
         checkBounds();
     };
 
@@ -122,17 +133,23 @@
         return list;
     }
 
-    function savedDatesListHTML(list, dates, events) {
-        $.each(events, function( index ) {
-          list.append("<li data-id='" + events[index]['id'] + "'><span>" + events[index]['date'] + "</span></li>" );
+    function savedDatesListHTML(list, dateStatuses) {
+        $.each(dateStatuses, function( index ) {
+          if ( dateStatuses[index]['id'] ) {
+            list.append("<li data-id='" + dateStatuses[index]['id'] + "'><span>" + dateStatuses[index]['date'] + "</span></li>" );
+          } else {
+            list.append("<li data-id=''><span>" + dateStatuses[index]['date'] + "</span></li>" );
+          }
+
           $( "li:last" ).append("<select></select>");
-          if (events[index]['status'] == 'C') {
+          if (dateStatuses[index]['status'] == 'C') {
             $( "li:last select" ).append("<option value='A'>Scheduled</option><option value='C' selected='selected'>Cancelled</option></select>");
           } else {
             $( "li:last select" ).append("<option value='A' selected='selected'>Scheduled</option><option value='C'>Cancelled</option></select>");
           }
-          if ( events[index]['newsflash']) {
-            $( "li:last" ).append("<input type='text' class='newsflash' value='" + events[index]['newsflash'] + "'>");
+
+          if ( dateStatuses[index]['newsflash']) {
+            $( "li:last" ).append("<input type='text' class='newsflash' value='" + dateStatuses[index]['newsflash'] + "'>");
           } else {
             $( "li:last" ).append("<input type='text' class='newsflash'>");
           }

@@ -102,18 +102,18 @@ class Event extends fActiveRecord {
         return $eventDates;
     }
 
-    private function getStatuses() {
+    private function getDateStatuses() {
         $eventTimes = $this->buildEventTimes('id');
-        $eventStatuses = [];
+        $dateStatuses = [];
         foreach ($eventTimes as $eventTime) {
-            $eventStatuses []= array(
+            $dateStatuses []= array(
                 'id' => $eventTime->getPkid(),
                 'date' => $eventTime->getFormattedDate(),
                 'status' => $eventTime->getEventstatus(),
                 'newsflash' => $eventTime->getNewsflash(),
                 );
         }
-        return $eventStatuses;
+        return $dateStatuses;
     }
 
     public function toDetailArray($include_hidden=false) {
@@ -121,7 +121,7 @@ class Event extends fActiveRecord {
         $detailArray = $this->toArray($include_hidden);
         // add all times that exist, maybe none.
         $detailArray["dates"] = $this->getDates(); // Return the actual dates, not the hacky string
-        $detailArray["statuses"] = $this->getStatuses();
+        $detailArray["datestatuses"] = $this->getDateStatuses();
         // return potentially augmented array
         return $detailArray;
     }

@@ -96,7 +96,7 @@
         rendered = Mustache.render(template, shiftEvent);
         callback(rendered);
 
-        $('#date-select').setupDatePicker(shiftEvent['statuses'] || []);
+        $('#date-select').setupDatePicker(shiftEvent['datestatuses'] || []);
 
         $('#edit-header').affix({
             offset: {
@@ -223,8 +223,8 @@
         $('form').serializeArray().map(function (x) {
             harvestedEvent[x.name] = x.value;
         });
-        harvestedEvent['dates'] = $('#date-picker').dateList();
-        harvestedEvent['statuses'] = $('#date-picker').eventList();
+        //harvestedEvent['dates'] = $('#date-picker').dateList();
+        harvestedEvent['datestatuses'] = $('#date-picker').eventsList();
         return harvestedEvent;
     }
 
