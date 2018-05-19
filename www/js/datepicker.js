@@ -34,16 +34,15 @@
     };
 
     $.fn.eventList = function() {
-        var events = $("#date-selected li");
+        var events = $("#date-selected li").toArray();
         var statuses = events.map( function(event) {
           var status = {};
-          status['id'] = event.attributes['data-id'];
+          status['id'] = event.getAttribute('data-id');
           status['date'] = event.querySelector('span').innerHTML;
           status['status'] = event.querySelector('select option[selected]').value;
           status['newsflash'] = event.querySelector('.newsflash').value;
           return status;
         });
-        console.log(statuses);
         return statuses;
     };
 
