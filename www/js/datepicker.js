@@ -112,7 +112,7 @@
                         id: null,
                         date: date,
                         status: 'A',
-                        newsflash: null 
+                        newsflash: null
                     };
                     dateStatuses.push(newDateStatus);
                     dateMap[date] = {
@@ -141,39 +141,33 @@
     };
 
     function buildSortedDatesListHTML(list, dateStatuses) {
-        dateStatuses
-            .sort(function(a, b){
-                // Sort dateStatuses in ascending order for display
-                return new Date(a['date']) - new Date(b['date']);
-            })
-            .forEach(function (dateStatus) {
-                var dateStatusId = dateStatus['id'] ? dateStatus['id'] : "";
-                var dateStatusNewsFlash = dateStatus['newsflash'] ? dateStatus['newsflash'] : "";
-                var cancelledSelected = dateStatus['status'] === 'C' ? "selected='selected'" : "";
-                var scheduledSelected =  dateStatus['status'] === 'A' ? "selected='selected'" : "";
+        dateStatuses.sort(function(a, b){
+            // Sort dateStatuses in ascending order for display
+            return new Date(a['date']) - new Date(b['date']);
+        }).forEach(function(dateStatus) {
+            // Display null values as empty strings
+            var dateStatusId = dateStatus['id'] ? dateStatus['id'] : "";
+            var dateStatusNewsFlash = dateStatus['newsflash'] ? dateStatus['newsflash'] : "";
+            var cancelledSelected = dateStatus['status'] === 'C' ? "selected='selected'" : "";
+            var scheduledSelected =  dateStatus['status'] === 'A' ? "selected='selected'" : "";
 
-                // Append selected date
-                list.append(
-                    "<li data-id='" + dateStatusId + 
-                    "'><span>" + dateStatus['date'] + "</span></li>"
-                );
-
-                // Append status selector
-                $("li:last").append("<select></select>");
-                $("li:last select").append(
-                    "<option value='A' " + 
-                    scheduledSelected +
-                    ">Scheduled</option><option value='C' " + 
-                    cancelledSelected +
-                    ">Cancelled</option></select>"
-                );
-
-                // Append newsflash
-                $("li:last").append(
-                    "<input type='text' class='newsflash' value='" + 
-                    dateStatusNewsFlash + "'>"
-                );
-            });
+            // Append selected date
+            list.append([
+                "<li data-id='" + dateStatusId + "'>",
+                    "<span >" + dateStatus['date'] + "</span>",
+                    "<select class='status-selector'>",
+                        "<option value='A' " + scheduledSelected + ">Scheduled</option>",
+                        "<option value='C' " + cancelledSelected + ">Cancelled</option>",
+                    "</select>",
+                    "<input ",
+                        "type='text' ",
+                        "placeholder='Cancellation News Flash' ",
+                        "class='newsflash' ",
+                        "value='" + dateStatusNewsFlash,
+                    "'>",
+                "</li>",
+            ].join(""));
+        });
     }
 
     function isToday(date) {
