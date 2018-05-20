@@ -13,7 +13,7 @@
                 populateEditForm( data, callback );
             });
         } else {
-            populateEditForm({ dates: [] }, callback);
+            populateEditForm({ datestatuses: [] }, callback);
         }
     };
 
@@ -103,7 +103,7 @@
                 top: 100
             }
         });
-        if (shiftEvent.datestatuses.length === 0) {
+        if (shiftEvent['datestatuses'].length === 0) {
             $('#save-button').prop('disabled', true);
             $('#preview-button').prop('disabled', true);
         }
