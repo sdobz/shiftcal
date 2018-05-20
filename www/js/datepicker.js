@@ -52,10 +52,13 @@
         // Fill in global variables
         // Set up dateMap
         dateMap = {};
-        for (var i=0; i<dateStatuses.length; i++) {
-            dateMap[normalizeDate(dateStatuses[i]['date'])] = true;
+        dateStatuses.forEach(function(dateStatus) {
+            dateMap[normalizeDate(dateStatus['date'])] = {
+                selected: true,
+                dateStatus: dateStatus
+            }
             selectedCount++;
-        }
+        });
 
         // Scrolling container for the table
         $dateSelect = $('#date-select');
@@ -83,32 +86,44 @@
         $datePicker.click(function(ev) {
             var e = ev.target;
             if (e.hasAttribute('data-date')) {
-                var $e = $(e),
-                    date = $e.attr('data-date');
+                var $e = $(e);
+                var date = $e.attr('data-date');
 
-                dateMap[date] = !dateMap[date];
-                if (dateMap[date]) {
+                if (date in dateMap) {
+                    dateMap[date]['selected'] = !dateMap[date]['selected'];
+                    if (dateMap[date]['selected']) {
+                        selectedCount++;
+                        dateStatuses.push(dateMap[date]['dateStatus']);
+                        $('#save-button').prop('disabled', false);
+                        $('#preview-button').prop('disabled', false);
+                    } else {
+                        selectedCount--;
+                        var match = dateStatuses.findIndex(function(deselectedDate) {
+                            return deselectedDate['date'] == date;
+                        });
+                        dateStatuses.splice(match, 1);
+                        if ( selectedCount === 0 ) {
+                            $('#save-button').prop('disabled', true);
+                            $('#preview-button').prop('disabled', true);
+                        }
+                    }
+                } else {
+                    var newDateStatus = {
+                        id: null,
+                        date: date,
+                        status: 'A',
+                        newsflash: null
+                    };
+                    dateStatuses.push(newDateStatus);
+                    dateMap[date] = {
+                        selected: true,
+                        dateStatus: newDateStatus
+                    };
                     selectedCount++;
-                    dateStatuses.push({
-                        "id": null,
-                        "date": date,
-                        "status": 'A',
-                        "newsflash": null
-                    });
                     $('#save-button').prop('disabled', false);
                     $('#preview-button').prop('disabled', false);
-                } else {
-                    selectedCount--;
-                    var match = dateStatuses.findIndex(function(deselectedDate) {
-                      return deselectedDate['date'] == date;
-                    });
-                    dateStatuses.splice(match, 1);
-                    if ( selectedCount === 0 ) {
-                        $('#save-button').prop('disabled', true);
-                        $('#preview-button').prop('disabled', true);
-                    }
                 }
-                $e.toggleClass('selected', dateMap[date]);
+                $e.toggleClass('selected', dateMap[date]['selected']);
                 // TODO: make it so changing data selection on an existing event
                 // doesn't replace the list
                 $dateSelected.html("");
