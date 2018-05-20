@@ -112,7 +112,7 @@
                         id: null,
                         date: date,
                         status: 'A',
-                        newsflash: null
+                        newsflash: null 
                     };
                     dateStatuses.push(newDateStatus);
                     dateMap[date] = {
@@ -127,8 +127,7 @@
                 // TODO: make it so changing data selection on an existing event
                 // doesn't replace the list
                 $dateSelected.html("");
-                //selectedDatesListHTML($dateSelected, $datePicker.dateList());
-                savedDatesListHTML($dateSelected, dateStatuses);
+                buildSortedDatesListHTML($dateSelected, dateStatuses);
 
                 return false;
             }
@@ -137,39 +136,44 @@
 
         // Setup the month table scroll checks
         $dateSelect.scroll(checkBounds);
-        savedDatesListHTML($dateSelected, dateStatuses);
+        buildSortedDatesListHTML($dateSelected, dateStatuses);
         checkBounds();
     };
 
-    function selectedDatesListHTML(list, dates) {
-        $.each(dates, function( index ) {
-          list.append("<li>" + dates[index] + "</li>");
-        });
-        return list;
-    }
+    function buildSortedDatesListHTML(list, dateStatuses) {
+        dateStatuses
+            .sort(function(a, b){
+                // Sort dateStatuses in ascending order for display
+                return new Date(a['date']) - new Date(b['date']);
+            })
+            .forEach(function (dateStatus) {
+                var dateStatusId = dateStatus['id'] ? dateStatus['id'] : "";
+                var dateStatusNewsFlash = dateStatus['newsflash'] ? dateStatus['newsflash'] : "";
+                var cancelledSelected = dateStatus['status'] === 'C' ? "selected='selected'" : "";
+                var scheduledSelected =  dateStatus['status'] === 'A' ? "selected='selected'" : "";
 
-    function savedDatesListHTML(list, dateStatuses) {
-        $.each(dateStatuses, function( index ) {
-          if ( dateStatuses[index]['id'] ) {
-            list.append("<li data-id='" + dateStatuses[index]['id'] + "'><span>" + dateStatuses[index]['date'] + "</span></li>" );
-          } else {
-            list.append("<li data-id=''><span>" + dateStatuses[index]['date'] + "</span></li>" );
-          }
+                // Append selected date
+                list.append(
+                    "<li data-id='" + dateStatusId + 
+                    "'><span>" + dateStatus['date'] + "</span></li>"
+                );
 
-          $( "li:last" ).append("<select></select>");
-          if (dateStatuses[index]['status'] == 'C') {
-            $( "li:last select" ).append("<option value='A'>Scheduled</option><option value='C' selected='selected'>Cancelled</option></select>");
-          } else {
-            $( "li:last select" ).append("<option value='A' selected='selected'>Scheduled</option><option value='C'>Cancelled</option></select>");
-          }
+                // Append status selector
+                $("li:last").append("<select></select>");
+                $("li:last select").append(
+                    "<option value='A' " + 
+                    scheduledSelected +
+                    ">Scheduled</option><option value='C' " + 
+                    cancelledSelected +
+                    ">Cancelled</option></select>"
+                );
 
-          if ( dateStatuses[index]['newsflash']) {
-            $( "li:last" ).append("<input type='text' class='newsflash' value='" + dateStatuses[index]['newsflash'] + "'>");
-          } else {
-            $( "li:last" ).append("<input type='text' class='newsflash'>");
-          }
-        });
-        return list;
+                // Append newsflash
+                $("li:last").append(
+                    "<input type='text' class='newsflash' value='" + 
+                    dateStatusNewsFlash + "'>"
+                );
+            });
     }
 
     function isToday(date) {
