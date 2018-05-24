@@ -112,8 +112,6 @@
                     $('#preview-button').prop('disabled', false);
                 }
                 $e.toggleClass('selected', dateMap[date]['selected']);
-                // TODO: make it so changing data selection on an existing event
-                // doesn't replace the list
                 $dateSelected.html("");
                 buildSortedDatesListHTML($dateSelected, dateStatuses);
 
