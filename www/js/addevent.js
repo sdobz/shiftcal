@@ -207,8 +207,8 @@
             preview: true,
             expanded: true
         };
-        $.each(previewEvent.dates, function(index, value) {
-            var date = $form.formatDate(value);
+        $.each(previewEvent.datestatuses, function(index, value) {
+            var date = $form.formatDate(value['date']);
             mustacheData.dates.push({ date: date, events: [previewEvent] });
         });
         $('#preview-button').hide();
