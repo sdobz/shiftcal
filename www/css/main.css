@@ -246,6 +246,13 @@ h1 {
     border-radius: 2px;
     padding: 2px 4px;
     overflow-wrap: break-word;
+    width: 100%;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.status-selector {
+    float: right;
 }
 
 .col-xs-2 {
@@ -414,9 +421,14 @@ form#event-entry .date-select-container-style {
     float: right;
     clear: right;
 }
+#date-selected-container {
+    padding: 0 4px;
+    font-weight: bold;
+}
 #date-selected {
     list-style-type: none;
     padding: 0;
+    font-weight: normal;
 }
 button.jump-to-date {
     float: right;
