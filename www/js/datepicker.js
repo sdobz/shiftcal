@@ -33,7 +33,7 @@
 //         return dates;
 //     };
 
-    $.fn.eventsList = function() {
+    $.fn.dateStatusesList = function() {
         var selectedDates = $("#date-selected li").toArray();
         var dateStatuses = selectedDates.map( function(date) {
           var datestatus = {};
