@@ -21,18 +21,6 @@
     var cellClases = ["color-jan", "color-feb", "color-mar", "color-apr", "color-may", "color-jun",
         "color-jul", "color-aug", "color-sep", "color-oct", "color-nov", "color-dec"];
 
-    // dateList returns the currently selected list of (normalized) dates for consumption by manage_event.php
-//     $.fn.dateList = function() {
-//         var dates = [];
-//         for (var key in dateMap) {
-//             if (dateMap.hasOwnProperty(key) && dateMap[key]) {
-//                 dates.push(key);
-//             }
-//         }
-//         dates.sort($('#date-select').compareDates);
-//         return dates;
-//     };
-
     $.fn.dateStatusesList = function() {
         var selectedDates = $("#date-selected li").toArray();
         var dateStatuses = selectedDates.map( function(date) {

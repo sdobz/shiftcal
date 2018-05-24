@@ -223,7 +223,6 @@
         $('form').serializeArray().map(function (x) {
             harvestedEvent[x.name] = x.value;
         });
-        //harvestedEvent['dates'] = $('#date-picker').dateList();
         harvestedEvent['datestatuses'] = $('#date-picker').dateStatusesList();
         return harvestedEvent;
     }
