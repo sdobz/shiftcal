@@ -13,7 +13,7 @@
                 populateEditForm( data, callback );
             });
         } else {
-            populateEditForm({ dates: [] }, callback);
+            populateEditForm({ datestatuses: [] }, callback);
         }
     };
 

@@ -142,13 +142,13 @@
           }
 
           $( "li:last" ).append("<select></select>");
-          if (dateStatuses[index]['status'] == 'C') {
+          if ( dateStatuses[index]['status'] == 'C' ) {
             $( "li:last select" ).append("<option value='A'>Scheduled</option><option value='C' selected='selected'>Cancelled</option></select>");
           } else {
             $( "li:last select" ).append("<option value='A' selected='selected'>Scheduled</option><option value='C'>Cancelled</option></select>");
           }
 
-          if ( dateStatuses[index]['newsflash']) {
+          if ( dateStatuses[index]['newsflash'] ) {
             $( "li:last" ).append("<input type='text' class='newsflash' value='" + dateStatuses[index]['newsflash'] + "'>");
           } else {
             $( "li:last" ).append("<input type='text' class='newsflash'>");
