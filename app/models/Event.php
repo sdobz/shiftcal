@@ -137,7 +137,6 @@ class Event extends fActiveRecord {
         // first get the data into an array
         $detailArray = $this->toArray($include_hidden);
         // add all times that exist, maybe none.
-        //$detailArray["dates"] = $this->getDates(); // Return the actual dates, not the hacky string
         $detailArray["datestatuses"] = $this->getEventDateStatuses();
         // return potentially augmented array
         return $detailArray;
