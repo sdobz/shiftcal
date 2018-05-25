@@ -430,6 +430,16 @@ form#event-entry .date-select-container-style {
     padding: 0;
     font-weight: normal;
 }
+#date-selected li {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#date-selected input.newsflash::placeholder {
+  color: #707070;
+  font-style: italic;
+}
+
 button.jump-to-date {
     float: right;
     border: none;

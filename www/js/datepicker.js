@@ -147,7 +147,7 @@
                     "</select>",
                     "<input ",
                         "type='text' ",
-                        "placeholder='Cancellation News Flash' ",
+                        "placeholder='newsflash message (optional)' ",
                         "class='newsflash' ",
                         "value='" + dateStatusNewsFlash,
                     "'>",
