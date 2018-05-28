@@ -426,27 +426,24 @@ button.jump-to-date .icon.expand {
 button.jump-to-date[aria-expanded="true"] .icon.expand {
     transform: rotate(180deg); /* arrow pointing up */
 }
+#date-select-container-pedalpalooza {
+    border-collapse: separate !important;
+}
 
 #date-select-container-pedalpalooza .calendar-day.featured {
     background-color: #FCFAF2;
-    border-left: 2px solid #FFDD66;
-    border-right: 2px solid #FFDD66;
+    border: 3px solid #FFDD66;
     font-weight: bold;
     color: #630;
     position: relative;
 }
-#date-select-container-pedalpalooza .calendar-day.featured span.featured-day-label {
-    font-size: 0.5em;
-    opacity: 0.5;
-    position: absolute;
-}
 #date-select-container-pedalpalooza .legend {
     text-align: center;
-    margin: 0.5em;
+    margin: 0.75em;
 }
 #date-select-container-pedalpalooza .legend .example {
     background-color: #FCFAF2;
-    border: 2px solid #FFDD66;
+    border: 3px solid #FFDD66;
     color: #630;
     font-weight: bold;
     padding: 0.5em;
