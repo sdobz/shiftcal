@@ -426,6 +426,28 @@ button.jump-to-date .icon.expand {
 button.jump-to-date[aria-expanded="true"] .icon.expand {
     transform: rotate(180deg); /* arrow pointing up */
 }
+#date-select-container-pedalpalooza {
+    border-collapse: separate !important;
+}
+
+#date-select-container-pedalpalooza .calendar-day.featured {
+    background-color: #FCFAF2;
+    border: 3px solid #FFDD66;
+    font-weight: bold;
+    color: #630;
+    position: relative;
+}
+#date-select-container-pedalpalooza .legend {
+    text-align: center;
+    margin: 0.75em;
+}
+#date-select-container-pedalpalooza .legend .example {
+    background-color: #FCFAF2;
+    border: 3px solid #FFDD66;
+    color: #630;
+    font-weight: bold;
+    padding: 0.5em;
+}
 
 #date-select {
     height: 130px;
@@ -455,7 +477,7 @@ button.jump-to-date[aria-expanded="true"] .icon.expand {
 .calendar-day {
     border-top: 1px solid gray;
     padding: 3px;
-    color: gray;
+    color: #404040;
     line-height: 1.5em;
     text-align: center;
 }
@@ -466,40 +488,40 @@ button.jump-to-date[aria-expanded="true"] .icon.expand {
 }
 
 .calendar-day.today {
-    background-color: green;
+    background-color: lightgreen;
 }
 
 .calendar-day.selected {
-    background-color: red;
+    background-color: lightpink;
 }
 
 .calendar-month-title {
     position: relative;
     width: 30px;
-    color: #fff;
-    background-color: #f90;
+    color: #630;
+    background-color: #fd6;
     font-weight: bold;
 }
 
 .color-jan, .color-mar,
 .color-may, .color-jul,
 .color-sep, .color-nov {
-    background-color: #fc6;
+    background-color: #ffffff;
 }
 .color-jan-odd, .color-mar-odd,
 .color-may-odd, .color-jul-odd,
 .color-sep-odd, .color-nov-odd {
-    background-color: #fd6;
+    background-color: #f2f2f2;
 }
 .color-feb, .color-apr,
 .color-jun, .color-aug,
 .color-oct, .color-dec {
-    background-color: #fd6;
+    background-color: #ffffff;
 }
 .color-feb-odd, .color-apr-odd,
 .color-jun-odd, .color-aug-odd,
 .color-oct-odd, .color-dec-odd {
-    background-color: #fe9;
+    background-color: #f2f2f2;
 }
 
 .calendar-month-title span {
@@ -518,7 +540,7 @@ button.jump-to-date[aria-expanded="true"] .icon.expand {
     font-size: 0.9em;
     text-align: center;
     table-layout: fixed;
-    color: gray;
+    color: #404040;
 }
 #preview-edit-button {
     display: none;
